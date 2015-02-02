@@ -7,26 +7,21 @@ public class Movie{
   private String movieTitle;
   private Rate rate;
   private ArrayList<Genre> genres;
-  private ArrayList<ShowTime> showTimes;
   
   public Movie(){
     this.movieId = "";
     this.movieTitle = "";
     this.rate = new Rate();
     this.genres = new ArrayList<Genre>();
-    this.showTimes = new ArrayList<ShowTime>();
   }
   
-  public Movie(String movieId, String movieTitle, Rate rate, ArrayList<Genre> genres, ArrayList<ShowTime> showTimes){
+  public Movie(String movieId, String movieTitle, Rate rate, ArrayList<Genre> genres){
     this.movieId = movieId;
     this.movieTitle = movieTitle;
     this.rate = new Rate(rate.getRateId(), rate.getRate());
     this.genres = new ArrayList<Genre>();
     for(Genre genre : genres)
       this.genres.add(genre);
-    this.showTimes = new ArrayList<ShowTime>();
-    for(ShowTime showTime : showTimes)
-      this.showTimes.add(showTime);
   }
   
   public String getMovieId(){
@@ -65,19 +60,5 @@ public class Movie{
   
   public void addGenre(Genre genre){
     this.genres.add(genre);
-  }
-  
-  public ArrayList<ShowTime> getShowTimes(){
-    return this.showTimes;
-  }
-  
-  public void setShowTime(ArrayList<ShowTime> showTimes){
-    this.showTimes = new ArrayList<ShowTime>();
-    for(ShowTime showTime : showTimes)
-      this.showTime.add(showTime);
-  }
-  
-  public void addShowTime(ShowTime showTime){
-    this.showTimes.add(showTime);
   }
 }
