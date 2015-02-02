@@ -38,6 +38,6 @@ public class Theater{
   }
   
   public void setTheaterAddress(String address){
-    this.theaterAddress = theater;
+    this.theaterAddress = address;
   }
 }
