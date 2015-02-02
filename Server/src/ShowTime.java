@@ -14,7 +14,7 @@ public class ShowTime{
   }
   
   public ShowTime(Movie movie, Theater theater, String date, String time){
-    this.movie = new Movie(movie.getMovieId(), movie.getMovieTitle(), movie.getRate(), movie.getGenres());
+    this.movie = new Movie(movie.getMovieId(), movie.getMovieTitle(), movie.getRate());
     this.theater = new Theater(theater.getTheaterId(), theater.getTheaterName(), theater.getTheaterAddress());
     this.date = date;
     this.time = time;
@@ -25,7 +25,7 @@ public class ShowTime{
   }
   
   public void setMovie(Movie movie){
-    this.movie = new Movie(movie.getMovieId(), movie.getMovieTitle(), movie.getRate(), movie.getGenres());
+    this.movie = new Movie(movie.getMovieId(), movie.getMovieTitle(), movie.getRate());
   }
   
   public Theater getTheater(){
