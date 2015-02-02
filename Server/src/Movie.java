@@ -38,6 +38,6 @@ public class Movie{
   }
   
   public void setRate(Rate rate){
-    this.rate = new Rate(rate.getRateId, rate.getRateName(), rate.getRateValue());
+    this.rate = new Rate(rate.getRateId(), rate.getRateName(), rate.getRateValue());
   }
 }
