@@ -1,27 +1,20 @@
 package MoviePickRESTfulService;
 
-import java.util.ArrayList;
-
 public class Movie{
   private String movieId;
   private String movieTitle;
   private Rate rate;
-  private ArrayList<Genre> genres;
   
   public Movie(){
     this.movieId = "";
     this.movieTitle = "";
     this.rate = new Rate();
-    this.genres = new ArrayList<Genre>();
   }
   
-  public Movie(String movieId, String movieTitle, Rate rate, ArrayList<Genre> genres){
+  public Movie(String movieId, String movieTitle, Rate rate){
     this.movieId = movieId;
     this.movieTitle = movieTitle;
-    this.rate = new Rate(rate.getRateId(), rate.getRate());
-    this.genres = new ArrayList<Genre>();
-    for(Genre genre : genres)
-      this.genres.add(genre);
+    this.rate = new Rate(rate.getRateId(), rate.getRateName(), rate.getRateValue());
   }
   
   public String getMovieId(){
@@ -45,20 +38,6 @@ public class Movie{
   }
   
   public void setRate(Rate rate){
-    this.rate = new Rate(rate.getRateId, this.getRate());
-  }
-  
-  public ArrayList<Genre> getGenres(){
-    return this.genres;
-  }
-  
-  public void setGenres(ArrayList<Genre> genres){
-    this.genres = new ArrayList<Genre>();
-    for(Genre genre : genres)
-      this.genres.add(genre);
-  }
-  
-  public void addGenre(Genre genre){
-    this.genres.add(genre);
+    this.rate = new Rate(rate.getRateId, rate.getRateName(), rate.getRateValue());
   }
 }
