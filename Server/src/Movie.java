@@ -5,18 +5,28 @@ import java.util.ArrayList;
 public class Movie{
   private String movieId;
   private String movieTitle;
-  private String rateId;
+  private Rate rate;
+  private ArrayList<Genre> genres;
+  private ArrayList<ShowTime> showTimes;
   
   public Movie(){
     this.movieId = "";
     this.movieTitle = "";
-    this.rateId = "";
+    this.rate = new Rate();
+    this.genres = new ArrayList<Genre>();
+    this.showTimes = new ArrayList<ShowTime>();
   }
   
-  public Movie(String movieId, String movieTitle, String rateId){
+  public Movie(String movieId, String movieTitle, Rate rate, ArrayList<Genre> genres, ArrayList<ShowTime> showTimes){
     this.movieId = movieId;
     this.movieTitle = movieTitle;
-    this.rateId = rateId;
+    this.rate = new Rate(rate.getRateId(), rate.getRate());
+    this.genres = new ArrayList<Genre>();
+    for(Genre genre : genres)
+      this.genres.add(genre);
+    this.showTimes = new ArrayList<ShowTime>();
+    for(ShowTime showTime : showTimes)
+      this.showTimes.add(showTime);
   }
   
   public String getMovieId(){
@@ -35,11 +45,39 @@ public class Movie{
     this.movieTitle = title;
   }
   
-  public String getRateId(){
-    return rateId;
+  public Rate getRate(){
+    return rate;
   }
   
-  public void setRateId(String id){
-    this.rateId = id;
+  public void setRate(Rate rate){
+    this.rate = new Rate(rate.getRateId, this.getRate());
+  }
+  
+  public ArrayList<Genre> getGenres(){
+    return this.genres;
+  }
+  
+  public void setGenres(ArrayList<Genre> genres){
+    this.genres = new ArrayList<Genre>();
+    for(Genre genre : genres)
+      this.genres.add(genre);
+  }
+  
+  public void addGenre(Genre genre){
+    this.genres.add(genre);
+  }
+  
+  public ArrayList<ShowTime> getShowTimes(){
+    return this.showTimes;
+  }
+  
+  public void setShowTime(ArrayList<ShowTime> showTimes){
+    this.showTimes = new ArrayList<ShowTime>();
+    for(ShowTime showTime : showTimes)
+      this.showTime.add(showTime);
+  }
+  
+  public void addShowTime(ShowTime showTime){
+    this.showTimes.add(showTime);
   }
 }
