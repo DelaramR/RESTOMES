@@ -1,27 +1,27 @@
 package MoviePickRESTfulService;
 
 public class Theater{
-  private String theaterId;
+  private int theaterId;
   private String theaterName;
   private String theaterAddress;
   
   public Theater(){
-    this.theaterId = "";
+    this.theaterId = 0;
     this.theaterName = "";
     this.theaterAddress = "";
   }
   
-  public Theater(String id, String name, String address){
+  public Theater(int id, String name, String address){
     this.theaterId = id;
     this.theaterName = name;
     this.theaterAddress = address;
   }
   
-  public String getTheaterId(){
+  public int getTheaterId(){
     return this.theaterId;
   }
   
-  public void setTheaterId(String id){
+  public void setTheaterId(int id){
     this.theaterId = id;
   }
   
