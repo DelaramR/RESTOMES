@@ -42,7 +42,7 @@ import org.w3c.dom.NodeList;
 public class TheaterResource
 {
     // the 'data source' -- in reality, the data should be in a database
-    private final Map<Integer, Theater> theaterDB = new HashMap<Integer, Theater>();
+    public static Map<Integer, Theater> theaterDB = new HashMap<Integer, Theater>();
 
     /**
      * Create a new theater entry using a JSON representation.
