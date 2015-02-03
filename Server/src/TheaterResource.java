@@ -35,7 +35,7 @@ import org.w3c.dom.NodeList;
 
 
 /**
- * Phonebook service implementation class
+ * Theater service implementation class
  * The main path is /phonebook.
  */
 @Path( "/theater" )
