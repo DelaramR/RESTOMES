@@ -7,24 +7,24 @@ public class Movie{
   private String genre;
   
   public Movie(){
-    this.movieId = "";
+    this.movieId = 0;
     this.movieTitle = "";
     this.rate = 0;
     this.genre = "";
   }
   
-  public Movie(String movieId, String movieTitle, int rate, String genre){
+  public Movie(int movieId, String movieTitle, int rate, String genre){
     this.movieId = movieId;
     this.movieTitle = movieTitle;
     this.rate = rate;
     this.genre = "";
   }
   
-  public String getMovieId(){
+  public int getMovieId(){
     return this.movieId;
   }
   
-  public void setMovieId(String id){
+  public void setMovieId(int id){
     this.movieId = id;
   }
   
