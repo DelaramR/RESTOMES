@@ -1,7 +1,7 @@
 package MoviePickRESTfulService;
 
 public class Movie{
-  private String movieId;
+  private int movieId;
   private String movieTitle;
   private int rate;
   private String genre;
