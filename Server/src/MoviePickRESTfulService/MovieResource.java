@@ -48,7 +48,7 @@ public class MovieResource{
   @Path( "{id}" )
   @Produces(MediaType.APPLICATION_JSON)
   public Movie getEntryJSON(@PathParam("id") Integer id){
-    final Movie movie = mvoieDB.get(id);
+    final Movie movie = movieDB.get(id);
     if(movie == null){
       throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
     }
