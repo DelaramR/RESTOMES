@@ -7,7 +7,7 @@
   5. client
   -->
   <path id="classpath"
-    <fileset dir="Server/WebContent/WEB-INF/lib">
+    <fileset dir="Server/WebContent/WEB-INF/lib"/>
       <include name="**/*.jar"/>
     </fileset>
     <pathelement location="/opt/wildfly-8.2.0.Final/modules/system/layers/base/javax/servlet/api/main/jboss-servlet-api_3.0_spec-1.0.2.Final-redhat-1.jar"/>
