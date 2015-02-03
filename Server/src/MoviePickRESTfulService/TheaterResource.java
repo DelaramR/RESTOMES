@@ -49,7 +49,6 @@ public class TheaterResource
     {
         Integer id = theaterDB.size() + 1;
         theaterDB.put(id, theater);
-
         return Response.created( URI.create("/theater/" + id) ).build();
     }
     
@@ -62,7 +61,7 @@ public class TheaterResource
     @Produces( MediaType.APPLICATION_JSON )
     public Map<Integer, Theater> getEntryJSON() 
     {
-        return TheaterDB;
+        return theaterDB;
     }
 
     /**
@@ -76,11 +75,8 @@ public class TheaterResource
     public Theater getEntryJSON(@PathParam("id") Integer id) 
     {
         final Theater theater = theaterDB.get(id);
-
-        if (theater == null) {
+        if (theater == null)
             throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
-        }
-
         return theater;
     }
     
@@ -96,14 +92,10 @@ public class TheaterResource
     public Response updateTheaterJSON( @PathParam("id") Integer id, Theater theater ) 
     {
         Theater current = theaterDB.get(id);
-
-        if (current == null) {
+        if (current == null)
             throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
-        }
-
         current.setTheaterName( theater.getTheaterName() );
         current.setTheaterAddress( theater.getTheaterAddress() ); 
-        
         return Response.ok().build();
     }
     
@@ -116,9 +108,7 @@ public class TheaterResource
     @Path( "{id}" )
     public Response deleteTheater( @PathParam("id") Integer id ) 
     {
-
         theaterDB.remove( id );
-
         return Response.ok().build();
     }
 }
