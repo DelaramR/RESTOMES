@@ -58,6 +58,18 @@ public class TheaterResource
 
         return Response.created( URI.create("/theater/" + id) ).build();
     }
+    
+        /**
+     * Retrieve a theater entry and return it as a streaming output, using a JSON representation
+     * @param id path parameter identifying the theater entry
+     * @return a theater object requested; it will be converted to JSON using a JSON provider (Jackson)
+     */
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public Map<Integer, Theater> getEntryJSON() 
+    {
+        return TheaterDB;
+    }
 
     /**
      * Retrieve a theater entry and return it as a streaming output, using a JSON representation
