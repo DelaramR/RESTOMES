@@ -3,18 +3,21 @@ package MoviePickRESTfulService;
 public class Movie{
   private String movieId;
   private String movieTitle;
-  private Rate rate;
+  private int rate;
+  private String genre;
   
   public Movie(){
     this.movieId = "";
     this.movieTitle = "";
-    this.rate = new Rate();
+    this.rate = 0;
+    this.genre = "";
   }
   
-  public Movie(String movieId, String movieTitle, Rate rate){
+  public Movie(String movieId, String movieTitle, int rate, String genre){
     this.movieId = movieId;
     this.movieTitle = movieTitle;
-    this.rate = new Rate(rate.getRateId(), rate.getRateName(), rate.getRateValue());
+    this.rate = rate;
+    this.genre = "";
   }
   
   public String getMovieId(){
@@ -33,11 +36,19 @@ public class Movie{
     this.movieTitle = title;
   }
   
-  public Rate getRate(){
+  public int getRate(){
     return rate;
   }
   
-  public void setRate(Rate rate){
-    this.rate = new Rate(rate.getRateId(), rate.getRateName(), rate.getRateValue());
+  public void setRate(int rate){
+    this.rate = rate;
+  }
+  
+  public String getGenre(){
+    return this.genre;
+  }
+  
+  public void setGenre(String genre){
+    this.genre = genre;
   }
 }
