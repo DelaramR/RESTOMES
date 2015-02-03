@@ -21,7 +21,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
 // This client is using the new JAX-RS 2.0 client interface
 //
-public class MoviePickRESTfulService 
+public class MoviePickClient 
 {
     static final String theater1 = "{\"theaterName\":\"University 16\",\"phoneNumber\":\"1793 Oconee Connector\"}";
     static final String theater2 = "{\"theaterName\":\"Carmike\",\"theaterAddress\":\"Lexington Rd\"}";
