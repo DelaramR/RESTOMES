@@ -1,19 +1,21 @@
 package MoviePickRESTfulService;
 
+import java.util.ArrayList;
+
 public class ShowTime{
   private Movie movie;
   private Theater theater;
-  private String date;
-  private String time;
+  private ArrayList<String> date;
+  private ArrayList<String> time;
   
   public ShowTime(){
     this.movie = new Movie();
     this.theater = new Theater();
-    this.date = "";
-    this.time = "";
+    this.date = new ArrayList<String>();
+    this.time = new ArrayList<String>();
   }
   
-  public ShowTime(Movie movie, Theater theater, String date, String time){
+  public ShowTime(Movie movie, Theater theater, ArrayList<String> date, ArrayList<String> time){
     this.movie = new Movie(movie.getMovieId(), movie.getMovieTitle(), movie.getRate());
     this.theater = new Theater(theater.getTheaterId(), theater.getTheaterName(), theater.getTheaterAddress());
     this.date = date;
@@ -36,19 +38,27 @@ public class ShowTime{
     this.theater = new Theater(theater.getTheaterId(), theater.getTheaterName(), theater.getTheaterAddress());
   }
   
-  public String getDate(){
+  public ArrayList<String> getDate(){
     return this.date;
   }
   
-  public void setDate(String date){
+  public void setDate(ArrayList<String> date){
     this.date = date;
   }
   
-  public String getTime(){
+  public void addDate(String date){
+    this.date.add(date);
+  }
+  
+  public ArrayList<String> getTime(){
     return this.time;
   }
   
-  public void setTime(String time){
+  public void setTime(ArrayList<String> time){
     this.time = time;
+  }
+  
+  public void addTime(String time){
+    this.time.add(time);
   }
 }
