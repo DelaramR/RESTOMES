@@ -11,13 +11,14 @@ import javax.ws.rs.core.Application;
  * It contains singleton objects representing the resource classes.
  *
  */
-public class MoviePickRESTfulServiceApplication extends Application
+public class MoviePickApplication extends Application
 {
     private Set<Object> singletons = new HashSet<Object>();
     private Set<Class<?>> empty = new HashSet<Class<?>>();
 
-    public MoviePickRESTfulServiceApplication() {
-        singletons.add(new MoviePickRESTfulServiceResource());
+    public MoviePickApplication() {
+        singletons.add(new MovieResource());
+        singletons.add(new TheaterResource());
     }
 
     @Override
