@@ -17,8 +17,8 @@ public class Movie{
     this.genre = "";
   }
   
-  public int getMovieId(){
-    return this.movieId;
+  public String getMovieTitle(){
+    return this.movieTitle;
   }
   
   public void setMovieTitle(String title){
