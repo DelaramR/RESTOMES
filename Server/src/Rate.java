@@ -1,28 +1,17 @@
 package MoviePickRESTfulService;
 
 public class Rate{
-  private String rateId;
   private String rateName;
   private double rateValue;
   
   public Rate(){
-    this.rateId = "";
     this.rateName = "";
     this.rateValue = 0.0;
   }
   
-  public Rate(String id, String name, double value){
-    this.rateId = id;
+  public Rate(String name, double value){
     this.rateName = name;
     this.rateValue = value;
-  }
-  
-  public String getRateId(){
-    return rateId;
-  }
-  
-  public void setRateId(String id){
-    this.rateId = id;
   }
   
   public String getRateName(){
