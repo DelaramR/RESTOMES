@@ -1,3 +1,6 @@
+package MoviePickRESTfulService;
+
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -14,147 +17,103 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+// if you'd like to log this exception in JBoss log file, use WebApplicationException
+// otherwise, use NoLogWebApplicationException, which will not log the exception
+//import javax.ws.rs.WebApplicationException;
+import org.jboss.resteasy.spi.NoLogWebApplicationException;
+
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 
 
+/**
+ * Phonebook service implementation class
+ * The main path is /phonebook.
+ */
 @Path( "/theater" )
 public class TheaterResource
 {
-    // the 'data source'
-    //private final Map<Integer, Person> phoneDB = new HashMap<Integer, Person>();
+    // the 'data source' -- in reality, the data should be in a database
+    private final Map<Integer, Theater> theaterDB = new HashMap<Integer, Theater>();
 
+    /**
+     * Create a new theater entry using a JSON representation.
+     * @param theater the new Person object data; this will be converted to POJO by a JSON provider (Jackson)
+     * @return a response encoding
+     */
     @POST
-    @Consumes( "application/xml" )
-    public Response createEntry( InputStream is ) 
+    @Consumes( MediaType.APPLICATION_JSON )
+    public Response createEntryJSON( Theater theater ) 
     {
-       System.out.println( "TheaterResource.createEntry" );
-        Theater theater = readTheater(is);
-        // create a new id for the theater
-        //Integer id = phoneDB.size() + 1;
-        //phoneDB.put(id, person);
+        Integer id = theaterDB.size() + 1;
+        theaterDB.put(id, theater);
 
         return Response.created( URI.create("/theater/" + id) ).build();
     }
 
+    /**
+     * Retrieve a theater entry and return it as a streaming output, using a JSON representation
+     * @param id path parameter identifying the theater entry
+     * @return a theater object requested; it will be converted to JSON using a JSON provider (Jackson)
+     */
     @GET
     @Path( "{id}" )
-    @Produces( "application/xml" )
-    public StreamingOutput getEntry(@PathParam("id") Integer id) 
+    @Produces( MediaType.APPLICATION_JSON )
+    public Theater getEntryJSON(@PathParam("id") Integer id) 
     {
-        //final Theatre theater = phoneDB.get(id);
+        final Theater theater = theaterDB.get(id);
 
         if (theater == null) {
-            throw new WebApplicationException( Response.Status.NOT_FOUND );
+            throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
         }
 
-        return new StreamingOutput() {
-            public void write(OutputStream output) throws IOException, WebApplicationException {
-                outputPerson(output, theater);
-            }
-        };
+        return theater;
     }
-
+    
+    /**
+     * Update a theater entry using a JSON representation
+     * @param theater a new Theater object data to be used as an update
+     * @param id path parameter identifying the theater resource to update
+     * @return a response encoding
+     */
     @PUT
     @Path( "{id}" )
-    @Consumes( "application/xml" )
-    public Response updatePerson( @PathParam("id") Integer id, InputStream is ) 
+    @Consumes( MediaType.APPLICATION_JSON )
+    public Response updateTheaterJSON( @PathParam("id") Integer id, Theater theater ) 
     {
-        Theater update = readTheater(is);
-        //Theater current = phoneDB.get(id);
+        Theater current = theaterDB.get(id);
 
         if (current == null) {
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
+            throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
         }
 
-        current.setTheaterName( update.getTheaterName() );
-        current.setTheaterAdress( update.getTheaterAddress() ); 
+        current.setTheaterName( theater.getTheaterName() );
+        current.setTheaterAddress( theater.getTheaterAddress() ); 
         
         return Response.ok().build();
     }
-
+    
+    /**
+     * Delete a theater entry
+     * @param id path parameter identifying the theater resource to delete
+     * @return a response encoding
+     */
     @DELETE
     @Path( "{id}" )
-    public Response deletePerson( @PathParam("id") Integer id ) 
+    public Response deleteTheater( @PathParam("id") Integer id ) 
     {
 
-        phoneDB.remove( id );
+        theaterDB.remove( id );
 
         return Response.ok().build();
     }
 
-    private Person readTheater( InputStream is ) 
-    {
-        try {
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document doc = builder.parse(is);
-            
-            // Get the document's root XML node
-            NodeList root = doc.getChildNodes();
-            Node theaterNode = getNode( "theater", root );
-           
-            NodeList nodes = personNode.getChildNodes();
-            
-            String theaterName = getNodeValue("theaterName", nodes);
-            String theaterAdress = getNodeValue("theaterAddress", nodes);
-            
-            System.out.println( "Theater name: " + theaterName );
-            System.out.println( "Theater address: " + theaterAddress );
-
-            Theater theater = new Theater( theaterName, theaterAddress );
-
-            return theater;
-        }
-        catch (Exception e) {
-            throw new WebApplicationException(e, Response.Status.BAD_REQUEST);
-        }
-    }
     
-    private void outputTheater( OutputStream os, Theater theater ) 
-            throws IOException 
-    {
-        PrintStream writer = new PrintStream(os);
-        writer.println("<theater>");
-        writer.println("   <theaterName>" + theater.getTheaterName() + "</theaterName>");
-        writer.println("   <theaterAddress>" + theater.getTheaterAddress() + "</theaterAddress>");
-        writer.println("</theater>");
-        writer.close();
-    }
-
-    private Node getNode(String tagName, NodeList nodes) 
-    {
-        for ( int x = 0; x < nodes.getLength(); x++ ) {
-            Node node = nodes.item(x);
-            if (node.getNodeName().equalsIgnoreCase(tagName)) {
-                return node;
-            }
-        }
-
-        return null;
-    }
-    
-    public String getNodeValue(String tagName, NodeList nodes ) 
-    {
-        for ( int x = 0; x < nodes.getLength(); x++ ) {
-            Node node = nodes.item(x);
-            if (node.getNodeName().equalsIgnoreCase(tagName)) {
-                NodeList childNodes = node.getChildNodes();
-                for (int y = 0; y < childNodes.getLength(); y++ ) {
-                    Node data = childNodes.item(y);
-                    if ( data.getNodeType() == Node.TEXT_NODE )
-                        return data.getNodeValue();
-                }
-            }
-        }
-        return "";
-    }
-}
