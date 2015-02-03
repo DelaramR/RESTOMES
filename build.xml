@@ -20,6 +20,10 @@
     <delete>
       <fileset dir="Server/WebContent/WEB-INF/classes" includes="*.class"/>
     </delete>
+    <delete file="MoviePick_team_5.war"/>
+    <delete>
+      <fileset dir="." includes="*.class"/>
+    </delete>
   </target>
   <target name="compile" depends="clean">
     <echo>Compile the source files</echo>
