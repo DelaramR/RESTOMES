@@ -41,7 +41,7 @@
   <target name="deploy" depends="war">
     <echo>Deploying the war file</echo>
     <copy overwrite="yes" file="MoviePick_team_5.war" todir="/opt/jboss/standalone/deployments"/>
-    <chmod file="/opt/jboss/standalone/deployments/MoviePick_team_5" perm="a+r"/>
+    <chmod file="/opt/jboss/standalone/deployments/MoviePick_team_5.war" perm="a+r"/>
   </target>
   <target name="client">
     <echo>Compile the client code</echo>
