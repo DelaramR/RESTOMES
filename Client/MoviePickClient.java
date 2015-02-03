@@ -29,12 +29,12 @@ public class MoviePickClient
     public static void main( String[] args )
     {
 	BufferedReader br = null;
-	String         output = null;
+	String output = null;
 
 	try {
 
 	    // === Create theater1 a using POST request (JSON) ===
-	    // =================================================
+	    // ===================================================
 	    System.out.println( "Creating a person (JSON): " + theater1 );
 
 	    ResteasyClient client = new ResteasyClientBuilder().build();
