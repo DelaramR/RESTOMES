@@ -52,7 +52,7 @@ public class MoviePickClient
 
 	    // === Retrieve the updated theater using a GET request and JSON representation ===
 	    // ===============================================================================
-	    // perform a GET request, asking for an XML representation
+	    // perform a GET request, asking for an JSON representation
 	    System.out.println();
 	    System.out.println( "Retrieving theater (JSON representation): " + link );
 
@@ -65,8 +65,8 @@ public class MoviePickClient
 	    else {
 		System.out.println( "OK: Retrieved the theater" );
 
-		String p = response.readEntity( String.class );
-		System.out.println( p );
+		String t = response.readEntity( String.class );
+		System.out.println( t );
 	    }
 	    response.close();
 
@@ -111,14 +111,14 @@ public class MoviePickClient
 	    //response.close();
 	
 
-	    // === Update person1 to person3 using a PUT request and JSON representation ===
+	    // === Update theater1 to theater2 using a PUT request and JSON representation ===
 	    // =============================================================================
 	    System.out.println();
 	    System.out.println( "Updating theater: " + link + " : (JSON): " + theater2 );
 
 	    // create a new target
             target = client.target( link );
-            response = target.request().put( Entity.entity( person3, MediaType.APPLICATION_JSON ) );
+            response = target.request().put( Entity.entity( theater2, MediaType.APPLICATION_JSON ) );
 
             if( response.getStatus() != 200 ) {
                 throw new RuntimeException( "PUT Request failed: HTTP code: " + response.getStatus() );
@@ -128,7 +128,7 @@ public class MoviePickClient
 	    response.close();
 
 
-	    // === Retrieve the updated person using a GET request and XML representation ===
+	    // === Retrieve the updated person using a GET request and JSON representation ===
 	    // ==============================================================================
 	    System.out.println();
 	    System.out.println( "Retrieving person (XML representation): " + link );
@@ -145,8 +145,8 @@ public class MoviePickClient
 	    else {
 		System.out.println( "OK: Retrieved the person" );
 
-		String p = response.readEntity( String.class );
-		System.out.println( p );
+		String t = response.readEntity( String.class );
+		System.out.println( t );
 	    }
 	    response.close();
 	
@@ -167,7 +167,7 @@ public class MoviePickClient
 	    response.close();
 
 
-	    // === Attempt to retrieve the deleted person using a GET request using JSON representation
+	    // === Attempt to retrieve the deleted theater using a GET request using JSON representation
 	    // === This request SHOULD fail
 	    System.out.println();
 	    System.out.println( "Retrieving theater (JSON representation): " + link );
@@ -184,8 +184,8 @@ public class MoviePickClient
 	    else {
 		System.out.println( "OK: Retrieved the theater" );
 
-		String p = response.readEntity( String.class );
-		System.out.println( p );
+		String t = response.readEntity( String.class );
+		System.out.println( t );
 	    }
 	    response.close();
 
