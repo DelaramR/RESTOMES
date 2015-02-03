@@ -28,12 +28,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 //import javax.ws.rs.WebApplicationException;
 import org.jboss.resteasy.spi.NoLogWebApplicationException;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-
-
 /**
  * Theater service implementation class
  * The main path is /phonebook.
