@@ -87,9 +87,9 @@ public class MovieResource{
     if(movie == null)
       throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
     for(ShowTime show : TheaterResource.showTimes){
-      if(show.getMovie().equals(movie)){
+      //if(show.getMovie().equals(movie)){
         shows.add(show);
-      }
+      //}
     }
     return shows;
   }
