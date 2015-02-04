@@ -87,7 +87,7 @@ public class MovieResource{
     if(movie == null)
       throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
     for(ShowTime show : TheaterResource.showTimes){
-      if(show.getMovie() == movie){
+      if(show.getMovie().equals(movie)){
         shows.add(show);
       }
     }
@@ -97,15 +97,20 @@ public class MovieResource{
   @POST
   @Path("{id}/theater")
   @Consumes(MediaType.APPLICATION_JSON)
-  public Response registerMovie2Theater(@PathParam("id") Integer movieId, Integer theaterId, ArrayList<String> shows){
+  public Response registerMovie2Theater(@PathParam("id") Integer movieId){//, Integer theaterId, ArrayList<String> shows){
     Movie movie = movieDB.get(movieId);
     if(movie == null)
       throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+    int theaterId = 1;
     Theater theater = TheaterResource.theaterDB.get(theaterId);
     if(theater == null)
       throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+    ArrayList<String> shows = new ArrayList<String>();
+    shows.add("Thursdays-5:30 PM");
+    shows.add("Thursdays-7:30 PM");
+    shows.add("Thursdays-9:30 PM");
     ShowTime newShowTime = new ShowTime(movie, theater, shows);
-    
+    TheaterResource.showTimes.add(newShowTime);
     return Response.created( URI.create("/movie/" + movieId + "/theater/" + theaterId) ).build();
   }
   
@@ -121,7 +126,7 @@ public class MovieResource{
     if(theater == null)
       throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
     for(ShowTime show : TheaterResource.showTimes){
-      if(show.getMovie() == movie && show.getTheater() == theater)
+      if(show.getMovie().equals(movie) && show.getTheater().equals(theater))
         shows.add(show);
     }
     return shows;
