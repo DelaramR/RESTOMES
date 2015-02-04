@@ -105,6 +105,7 @@ public class MovieResource{
     if(theater == null)
       throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
     ArrayList<String> shows = new ArrayList<String>();
+    shows.add(s);
     ShowTime newShowTime = new ShowTime(movie, theater, shows);
     TheaterResource.showTimes.add(newShowTime);
     return Response.created( URI.create("/movie/" + movieId + "/theater/" + theaterId) ).build();
