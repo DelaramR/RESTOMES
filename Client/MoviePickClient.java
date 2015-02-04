@@ -26,9 +26,12 @@ public class MoviePickClient
     static final String theater1 = "{\"theaterName\":\"University 16\",\"theaterAddress\":\"Oconee Connector\"}";
     static final String theater2 = "{\"theaterName\":\"Carmike\",\"theaterAddress\":\"Lexington Rd\"}";
     static final String theater3 = "{\"theaterName\":\"BeechWood\",\"theaterAddress\":\"Alps Rd\"}";
-    static final String movie1 = "{\"movieTile\":\"American Sniper\",\"genre\":\"Action\",\"rate\":\"4\"}";
+    
+    static final String movie1 = "{\"movieTile\":\"American Sniper\",\"genre\":\"Wrong genre\",\"rate\":\"5\"}";
     static final String movie2 = "{\"movieTile\":\"Paddington\",\"genre\":\"Comedy\",\"rate\":\"3\"}";
     static final String movie3 = "{\"movieTile\":\"Black or White\",\"genre\":\"Drama\",\"rate\":\"2\"}";
+    static final String movie4 = "{\"movieTile\":\"The Loft\",\"genre\":\"Thriller\",\"rate\":\"4\"}";
+    static final String movie5 = "{\"movieTile\":\"American Sniper\",\"genre\":\"Action\",\"rate\":\"4\"}";
 
     public static void main( String[] args )
     {
@@ -102,99 +105,134 @@ public class MoviePickClient
 		System.out.println( t );
 	    }
 	    response.close();
+	    
+	    // === Create movie1 using POST request (JSON) ===
+	    // ===================================================
+	    System.out.println( "Creating a movie (JSON): " + movie1 );
 
-	    // === Retrieve the updated theater using a GET request and JSON representation ===
-	    // ===============================================================================
-	    // perform a GET request, asking for an JSON representation
-	    System.out.println();
-	    System.out.println( "Retrieving theater (JSON representation): " + link );
+	    ResteasyClient client = new ResteasyClientBuilder().build();
+	    ResteasyWebTarget target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie" );
+	    Response response = target.request().post( Entity.entity( movie1, MediaType.APPLICATION_JSON ) );
 
-	    target = client.target( link );
-            response = target.request( MediaType.APPLICATION_JSON ).get();
-
-            if( response.getStatus() != 200 ) {
-                throw new RuntimeException( "GET Request failed: HTTP code: " + response.getStatus() );
-            }
-	    else {
-		System.out.println( "OK: Retrieved the theater" );
-
-		String t = response.readEntity( String.class );
-		System.out.println( t );
+	    if( response.getStatus() != 201 ) {
+                throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 	    }
-	    response.close();
+ 
+	    URI link = response.getLocation();
+	    response.close();	// this response must be closed before we can reuse the client object
+	    System.out.println( "Movie created; location: " + link.toString() );
 
-	    // === Update theater3 to theater4 using a PUT request and JSON representation ===
+    	    // === Create movie2 using POST request (JSON) ===
+	    // ===================================================
+	    System.out.println( "Creating a movie (JSON): " + movie2 );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie" );
+	    response = target.request().post( Entity.entity( movie1, MediaType.APPLICATION_JSON ) );
+
+	    if( response.getStatus() != 201 ) {
+                throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
+	    }
+ 
+	    URI link1 = response.getLocation();
+	    response.close();	// this response must be closed before we can reuse the client object
+	    System.out.println( "Movie created; location: " + link1.toString() );
+
+    	    // === Create movie3 using POST request (JSON) ===
+	    // ===================================================
+	    System.out.println( "Creating a movie (JSON): " + movie3 );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie" );
+	    response = target.request().post( Entity.entity( movie3, MediaType.APPLICATION_JSON ) );
+
+	    if( response.getStatus() != 201 ) {
+                throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
+	    }
+ 
+	    URI link2 = response.getLocation();
+	    response.close();	// this response must be closed before we can reuse the client object
+	    System.out.println( "Movie created; location: " + link2.toString() );
+
+	    // === Create movie4 using POST request (JSON) ===
+	    // ===================================================
+	    System.out.println( "Creating a movie (JSON): " + movie4 );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie" );
+	    response = target.request().post( Entity.entity( movie4, MediaType.APPLICATION_JSON ) );
+
+	    if( response.getStatus() != 201 ) {
+                throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
+	    }
+ 
+	    URI link3 = response.getLocation();
+	    response.close();	// this response must be closed before we can reuse the client object
+	    System.out.println( "Movie created; location: " + link3.toString() );
+
+	    // === Update movie1 to movie5 using a PUT request and JSON representation ===
 	    // =============================================================================
 	    System.out.println();
-	    System.out.println( "Updating theater: " + link + " : (JSON): " + theater2 );
+	    System.out.println( "Updating movie: " + link + " : (JSON): " + movie5 );
 
 	    // create a new target
             target = client.target( link );
-            response = target.request().put( Entity.entity( theater2, MediaType.APPLICATION_JSON ) );
+            response = target.request().put( Entity.entity( movie4, MediaType.APPLICATION_JSON ) );
 
             if( response.getStatus() != 200 ) {
                 throw new RuntimeException( "PUT Request failed: HTTP code: " + response.getStatus() );
             }
 	    else
-		System.out.println( "OK: Updated the theater" );
+		System.out.println( "OK: Updated the movie" );
 	    response.close();
 
-
-	    // === Retrieve the updated theater using a GET request and JSON representation ===
-	    // ==============================================================================
+	    // === Retrieve the updated movie using a GET request and JSON representation ===
+	    // ===============================================================================
+	    // perform a GET request, asking for an JSON representation
 	    System.out.println();
-	    System.out.println( "Retrieving theater (XML representation): " + link );
+	    System.out.println( "Retrieving movie (JSON representation): " + link );
 
-	    // create a new target
-            target = client.target( link );
-
-	    // perform a GET request, asking for an XML representation
+	    target = client.target( link );
             response = target.request( MediaType.APPLICATION_JSON ).get();
 
             if( response.getStatus() != 200 ) {
                 throw new RuntimeException( "GET Request failed: HTTP code: " + response.getStatus() );
             }
 	    else {
-		System.out.println( "OK: Retrieved the theater" );
+		System.out.println( "OK: Retrieved the movie" );
 
-		String t = response.readEntity( String.class );
-		System.out.println( t );
+		String m = response.readEntity( String.class );
+		System.out.println( m );
 	    }
 	    response.close();
-	
 
-
-	    // === Delete the theater using a DELETE request ===
+	    // === Delete the movie using a DELETE request ===
 	    // ================================================
-	    System.out.println( "Deleting the theater: " + link );
+	    System.out.println( "Deleting the movie: " + link3 );
 
-	    target = client.target( link );
+	    target = client.target( link3 );
 	    response = target.request().delete();
 
             if( response.getStatus() != 200 ) {
                 throw new RuntimeException( "DELETE Request failed: HTTP code: " + response.getStatus() );
             }
 	    else
-		System.out.println( "OK: Deleted the theater" );
+		System.out.println( "OK: Deleted the movie" );
 	    response.close();
-
 
 	    // === Attempt to retrieve the deleted theater using a GET request using JSON representation
 	    // === This request SHOULD fail
 	    System.out.println();
-	    System.out.println( "Retrieving theater (JSON representation): " + link );
+	    System.out.println( "Retrieving theater (JSON representation): " + link3 );
 
-	    target = client.target( link );
+	    target = client.target( link3 );
             response = target.request( MediaType.APPLICATION_JSON ).get();
 
             if( response.getStatus() == 404 ) {
-                System.out.println( "GET Request failed: This entry doesn't exist: " + link );
+                System.out.println( "GET Request failed: This entry doesn't exist: " + link3 );
             }
             else if( response.getStatus() != 200 ) {
                 throw new RuntimeException( "GET Request failed: HTTP code: " + response.getStatus() );
             }
 	    else {
-		System.out.println( "OK: Retrieved the theater" );
+		System.out.println( "OK: Retrieved the movie" );
 
 		String t = response.readEntity( String.class );
 		System.out.println( t );
