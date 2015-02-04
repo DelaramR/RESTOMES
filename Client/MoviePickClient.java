@@ -110,9 +110,8 @@ public class MoviePickClient
 	    // ===================================================
 	    System.out.println( "Creating a movie (JSON): " + movie1 );
 
-	    ResteasyClient client = new ResteasyClientBuilder().build();
-	    ResteasyWebTarget target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie" );
-	    Response response = target.request().post( Entity.entity( movie1, MediaType.APPLICATION_JSON ) );
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie" );
+	    response = target.request().post( Entity.entity( movie1, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
