@@ -8,6 +8,7 @@ import java.io.PrintStream;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -37,6 +38,7 @@ public class TheaterResource
 {
     // the 'data source' -- in reality, the data should be in a database
     public static final Map<Integer, Theater> theaterDB = new HashMap<Integer, Theater>();
+    public static final ArrayList<ShowTime> showTimes = new ArrayList<ShowTime>();
 
     /**
      * Create a new theater entry using a JSON representation.
