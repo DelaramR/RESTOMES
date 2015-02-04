@@ -27,7 +27,7 @@ import org.jboss.resteasy.spi.NoLogWebApplicationException;
 @Path("/movie")
 public class MovieResource{
   
-  private static final Map<Integer, Movie> movieDB = new HashMap<Integer, Movie>();
+  private final Map<Integer, Movie> movieDB = new HashMap<Integer, Movie>();
   
   @POST
   @Consumes( MediaType.APPLICATION_JSON )
