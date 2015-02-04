@@ -42,7 +42,7 @@ public class TheaterResource
 
     /**
      * Create a new theater entry using a JSON representation.
-     * @param theater the new Person object data; this will be converted to POJO by a JSON provider (Jackson)
+     * @param theater the new theater object data; this will be converted to POJO by a JSON provider (Jackson)
      * @return a response encoding
      */
     @POST
@@ -114,4 +114,77 @@ public class TheaterResource
         return Response.ok().build();
     }
 }
+
+    /**
+     * Add an existing movie to the particular theater using a JSON representation.
+     * @param movieId the id of a particualt movie
+     * @param showTime the list of show times for a particualr movie to be added to the particular theater
+     * @return a response encoding
+     */
+    @POST
+    @Path( "{id}/movie" )
+    @Consumes( MediaType.APPLICATION_JSON )
+    public Response createEntryJSON( @PathParam("id") Integer theaterId, Integer movieId, ArrayList<String> showTime ) 
+    {
+        Theater theater = theaterDB.get(theaterId);
+        if (theater == null)
+            throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+        Movie movie = MovieResource.movieDB.get(movieId);
+        if (movie == null)
+            throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+        
+        ShowTime showTimeObj = new ShowTime();
+        showTimeObj.setTime(showTime);
+        showTimeObj.setTheater(theater);
+        showTimeObj.setMovie(movie);
+        
+        showTimes.add(showTimeObj);
+        
+        return Response.created( URI.create("/theater/" + theaterId + "/movie/") ).build();
+    }
+    
+    /**
+     * Retrieve list of movies from a particular theater and return it as a streaming output, using a JSON representation
+     * @return a movie object requested; it will be converted to JSON using a JSON provider (Jackson)
+     */
+    @GET
+    @Path( "{id}/movie/" )
+    @Produces( MediaType.APPLICATION_JSON )
+    public ArrayList<ShowTime> getEntryJSON( @PathParam("id") Integer theaterId) 
+    {
+        Theater theater = theaterDB.get(theaterId);
+        if (theater == null)
+            throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+         
+    ArrayList<ShowTime> theaterShows = new ArrayList<ShowTime>()     
+    for (ShowTime st : showTimes){
+        if (st.getTheater().equal(theater))    
+            theaterShows.add(st);
+    }
+        return theatershows;
+    }
+    
+     /**
+     * Retrieve a particualr movie from a particular theater and return it as a streaming output, using a JSON representation
+     * @return a movie object requested; it will be converted to JSON using a JSON provider (Jackson)
+     */
+    @GET
+    @Path( "{theaterId}/movie/{movieId}" )
+    @Produces( MediaType.APPLICATION_JSON )
+    public ShowTime getEntryJSON( @PathParam("theaterId") Integer theaterId, @PathParam("movieId") Integer movieId) 
+    {
+        Theater theater = theaterDB.get(theaterId);
+        if (theater == null)
+            throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+            Movie movie = movieDB.get(movieId);
+        if (movie == null)
+            throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+         
+    ShowTime movieShows = new ShowTime()     
+    for (ShowTime st : showTimes){
+        if (st.getTheater().equal(theater) && st.getMovie().equal(movie))    
+            movieShows = st;
+    }
+        return movieShows;
+    }
     
