@@ -123,7 +123,7 @@ public class TheaterResource
     @POST
     @Path( "{id}/movie" )
     @Consumes( MediaType.APPLICATION_JSON )
-    public Response createEntryJSON( @PathParam("id") Integer theaterId, Integer movieId, ArrayList<String> showTime ) 
+    public Response registerTheaterForMovieJSON( @PathParam("id") Integer theaterId, Integer movieId, ArrayList<String> showTime ) 
     {
         Theater theater = theaterDB.get(theaterId);
         if (theater == null)
@@ -149,7 +149,7 @@ public class TheaterResource
     @GET
     @Path( "{id}/movie/" )
     @Produces( MediaType.APPLICATION_JSON )
-    public ArrayList<ShowTime> getEntryJSON( @PathParam("id") Integer theaterId) 
+    public ArrayList<ShowTime> getMovieShowTimesInTheaterJSON( @PathParam("id") Integer theaterId) 
     {
         Theater theater = theaterDB.get(theaterId);
         if (theater == null)
@@ -170,7 +170,7 @@ public class TheaterResource
     @GET
     @Path( "{theaterId}/movie/{movieId}" )
     @Produces( MediaType.APPLICATION_JSON )
-    public ShowTime getEntryJSON( @PathParam("theaterId") Integer theaterId, @PathParam("movieId") Integer movieId) 
+    public ShowTime getShowTimesOfTheaterForMovieJSON( @PathParam("theaterId") Integer theaterId, @PathParam("movieId") Integer movieId) 
     {
         Theater theater = theaterDB.get(theaterId);
         if (theater == null)
