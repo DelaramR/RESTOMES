@@ -38,7 +38,7 @@ public class MoviePickClient
 	    System.out.println( "Creating a theater (JSON): " + theater1 );
 
 	    ResteasyClient client = new ResteasyClientBuilder().build();
-	    ResteasyWebTarget target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/theater" );
+	    ResteasyWebTarget target = client.target( "http://uml.cs.uga.edu:8080/MoviePickRESTfulService/rest/theater" );
 	    Response response = target.request().post( Entity.entity( theater1, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
