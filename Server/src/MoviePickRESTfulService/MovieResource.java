@@ -97,7 +97,7 @@ public class MovieResource{
   @POST
   @Path("{id}/theater")
   @Consumes(MediaType.APPLICATION_JSON)
-  public Response registerMovie2Theater(@PathParam("id") Integer movieId, Integer theaterId, Integer s){//, ArrayList<String> shows){
+  public Response registerMovie2Theater(@PathParam("id") Integer movieId, Integer theaterId, String s, Integer i){//, ArrayList<String> shows){
     Movie movie = movieDB.get(movieId);
     if(movie == null)
       throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
@@ -105,7 +105,7 @@ public class MovieResource{
     if(theater == null)
       throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
     ArrayList<String> shows = new ArrayList<String>();
-    shows.add(s.toString());
+    shows.add(i.toString());
     ShowTime newShowTime = new ShowTime(movie, theater, shows);
     TheaterResource.showTimes.add(newShowTime);
     return Response.created( URI.create("/movie/" + movieId + "/theater/" + theaterId) ).build();
