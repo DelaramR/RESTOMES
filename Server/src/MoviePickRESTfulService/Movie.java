@@ -26,7 +26,7 @@ public class Movie{
   }
   
   public int getRate(){
-    return rate;
+    return this.rate;
   }
   
   public void setRate(int rate){

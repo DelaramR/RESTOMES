@@ -36,7 +36,7 @@ import org.jboss.resteasy.spi.NoLogWebApplicationException;
 public class TheaterResource
 {
     // the 'data source' -- in reality, the data should be in a database
-    public final Map<Integer, Theater> theaterDB = new HashMap<Integer, Theater>();
+    public static final Map<Integer, Theater> theaterDB = new HashMap<Integer, Theater>();
 
     /**
      * Create a new theater entry using a JSON representation.

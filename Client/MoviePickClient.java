@@ -38,7 +38,7 @@ public class MoviePickClient
 	    System.out.println( "Creating a theater (JSON): " + theater1 );
 
 	    ResteasyClient client = new ResteasyClientBuilder().build();
-	    ResteasyWebTarget target = client.target( "http://uml.cs.uga.edu:8080/MoviePickRESTfulService/rest/theater" );
+	    ResteasyWebTarget target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/theater" );
 	    Response response = target.request().post( Entity.entity( theater1, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
@@ -46,6 +46,21 @@ public class MoviePickClient
 	    }
  
 	    URI link = response.getLocation();
+	    response.close();	// this response must be closed before we can reuse the client object
+	    System.out.println( "Theater created; location: " + link.toString() );
+
+    	    // === Create theater2 a using POST request (JSON) ===
+	    // ===================================================
+	    System.out.println( "Creating a theater (JSON): " + theater2 );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/theater" );
+	    response = target.request().post( Entity.entity( theater2, MediaType.APPLICATION_JSON ) );
+
+	    if( response.getStatus() != 201 ) {
+                throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
+	    }
+ 
+	    URI link1 = response.getLocation();
 	    response.close();	// this response must be closed before we can reuse the client object
 	    System.out.println( "Theater created; location: " + link.toString() );
 
@@ -71,45 +86,6 @@ public class MoviePickClient
 	    response.close();
 
 	
-	    // === Update person1 to person2 data using a PUT request (XML) ===
-	    // ================================================================
-	    //System.out.println();
-	    //System.out.println( "Updating person: " + link + " : (XML): " + person2 );
-
-	    // create a new target
-            //target = client.target( link );
-            //response = target.request().put( Entity.entity( person2, MediaType.APPLICATION_XML ) );
-
-            //if( response.getStatus() != 200 ) {
-              //  throw new RuntimeException( "PUT Request failed: HTTP code: " + response.getStatus() );
-            //}
-	    //else
-	//	System.out.println( "OK: Updated the person" );
-	  //  response.close();
-
-
-	    // === Retrieve the updated person using a GET request and XML representation ===
-	    // ==============================================================================
-	    //System.out.println();
-	    //System.out.println( "Retrieving person (XML representation): " + link );
-
-	    // create a new target
-            //target = client.target( link );
-
-	    // perform a GET request, asking for an XML representation
-            //response = target.request( MediaType.APPLICATION_XML ).get();
-
-            //if( response.getStatus() != 200 ) {
-              //  throw new RuntimeException( "GET Request failed: HTTP code: " + response.getStatus() );
-            //}
-	    //else {
-	//	System.out.println( "OK: Retrieved the person" );
-
-	//	String p = response.readEntity( String.class );
-	//	System.out.println( p );
-	  //  }
-	    //response.close();
-	
 
 	    // === Update theater1 to theater2 using a PUT request and JSON representation ===
 	    // =============================================================================
@@ -128,10 +104,10 @@ public class MoviePickClient
 	    response.close();
 
 
-	    // === Retrieve the updated person using a GET request and JSON representation ===
+	    // === Retrieve the updated theater using a GET request and JSON representation ===
 	    // ==============================================================================
 	    System.out.println();
-	    System.out.println( "Retrieving person (XML representation): " + link );
+	    System.out.println( "Retrieving theater (XML representation): " + link );
 
 	    // create a new target
             target = client.target( link );
@@ -143,7 +119,7 @@ public class MoviePickClient
                 throw new RuntimeException( "GET Request failed: HTTP code: " + response.getStatus() );
             }
 	    else {
-		System.out.println( "OK: Retrieved the person" );
+		System.out.println( "OK: Retrieved the theater" );
 
 		String t = response.readEntity( String.class );
 		System.out.println( t );

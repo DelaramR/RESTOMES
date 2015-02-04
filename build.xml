@@ -7,7 +7,7 @@
   5. client
   -->
   <path id="classpath">
-    <fileset dir="Server/WebContent/WEB-INF/lib">
+    <fileset dir="Server/WebContent/WEB-INF/new-lib">
       <include name="**/*.jar"/>
     </fileset>
     <pathelement location="/opt/wildfly-8.2.0.Final/modules/system/layers/base/javax/servlet/api/main/jboss-servlet-api_3.0_spec-1.0.2.Final-redhat-1.jar"/>
@@ -18,9 +18,9 @@
   <target name="clean">
     <echo> Removing all .class files from Server/WebContent/WEB-INF/classes directory</echo>
     <delete>
-      <fileset dir="Server/WebContent/WEB-INF/classes" includes="*.class"/>
+      <fileset dir="Server/WebContent/WEB-INF/classes/" includes="**/*.class, *.class"/>
     </delete>
-    <delete file="MoviePick_team_5.war"/>
+    <delete file="cs8350_5.war"/>
     <delete>
       <fileset dir="." includes="*.class"/>
     </delete>
@@ -34,14 +34,14 @@
   </target>
   <target name="war" depends="compile">
     <echo>Building a war file</echo>
-    <war destfile="MoviePick_team_5.war" webxml="Server/WebContent/WEB-INF/web.xml">
-      <fileset dir="Server/WebContent" excludes="**/web.xml"/>
+    <war destfile="cs8350_5.war" webxml="Server/WebContent/WEB-INF/web.xml">
+      <fileset dir="Server/WebContent" excludes="**/web.xml, **/**/*.jar"/>
     </war>
   </target>
   <target name="deploy" depends="war">
     <echo>Deploying the war file</echo>
-    <copy overwrite="yes" file="MoviePick_team_5.war" todir="/opt/jboss/standalone/deployments"/>
-    <chmod file="/opt/jboss/standalone/deployments/MoviePick_team_5.war" perm="a+r"/>
+    <copy overwrite="yes" file="cs8350_5.war" todir="/opt/wildfly-8.2.0.Final/standalone/deployments"/>
+    <chmod file="/opt/wildfly-8.2.0.Final/standalone/deployments/cs8350_5.war" perm="a+r"/>
   </target>
   <target name="client">
     <echo>Compile the client code</echo>
