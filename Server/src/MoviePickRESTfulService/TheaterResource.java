@@ -155,7 +155,7 @@ public class TheaterResource
         if (theater == null)
             throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
          
-    ArrayList<ShowTime> theaterShows = new ArrayList<ShowTime>()     
+    ArrayList<ShowTime> theaterShows = new ArrayList<ShowTime>();     
     for (ShowTime st : showTimes){
         if (st.getTheater().equal(theater))    
             theaterShows.add(st);
@@ -179,7 +179,7 @@ public class TheaterResource
         if (movie == null)
             throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
          
-    ShowTime movieShows = new ShowTime()     
+    ShowTime movieShows = new ShowTime();     
     for (ShowTime st : showTimes){
         if (st.getTheater().equal(theater) && st.getMovie().equal(movie))    
             movieShows = st;
