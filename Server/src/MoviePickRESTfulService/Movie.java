@@ -2,8 +2,8 @@ package MoviePickRESTfulService;
 
 public class Movie{
   private String movieTitle;
-  private int rate;
   private String genre;
+  private int rate;
   
   public Movie(){
     this.movieTitle = "";
