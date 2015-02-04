@@ -23,8 +23,12 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 //
 public class MoviePickClient 
 {
-    static final String theater1 = "{\"theaterName\":\"University 16\",\"theaterAddress\":\"1793 Oconee Connector\"}";
+    static final String theater1 = "{\"theaterName\":\"University 16\",\"theaterAddress\":\"Oconee Connector\"}";
     static final String theater2 = "{\"theaterName\":\"Carmike\",\"theaterAddress\":\"Lexington Rd\"}";
+    static final String theater3 = "{\"theaterName\":\"BeechWood\",\"theaterAddress\":\"Alps Rd\"}";
+    static final String movie1 = "{\"movieTile\":\"American Sniper\",\"genre\":\"Action\,\"rate\":\"4\"}";
+    static final String movie2 = "{\"movieTile\":\"Paddington\",\"genre\":\"Comedy\,\"rate\":\"3\"}";
+    static final String movie3 = "{\"movieTile\":\"Black or White\",\"genre\":\"Drama\,\"rate\":\"2\"}";
 
     public static void main( String[] args )
     {
@@ -33,7 +37,7 @@ public class MoviePickClient
 
 	try {
 
-	    // === Create theater1 a using POST request (JSON) ===
+	    // === Create theater1 using POST request (JSON) ===
 	    // ===================================================
 	    System.out.println( "Creating a theater (JSON): " + theater1 );
 
@@ -49,7 +53,7 @@ public class MoviePickClient
 	    response.close();	// this response must be closed before we can reuse the client object
 	    System.out.println( "Theater created; location: " + link.toString() );
 
-    	    // === Create theater2 a using POST request (JSON) ===
+    	    // === Create theater2 using POST request (JSON) ===
 	    // ===================================================
 	    System.out.println( "Creating a theater (JSON): " + theater2 );
 
@@ -62,8 +66,42 @@ public class MoviePickClient
  
 	    URI link1 = response.getLocation();
 	    response.close();	// this response must be closed before we can reuse the client object
-	    System.out.println( "Theater created; location: " + link.toString() );
+	    System.out.println( "Theater created; location: " + link1.toString() );
 
+    	    // === Create theater3 using POST request (JSON) ===
+	    // ===================================================
+	    System.out.println( "Creating a theater (JSON): " + theater3 );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/theater" );
+	    response = target.request().post( Entity.entity( theater3, MediaType.APPLICATION_JSON ) );
+
+	    if( response.getStatus() != 201 ) {
+                throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
+	    }
+ 
+	    URI link2 = response.getLocation();
+	    response.close();	// this response must be closed before we can reuse the client object
+	    System.out.println( "Theater created; location: " + link2.toString() );
+
+	    // === Retrieve theaters using a GET request and JSON representation ===
+	    // ===============================================================================
+	    // perform a GET request, asking for an JSON representation
+	    System.out.println();
+	    System.out.println( "Retrieving theaters (JSON representation): " );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/theater" );
+            response = target.request( MediaType.APPLICATION_JSON ).get();
+
+            if( response.getStatus() != 200 ) {
+                throw new RuntimeException( "GET Request failed: HTTP code: " + response.getStatus() );
+            }
+	    else {
+		System.out.println( "OK: Retrieved the theaters" );
+
+		String t = response.readEntity( String.class );
+		System.out.println( t );
+	    }
+	    response.close();
 
 	    // === Retrieve the updated theater using a GET request and JSON representation ===
 	    // ===============================================================================
@@ -85,9 +123,7 @@ public class MoviePickClient
 	    }
 	    response.close();
 
-	
-
-	    // === Update theater1 to theater2 using a PUT request and JSON representation ===
+	    // === Update theater3 to theater4 using a PUT request and JSON representation ===
 	    // =============================================================================
 	    System.out.println();
 	    System.out.println( "Updating theater: " + link + " : (JSON): " + theater2 );
