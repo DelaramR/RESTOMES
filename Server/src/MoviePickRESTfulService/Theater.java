@@ -29,4 +29,10 @@ public class Theater{
   public void setTheaterAddress(String address){
     this.theaterAddress = address;
   }
+  
+  public boolean equals(Theater theater){
+    if(this.theaterName.compareTo(theater.getTheaterName()) == 0 && this.theaterAddress.compareTo(theater.getTheaterAddress()) == 0)
+      return true;
+    return false;
+  }
 }
