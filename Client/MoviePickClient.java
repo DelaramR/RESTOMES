@@ -23,7 +23,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 //
 public class MoviePickClient 
 {
-    static final String theater1 = "{\"theaterName\":\"University 16\",\"phoneNumber\":\"1793 Oconee Connector\"}";
+    static final String theater1 = "{\"theaterName\":\"University 16\",\"theaterAddress\":\"1793 Oconee Connector\"}";
     static final String theater2 = "{\"theaterName\":\"Carmike\",\"theaterAddress\":\"Lexington Rd\"}";
 
     public static void main( String[] args )
@@ -35,10 +35,10 @@ public class MoviePickClient
 
 	    // === Create theater1 a using POST request (JSON) ===
 	    // ===================================================
-	    System.out.println( "Creating a person (JSON): " + theater1 );
+	    System.out.println( "Creating a theater (JSON): " + theater1 );
 
 	    ResteasyClient client = new ResteasyClientBuilder().build();
-	    ResteasyWebTarget target = client.target( "http://uml.cs.uga.edu:8080/MoviePickRESTfulService/rest/theater" );
+	    ResteasyWebTarget target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/theater" );
 	    Response response = target.request().post( Entity.entity( theater1, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
