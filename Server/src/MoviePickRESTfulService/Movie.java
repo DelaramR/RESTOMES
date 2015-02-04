@@ -41,7 +41,6 @@ public class Movie{
     this.genre = genre;
   }
   
-  @Override
   public boolean equals(Movie movie){
     if(this.movieTitle.compareTo(movie.getMovieTitle()) == 0 && this.genre.compareTo(movie.getGenre()) == 0)
       return true;
