@@ -113,7 +113,6 @@ public class TheaterResource
         theaterDB.remove( id );
         return Response.ok().build();
     }
-}
 
     /**
      * Add an existing movie to the particular theater using a JSON representation.
@@ -187,4 +186,4 @@ public class TheaterResource
     }
         return movieShows;
     }
-    
+}
