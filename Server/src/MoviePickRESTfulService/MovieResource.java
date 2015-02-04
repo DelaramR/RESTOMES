@@ -76,4 +76,53 @@ public class MovieResource{
      movieDB.remove(id);
      return Response.ok().build();
   }
+  
+  @GET
+  @Path("{id}/theater")
+  @Produces(MediaType.APPLICATION_JSON)
+  public ArrayList<ShowTime> getTheatersShowTimeForMovie(@PathParam("id") Integer id){
+    ArrayList<ShowTime> shows = new ArrayList<ShowTime>();
+    Movie movie = movieDB.get(id);
+    if(movie == null)
+      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+    for(ShowTime show : TheaterResource.showTimes){
+      if(show.getMovie() == movie){
+        shows.add(show);
+      }
+    }
+    return shows;
+  }
+  
+  @POST
+  @Path("{id}/theater")
+  @Consumes(MediaType.APPLICATION_JSON)
+  public Response registerMovie2Theater(@PathParam("id") Integer movieId, Integer theaterId, ArrayList<String> shows){
+    Movie movie = movieDB.get(movieId);
+    if(movie == null)
+      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+    Theater theater = TheaterResource.theaterDB.get(theaterId);
+    if(theater == null)
+      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+    ShowTime newShowTime = new ShowTime(movie, theater, shows);
+    
+    return Response.created( URI.create("/movie/" + movieId + "/theater/" + theaterId) ).build();
+  }
+  
+  @GET
+  @Path("{id}/theater/{id1}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public ArrayList<ShowTime> getShowTimesOfMovieInTheaterJSON(@PathParam("id") Integer movieId, @PathParam("id1") Integer theaterId){
+    ArrayList<ShowTime> shows = new ArrayList<ShowTime>();
+    Movie movie = movieDB.get(movieId);
+    if(movie == null)
+      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+    Theater theater = TheaterResource.theaterDB.get(theaterId);
+    if(theater == null)
+      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+    for(ShowTime show : TheaterResource.showTimes){
+      if(show.getMovie() == movie && show.getTheater() == theater)
+        shows.add(show);
+    }
+    return shows;
+  }
 }
