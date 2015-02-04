@@ -14,7 +14,7 @@ public class Movie{
   public Movie(String movieTitle, int rate, String genre){
     this.movieTitle = movieTitle;
     this.rate = rate;
-    this.genre = "";
+    this.genre = genre;
   }
   
   public String getMovieTitle(){
