@@ -97,7 +97,7 @@ public class MovieResource{
   @POST
   @Path("{id}/theater")
   @Consumes(MediaType.APPLICATION_JSON)
-  public Response registerMovie2Theater(@PathParam("id") Integer movieId), Integer theaterId, ArrayList<String> shows){
+  public Response registerMovie2Theater(@PathParam("id") Integer movieId, Integer theaterId, ArrayList<String> shows){
     Movie movie = movieDB.get(movieId);
     if(movie == null)
       throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
