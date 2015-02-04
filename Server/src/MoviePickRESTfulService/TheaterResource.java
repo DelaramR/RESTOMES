@@ -157,7 +157,7 @@ public class TheaterResource
          
     ArrayList<ShowTime> theaterShows = new ArrayList<ShowTime>();     
     for (ShowTime st : showTimes){
-        if (st.getTheater().equal(theater))    
+        if (st.getTheater().equals(theater))    
             theaterShows.add(st);
     }
         return theatershows;
@@ -181,7 +181,7 @@ public class TheaterResource
          
     ShowTime movieShows = new ShowTime();     
     for (ShowTime st : showTimes){
-        if (st.getTheater().equal(theater) && st.getMovie().equal(movie))    
+        if (st.getTheater().equals(theater) && st.getMovie().equals(movie))    
             movieShows = st;
     }
         return movieShows;
