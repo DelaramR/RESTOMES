@@ -155,12 +155,12 @@ public class TheaterResource
         if (theater == null)
             throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
          
-    ArrayList<ShowTime> theaterShows = new ArrayList<ShowTime>();     
-    for (ShowTime st : showTimes){
-        if (st.getTheater().equals(theater))    
-            theaterShows.add(st);
-    }
-        return theatershows;
+        ArrayList<ShowTime> theaterShows = new ArrayList<ShowTime>();     
+        for (ShowTime st : showTimes){
+            if (st.getTheater().equals(theater))    
+                theaterShows.add(st);
+        }
+        return theaterShows;
     }
     
      /**
@@ -175,7 +175,7 @@ public class TheaterResource
         Theater theater = theaterDB.get(theaterId);
         if (theater == null)
             throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
-            Movie movie = movieDB.get(movieId);
+            Movie movie = MovieResource.movieDB.get(movieId);
         if (movie == null)
             throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
          
