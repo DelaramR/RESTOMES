@@ -34,6 +34,8 @@ public class MovieResource{
   @Consumes( MediaType.APPLICATION_JSON )
   public Response createEntryJSON( Movie movie ){
     System.out.println( "MovieResource.createEntry" );
+    if(movieDB.containsValue(movie))
+      throw new NoLogWebApplicationException( Response.Status.FOUND );
     Integer id = movieDB.size() + 1;
     movieDB.put(id, movie);
     return Response.created( URI.create("/movie/" + id) ).build();
@@ -74,8 +76,16 @@ public class MovieResource{
   @DELETE
   @Path("{id}")
   public Response deleteMovie(@PathParam("id") Integer id){
-     movieDB.remove(id);
-     return Response.ok().build();
+    Movie movie = movieDB.get(id);
+    if(movie == null)
+      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+    movieDB.remove(id);
+    for(ShowTime time : TheaterResource.showTimes){
+      if(time.getMovie().equals(movie)){
+        TheaterResource.showTime.remove(time);
+      }
+    }
+    return Response.ok().build();
   }
   
   @GET
@@ -108,8 +118,8 @@ public class MovieResource{
     ArrayList<String> shows = theaterIdShows.getStringArray();
     for(ShowTime time : TheaterResource.showTimes){
       if(time.getMovie().equals(movie) && time.getTheater().equals(theater)){
-        time.addAllTime(shows);
-        return Response.created( URI.create("/movie/" + movieId + "/theater/" + theaterId) ).build();
+        //time.addAllTime(shows);
+        throw new NoLogWebApplicationException(Response.Status.FOUND);
       }
     }
     ShowTime newShowTime = new ShowTime(movie, theater, shows);
@@ -134,4 +144,22 @@ public class MovieResource{
     }
     return shows;
   }
+  
+  @DELETE
+  @Path("{id}/theater/{id1}")
+  public Response deleteShowsJSON(@PathParam("id") Integer movieId, @PathParam("id1") Integer theaterId){
+    Movie movie = movieDB.get(movieId);
+    if(movie == null)
+      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+    Theater theater = TheaterResource.theaterDB.get(theaterId);
+    if(theater == null)
+      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+    for(ShowTime time : TheaterResource.showTimes){
+      if(time.getMovie().equals(movie) && time.getTheater().equals(theater)){
+        TheaterResource.showTimes.remove(time);
+      }
+    }
+    return Response.ok().build();
+  }
+  
 }
