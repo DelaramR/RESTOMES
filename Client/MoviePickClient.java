@@ -27,7 +27,7 @@ public class MoviePickClient
     static final String theater2 = "{\"theaterName\":\"Carmike\",\"theaterAddress\":\"Lexington Rd\"}";
     static final String theater3 = "{\"theaterName\":\"BeechWood\",\"theaterAddress\":\"Alps Rd\"}";
     
-    static final String movie1 = "{\"movieTitle\":\"American Sniper\",\"genre\":\"Wrong genre\",\"rate\":5}";
+    static final String movie1 = "{\"movieTitle\":\"American Sniper\",\"genre\":\"Wrong genre!\",\"rate\":5}";
     static final String movie2 = "{\"movieTitle\":\"Paddington\",\"genre\":\"Comedy\",\"rate\":3}";
     static final String movie3 = "{\"movieTitle\":\"Black or White\",\"genre\":\"Drama\",\"rate\":2}";
     static final String movie4 = "{\"movieTitle\":\"The Loft\",\"genre\":\"Thriller\",\"rate\":4}";
@@ -108,6 +108,7 @@ public class MoviePickClient
 	    
 	    // === Create movie1 using POST request (JSON) ===
 	    // ===================================================
+	    System.out.println();
 	    System.out.println( "Creating a movie (JSON): " + movie1 );
 
 	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie" );
@@ -169,11 +170,11 @@ public class MoviePickClient
 	    // === Update movie1 to movie5 using a PUT request and JSON representation ===
 	    // =============================================================================
 	    System.out.println();
-	    System.out.println( "Updating movie: " + movielink + " : (JSON): " + movie5 );
+	    System.out.println( "Updating movie: " + movielink + " : (JSON): " + movie1 );
 
 	    // create a new target
             target = client.target( movielink );
-            response = target.request().put( Entity.entity( movie4, MediaType.APPLICATION_JSON ) );
+            response = target.request().put( Entity.entity( movie5, MediaType.APPLICATION_JSON ) );
 
             if( response.getStatus() != 200 ) {
                 throw new RuntimeException( "PUT Request failed: HTTP code: " + response.getStatus() );
