@@ -136,7 +136,7 @@ public class MoviePickClient
 	    System.out.println( "Creating a movie (JSON): " + movie2 );
 
 	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie" );
-	    response = target.request().post( Entity.entity( movie1, MediaType.APPLICATION_JSON ) );
+	    response = target.request().post( Entity.entity( movie2, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
