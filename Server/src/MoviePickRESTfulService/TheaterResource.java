@@ -196,7 +196,7 @@ public class TheaterResource
         if (movie == null)
             throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
         for (ShowTime show : showTimes){
-            if (show.getTheater().equals(theater) && st.getMovie().equals(movie))    
+            if (show.getTheater().equals(theater) && show.getMovie().equals(movie))    
               shows.add(show);
         }
         return shows;
