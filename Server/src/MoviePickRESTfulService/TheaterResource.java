@@ -186,21 +186,20 @@ public class TheaterResource
     @GET
     @Path( "{theaterId: [1-9][0-9]*}/movie/{movieId: [1-9][0-9]*}" )
     @Produces( MediaType.APPLICATION_JSON )
-    public ShowTime getShowTimesOfTheaterForMovieJSON( @PathParam("theaterId") Integer theaterId, @PathParam("movieId") Integer movieId) 
+    public ArrayList<ShowTime> getShowTimesOfTheaterForMovieJSON( @PathParam("theaterId") Integer theaterId, @PathParam("movieId") Integer movieId) 
     {
+        ArrayList<ShowTime> shows = new ArrayList<ShowTime>();
         Theater theater = theaterDB.get(theaterId);
         if (theater == null)
             throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
             Movie movie = MovieResource.movieDB.get(movieId);
         if (movie == null)
             throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
-         
-        ShowTime movieShows = new ShowTime();     
-        for (ShowTime st : showTimes){
-            if (st.getTheater().equals(theater) && st.getMovie().equals(movie))    
-              movieShows = st;
+        for (ShowTime show : showTimes){
+            if (show.getTheater().equals(theater) && st.getMovie().equals(movie))    
+              shows.add(show);
         }
-        return movieShows;
+        return shows;
     }
     
     @DELETE
