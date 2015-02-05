@@ -316,7 +316,7 @@ public class MoviePickClient
 	    System.out.println( "Adding a theater and the showtimes to theaters that show a movie (JSON): " + theater1movie3show );
 
 	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie/3/theater" );
-	    response = target.request().post( Entity.entity( theater1movie4show, MediaType.APPLICATION_JSON ) );
+	    response = target.request().post( Entity.entity( theater1movie3show, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
