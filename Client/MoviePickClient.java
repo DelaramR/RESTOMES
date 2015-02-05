@@ -356,6 +356,46 @@ public class MoviePickClient
 	    response.close();	// this response must be closed before we can reuse the client object
 	    System.out.println( "theater and the showtimes for a movie added; location: " + theater3movie3link.toString() );
 	    
+	    // === Retrieve movies that are shown in theater1 using a GET request and JSON representation ===
+	    // ===============================================================================
+	    // perform a GET request, asking for an JSON representation
+	    System.out.println();
+	    System.out.println( "Retrieving theaters (JSON representation): " );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/theater/1/movie" );
+            response = target.request( MediaType.APPLICATION_JSON ).get();
+
+            if( response.getStatus() != 200 ) {
+                throw new RuntimeException( "GET Request failed: HTTP code: " + response.getStatus() );
+            }
+	    else {
+		System.out.println( "OK: Retrieved the movies of the theater" );
+
+		String m = response.readEntity( String.class );
+		System.out.println( m );
+	    }
+	    response.close();
+	    
+	    // === Retrieve theaters that are showing movie3 using a GET request and JSON representation ===
+	    // ===============================================================================
+	    // perform a GET request, asking for an JSON representation
+	    System.out.println();
+	    System.out.println( "Retrieving theaters (JSON representation): " );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie/3/theater" );
+            response = target.request( MediaType.APPLICATION_JSON ).get();
+
+            if( response.getStatus() != 200 ) {
+                throw new RuntimeException( "GET Request failed: HTTP code: " + response.getStatus() );
+            }
+	    else {
+		System.out.println( "OK: Retrieved the theaters that are showing the movie" );
+
+		String t = response.readEntity( String.class );
+		System.out.println( t );
+	    }
+	    response.close();
+	    
 	} 
 	catch( Exception e ) {
 	    System.out.println( e );
