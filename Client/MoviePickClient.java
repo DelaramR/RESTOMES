@@ -33,14 +33,14 @@ public class MoviePickClient
     static final String movie4 = "{\"movieTitle\":\"The Loft\",\"genre\":\"Thriller\",\"rate\":4}";
     static final String movie5 = "{\"movieTitle\":\"American Sniper\",\"genre\":\"Action\",\"rate\":5}";
 
-    static final String movie1theater1show = "{\"integer\":1,\"stringArray\":[\"Tuesdays 2:30\",\"Thursdays 5:30\"]\"}";
-    static final String movie1theater2show = "{\"integer\":1,\"stringArray\":[\"Fridays 3:00\"]\"}";
-    static final String movie1theater3show = "{\"integer\":1,\"stringArray\":[\"Saturdays 7:30\",\"Sundays 6:00\"]\"}";
+    static final String movie1theater1show = "{\"integer\":1,\"stringArray\":[\"Tuesdays 2:30\",\"Thursdays 5:30\"]}";
+    static final String movie1theater2show = "{\"integer\":1,\"stringArray\":[\"Fridays 3:00\"]}";
+    static final String movie1theater3show = "{\"integer\":1,\"stringArray\":[\"Saturdays 7:30\",\"Sundays 6:00\"]}";
     
-    static final String theater1movie2show = "{\"integer\":2,\"stringArray\":[\"Mondays 4:30\"]\"}";
-    static final String theater1movie4show = "{\"integer\":4,\"stringArray\":[\"Sundays 8:30\"]\"}";
-    static final String theater2movie2show = "{\"integer\":2,\"stringArray\":[\"Saturdays 10:00\",\"Wednesdays 11:00\"]\"}";
-    static final String theater3movie3show = "{\"integer\":3,\"stringArray\":[\"Fridays 6:30\"]\"}";
+    static final String theater1movie2show = "{\"integer\":2,\"stringArray\":[\"Mondays 4:30\"]}";
+    static final String theater1movie4show = "{\"integer\":4,\"stringArray\":[\"Sundays 8:30\"]}";
+    static final String theater2movie2show = "{\"integer\":2,\"stringArray\":[\"Saturdays 10:00\",\"Wednesdays 11:00\"]}";
+    static final String theater3movie3show = "{\"integer\":3,\"stringArray\":[\"Fridays 6:30\"]}";
 	
     public static void main( String[] args )
     {
