@@ -51,7 +51,7 @@ public class MovieResource{
   }
   
   @GET
-  @Path( "{id}" )
+  @Path( "{id: [1-9][0-9]*}" )
   @Produces(MediaType.APPLICATION_JSON)
   public Movie getEntryJSON(@PathParam("id") Integer id){
     final Movie movie = movieDB.get(id);
@@ -62,7 +62,7 @@ public class MovieResource{
   }
   
   @PUT
-  @Path("{id}")
+  @Path("{id: [1-9][0-9]*}")
   @Consumes(MediaType.APPLICATION_JSON)
   public Response updateMovieJSON(@PathParam("id") Integer id, Movie movie){
     Movie current = movieDB.get(id);
@@ -77,7 +77,7 @@ public class MovieResource{
   }
   
   @DELETE
-  @Path("{id}")
+  @Path("{id: [1-9][0-9]*}")
   public Response deleteMovie(@PathParam("id") Integer id){
     Movie movie = movieDB.get(id);
     if(movie == null)
@@ -92,7 +92,7 @@ public class MovieResource{
   }
   
   @GET
-  @Path("{id}/theater")
+  @Path("{id: [1-9][0-9]*}/theater")
   @Produces(MediaType.APPLICATION_JSON)
   public ArrayList<ShowTime> getTheatersShowTimeForMovie(@PathParam("id") Integer id){
     ArrayList<ShowTime> shows = new ArrayList<ShowTime>();
@@ -108,7 +108,7 @@ public class MovieResource{
   }
   
   @POST
-  @Path("{id}/theater")
+  @Path("{id: [1-9][0-9]*}/theater")
   @Consumes(MediaType.APPLICATION_JSON)
   public Response registerMovie2Theater(@PathParam("id") Integer movieId, IntStringArray theaterIdShows){
     Movie movie = movieDB.get(movieId);
@@ -131,7 +131,7 @@ public class MovieResource{
   }
   
   @GET
-  @Path("{id}/theater/{id1}")
+  @Path("{id: [1-9][0-9]*}/theater/{id1: [1-9][0-9]*}")
   @Produces(MediaType.APPLICATION_JSON)
   public ArrayList<ShowTime> getShowTimesOfMovieInTheaterJSON(@PathParam("id") Integer movieId, @PathParam("id1") Integer theaterId){
     ArrayList<ShowTime> shows = new ArrayList<ShowTime>();
@@ -149,7 +149,7 @@ public class MovieResource{
   }
   
   @DELETE
-  @Path("{id}/theater/{id1}")
+  @Path("{id: [1-9][0-9]*}/theater/{id1: [1-9][0-9]*}")
   public Response deleteShowsJSON(@PathParam("id") Integer movieId, @PathParam("id1") Integer theaterId){
     Movie movie = movieDB.get(movieId);
     if(movie == null)
