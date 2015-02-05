@@ -205,6 +205,7 @@ public class MoviePickClient
 
 	    // === Delete the movie using a DELETE request ===
 	    // ================================================
+	    System.out.println();
 	    System.out.println( "Deleting the movie: " + movielink3 );
 
 	    target = client.target( movielink3 );
