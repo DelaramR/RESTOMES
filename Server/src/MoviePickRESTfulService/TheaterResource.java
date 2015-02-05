@@ -51,7 +51,7 @@ public class TheaterResource
     {
         for(Map.Entry<Integer, Theater> entry : theaterDB.entrySet()){
             if(entry.getValue().equals(theater)){
-                return Response.seeOther(URI.create("/theater/" + entry.getKey()).build(); 
+                return Response.seeOther(URI.create("/theater/" + entry.getKey())).build(); 
             }
         }
         Integer id = theaterDB.size() + 1;
