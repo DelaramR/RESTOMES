@@ -50,7 +50,7 @@ public class TheaterResource
     public Response createEntryJSON( Theater theater ) 
     {
         if(theaterDB.containsValue(theater))
-            throw new NoLogWebApplicationException( Response.Status.FOUND );
+            return Response.created( URI.create("/theater/" + id) ).build();
         Integer id = theaterDB.size() + 1;
         theaterDB.put(id, theater);
         return Response.created( URI.create("/theater/" + id) ).build();
@@ -147,7 +147,7 @@ public class TheaterResource
         for(ShowTime time : showTimes){
             if(time.getMovie().equals(movie) && time.getTheater().equals(theater)){
                 //time.addAllTime(shows);
-                throw new NoLogWebApplicationException(Response.Status.FOUND);
+                return Response.created( URI.create("/theater/" + theaterId + "/movie/" + movieId) ).build();
             }
         }
         ShowTime showTimeObj = new ShowTime(movie, theater, shows);
