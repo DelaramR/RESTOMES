@@ -58,7 +58,10 @@ public class MoviePickClient
 	    Response response = target.request().post( Entity.entity( theater1, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
-                throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
+	    	if(response.getStatus() == 303)
+	    		System.out.println(theater1 + " is already available");
+	    	else
+            	throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 	    }
  
 	    URI theaterlink = response.getLocation();
@@ -73,6 +76,9 @@ public class MoviePickClient
 	    response = target.request().post( Entity.entity( theater2, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
+	    	if(response.getStatus() == 303)
+	    		System.out.println(theater2 + " is already available");
+	    	else
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 	    }
  
@@ -88,6 +94,9 @@ public class MoviePickClient
 	    response = target.request().post( Entity.entity( theater3, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
+	    	if(response.getStatus() == 303)
+	    		System.out.println(theater3 + " is already available");
+	    	else
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 	    }
  
@@ -124,6 +133,9 @@ public class MoviePickClient
 	    response = target.request().post( Entity.entity( movie1, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
+	    	if(response.getStatus() == 303)
+	    		System.out.println(movie1 + " is already available");
+	    	else
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 	    }
  
@@ -139,6 +151,9 @@ public class MoviePickClient
 	    response = target.request().post( Entity.entity( movie2, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
+	    	if(response.getStatus() == 303)
+	    		System.out.println(movie2 + " is already available");
+	    	else
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 	    }
  
@@ -154,6 +169,9 @@ public class MoviePickClient
 	    response = target.request().post( Entity.entity( movie3, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
+	    	if(response.getStatus() == 303)
+	    		System.out.println(movie3 + " is already available");
+	    	else
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 	    }
  
@@ -169,6 +187,9 @@ public class MoviePickClient
 	    response = target.request().post( Entity.entity( movie4, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
+	    	if(response.getStatus() == 303)
+	    		System.out.println(movie4 + " is already available");
+	    	else
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 	    }
  
@@ -258,6 +279,9 @@ public class MoviePickClient
 	    response = target.request().post( Entity.entity( movie1theater1show, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
+	    	if(response.getStatus() == 303)
+	    		System.out.println(movie1theater1show + " is already available");
+	    	else
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 	    }
  
@@ -273,6 +297,9 @@ public class MoviePickClient
 	    response = target.request().post( Entity.entity( movie1theater2show, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
+	    	if(response.getStatus() == 303)
+	    		System.out.println(movie1theater2show + " is already available");
+	    	else
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 	    }
  
@@ -288,6 +315,9 @@ public class MoviePickClient
 	    response = target.request().post( Entity.entity( movie1theater3show, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
+	    	if(response.getStatus() == 303)
+	    		System.out.println(movie1theater3show + " is already available");
+	    	else
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 	    }
 	     
@@ -304,6 +334,9 @@ public class MoviePickClient
 	    response = target.request().post( Entity.entity( theater1movie2show, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
+	    	if(response.getStatus() == 303)
+	    		System.out.println(theater1movie2show + " is already available");
+	    	else
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 	    }
  
@@ -319,6 +352,9 @@ public class MoviePickClient
 	    response = target.request().post( Entity.entity( theater1movie3show, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
+	    	if(response.getStatus() == 303)
+	    		System.out.println(theater1movie3show + " is already available");
+	    	else
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 	    }
  
@@ -334,6 +370,9 @@ public class MoviePickClient
 	    response = target.request().post( Entity.entity( theater2movie2show, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
+	    	if(response.getStatus() == 303)
+	    		System.out.println(theater2movie2show + " is already available");
+	    	else
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 	    }
  
@@ -349,6 +388,9 @@ public class MoviePickClient
 	    response = target.request().post( Entity.entity( theater3movie3show, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
+	    	if(response.getStatus() == 303)
+	    		System.out.println(theater3movie3show + " is already available");
+	    	else
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 	    }
  
