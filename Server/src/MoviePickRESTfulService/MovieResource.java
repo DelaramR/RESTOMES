@@ -56,7 +56,7 @@ public class MovieResource{
   public Movie getEntryJSON(@PathParam("id") Integer id){
     final Movie movie = movieDB.get(id);
     if(movie == null){
-      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+      return Response.status(Response.Status.NOT_FOUND).build();
     }
     return movie;
   }
@@ -67,7 +67,7 @@ public class MovieResource{
   public Response updateMovieJSON(@PathParam("id") Integer id, Movie movie){
     Movie current = movieDB.get(id);
     if(current == null){
-      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+      return Response.status(Response.Status.NOT_FOUND).build();
     }
     current.setMovieTitle(movie.getMovieTitle());
     current.setGenre(movie.getGenre());
@@ -81,7 +81,7 @@ public class MovieResource{
   public Response deleteMovie(@PathParam("id") Integer id){
     Movie movie = movieDB.get(id);
     if(movie == null)
-      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+      return Response.status(Response.Status.NOT_FOUND).build();
     movieDB.remove(id);
     for(ShowTime time : TheaterResource.showTimes){
       if(time.getMovie().equals(movie)){
@@ -98,7 +98,7 @@ public class MovieResource{
     ArrayList<ShowTime> shows = new ArrayList<ShowTime>();
     Movie movie = movieDB.get(id);
     if(movie == null)
-      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+      return Response.status(Response.Status.NOT_FOUND).build();
     for(ShowTime show : TheaterResource.showTimes){
       if(show.getMovie().equals(movie)){
         shows.add(show);
@@ -113,11 +113,11 @@ public class MovieResource{
   public Response registerMovie2Theater(@PathParam("id") Integer movieId, IntStringArray theaterIdShows){
     Movie movie = movieDB.get(movieId);
     if(movie == null)
-      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+      return Response.status(Response.Status.NOT_FOUND).build();
     int theaterId = theaterIdShows.getInteger();
     Theater theater = TheaterResource.theaterDB.get(theaterId);
     if(theater == null)
-      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+      return Response.status(Response.Status.NOT_FOUND).build();
     ArrayList<String> shows = theaterIdShows.getStringArray();
     for(ShowTime time : TheaterResource.showTimes){
       if(time.getMovie().equals(movie) && time.getTheater().equals(theater)){
@@ -137,10 +137,10 @@ public class MovieResource{
     ArrayList<ShowTime> shows = new ArrayList<ShowTime>();
     Movie movie = movieDB.get(movieId);
     if(movie == null)
-      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+      return Response.status(Response.Status.NOT_FOUND).build();
     Theater theater = TheaterResource.theaterDB.get(theaterId);
     if(theater == null)
-      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+      return Response.status(Response.Status.NOT_FOUND).build();
     for(ShowTime show : TheaterResource.showTimes){
       if(show.getMovie().equals(movie) && show.getTheater().equals(theater))
         shows.add(show);
@@ -153,10 +153,10 @@ public class MovieResource{
   public Response deleteShowsJSON(@PathParam("id") Integer movieId, @PathParam("id1") Integer theaterId){
     Movie movie = movieDB.get(movieId);
     if(movie == null)
-      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+      return Response.status(Response.Status.NOT_FOUND).build();
     Theater theater = TheaterResource.theaterDB.get(theaterId);
     if(theater == null)
-      throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+      return Response.status(Response.Status.NOT_FOUND).build();
     for(ShowTime time : TheaterResource.showTimes){
       if(time.getMovie().equals(movie) && time.getTheater().equals(theater)){
         TheaterResource.showTimes.remove(time);
@@ -171,7 +171,7 @@ public class MovieResource{
   public Map<Integer, Movie> getMovieByGenre(@PathParam("genre") String genre){
     Map<Integer, Movie> movies = new HashMap<Integer, Movie>();
     for(Map.Entry<Integer, Movie> entry : movieDB.entrySet()){
-      if(entry.getValue().getGenre().compareTo(genre) == 0){
+      if(entry.getValue().getGenre().toLowerCase().compareTo(genre.toLowerCase()) == 0){
         movies.put(entry.getKey(), entry.getValue());
       }
     }
