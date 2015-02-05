@@ -83,7 +83,7 @@ public class TheaterResource
     {
         final Theater theater = theaterDB.get(id);
         if (theater == null)
-            return Response.status(Response.Status.NOT_FOUND).build();
+            throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
         return theater;
     }
     
@@ -169,7 +169,7 @@ public class TheaterResource
     {
         Theater theater = theaterDB.get(theaterId);
         if (theater == null)
-            return Response.status(Response.Status.NOT_FOUND).build();
+            throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
          
         ArrayList<ShowTime> theaterShows = new ArrayList<ShowTime>();     
         for (ShowTime st : showTimes){
@@ -190,10 +190,10 @@ public class TheaterResource
     {
         Theater theater = theaterDB.get(theaterId);
         if (theater == null)
-            return Response.status(Response.Status.NOT_FOUND).build();
+            throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
             Movie movie = MovieResource.movieDB.get(movieId);
         if (movie == null)
-            return Response.status(Response.Status.NOT_FOUND).build();
+            throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
          
         ShowTime movieShows = new ShowTime();     
         for (ShowTime st : showTimes){
