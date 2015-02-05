@@ -49,6 +49,8 @@ public class TheaterResource
     @Consumes( MediaType.APPLICATION_JSON )
     public Response createEntryJSON( Theater theater ) 
     {
+        if(theaterDB.containsValue(theater))
+            throw new NoLogWebApplicationException( Response.Status.FOUND );
         Integer id = theaterDB.size() + 1;
         theaterDB.put(id, theater);
         return Response.created( URI.create("/theater/" + id) ).build();
@@ -144,8 +146,8 @@ public class TheaterResource
         
         for(ShowTime time : showTimes){
             if(time.getMovie().equals(movie) && time.getTheater().equals(theater)){
-                time.addAllTime(shows);
-                return Response.created( URI.create("/theater/" + theaterId + "/movie/" + movieId) ).build();
+                //time.addAllTime(shows);
+                throw new NoLogWebApplicationException(Response.Status.FOUND);
             }
         }
         ShowTime showTimeObj = new ShowTime(movie, theater, shows);
@@ -197,4 +199,21 @@ public class TheaterResource
         }
         return movieShows;
     }
+    
+    @DELETE
+    @Path("{id}/movie/{id1}")
+    public Response deleteShowsJSON(@PathParam("id") Integer theaterId, @PathParam("id1") Integer movieId){
+        Movie movie = movieDB.get(movieId);
+        if(movie == null)
+            throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+        Theater theater = TheaterResource.theaterDB.get(theaterId);
+        if(theater == null)
+            throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+        for(ShowTime time : TheaterResource.showTimes){
+            if(time.getMovie().equals(movie) && time.getTheater().equals(theater)){
+                TheaterResource.showTimes.remove(time);
+            }
+        }
+    return Response.ok().build();
+  }
 }
