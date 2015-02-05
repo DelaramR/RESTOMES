@@ -77,7 +77,7 @@ public class TheaterResource
      * @return a theater object requested; it will be converted to JSON using a JSON provider (Jackson)
      */
     @GET
-    @Path( "{id}" )
+    @Path( "{id: [1-9][0-9]*}" )
     @Produces( MediaType.APPLICATION_JSON )
     public Theater getEntryJSON(@PathParam("id") Integer id) 
     {
@@ -94,7 +94,7 @@ public class TheaterResource
      * @return a response encoding
      */
     @PUT
-    @Path( "{id}" )
+    @Path( "{id: [1-9][0-9]*}" )
     @Consumes( MediaType.APPLICATION_JSON )
     public Response updateTheaterJSON( @PathParam("id") Integer id, Theater theater ) 
     {
@@ -112,7 +112,7 @@ public class TheaterResource
      * @return a response encoding
      */
     @DELETE
-    @Path( "{id}" )
+    @Path( "{id: [1-9][0-9]*}" )
     public Response deleteTheater( @PathParam("id") Integer id ) 
     {
         Theater theater = theaterDB.get(id);
@@ -134,7 +134,7 @@ public class TheaterResource
      * @return a response encoding
      */
     @POST
-    @Path( "{id}/movie" )
+    @Path( "{id: [1-9][0-9]*}/movie" )
     @Consumes( MediaType.APPLICATION_JSON )
     public Response registerTheaterForMovieJSON( @PathParam("id") Integer theaterId, IntStringArray movieIdShows ) 
     {
@@ -163,7 +163,7 @@ public class TheaterResource
      * @return a movie object requested; it will be converted to JSON using a JSON provider (Jackson)
      */
     @GET
-    @Path( "{id}/movie/" )
+    @Path( "{id: [1-9][0-9]*}/movie/" )
     @Produces( MediaType.APPLICATION_JSON )
     public ArrayList<ShowTime> getMovieShowTimesInTheaterJSON( @PathParam("id") Integer theaterId) 
     {
@@ -184,7 +184,7 @@ public class TheaterResource
      * @return a movie object requested; it will be converted to JSON using a JSON provider (Jackson)
      */
     @GET
-    @Path( "{theaterId}/movie/{movieId}" )
+    @Path( "{theaterId: [1-9][0-9]*}/movie/{movieId: [1-9][0-9]*}" )
     @Produces( MediaType.APPLICATION_JSON )
     public ShowTime getShowTimesOfTheaterForMovieJSON( @PathParam("theaterId") Integer theaterId, @PathParam("movieId") Integer movieId) 
     {
@@ -204,7 +204,7 @@ public class TheaterResource
     }
     
     @DELETE
-    @Path("{id}/movie/{id1}")
+    @Path("{id: [1-9][0-9]*}/movie/{id1: [1-9][0-9]*}")
     public Response deleteShowsJSON(@PathParam("id") Integer theaterId, @PathParam("id1") Integer movieId){
         Movie movie = MovieResource.movieDB.get(movieId);
         if(movie == null)
