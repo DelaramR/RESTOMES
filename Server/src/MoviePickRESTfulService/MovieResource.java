@@ -56,7 +56,7 @@ public class MovieResource{
   public Movie getEntryJSON(@PathParam("id") Integer id){
     final Movie movie = movieDB.get(id);
     if(movie == null){
-      return Response.status(Response.Status.NOT_FOUND).build();
+      throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
     }
     return movie;
   }
@@ -98,7 +98,7 @@ public class MovieResource{
     ArrayList<ShowTime> shows = new ArrayList<ShowTime>();
     Movie movie = movieDB.get(id);
     if(movie == null)
-      return Response.status(Response.Status.NOT_FOUND).build();
+      throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
     for(ShowTime show : TheaterResource.showTimes){
       if(show.getMovie().equals(movie)){
         shows.add(show);
@@ -137,10 +137,10 @@ public class MovieResource{
     ArrayList<ShowTime> shows = new ArrayList<ShowTime>();
     Movie movie = movieDB.get(movieId);
     if(movie == null)
-      return Response.status(Response.Status.NOT_FOUND).build();
+      throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
     Theater theater = TheaterResource.theaterDB.get(theaterId);
     if(theater == null)
-      return Response.status(Response.Status.NOT_FOUND).build();
+      throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
     for(ShowTime show : TheaterResource.showTimes){
       if(show.getMovie().equals(movie) && show.getTheater().equals(theater))
         shows.add(show);
