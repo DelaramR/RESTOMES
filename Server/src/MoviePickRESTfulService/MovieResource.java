@@ -82,7 +82,7 @@ public class MovieResource{
     movieDB.remove(id);
     for(ShowTime time : TheaterResource.showTimes){
       if(time.getMovie().equals(movie)){
-        TheaterResource.showTime.remove(time);
+        TheaterResource.showTimes.remove(time);
       }
     }
     return Response.ok().build();
