@@ -42,7 +42,7 @@ public class Movie{
   }
   
   public boolean equals(Movie movie){
-    if(this.movieTitle.compareTo(movie.getMovieTitle()) == 0 && this.genre.compareTo(movie.getGenre()) == 0)
+    if(this.movieTitle.toLowerCase().compareTo(movie.getMovieTitle().toLowerCase()) == 0 && this.genre.toLowerCase().compareTo(movie.getGenre().toLowerCase()) == 0)
       return true;
     return false;
   }
