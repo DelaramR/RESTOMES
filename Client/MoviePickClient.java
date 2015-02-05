@@ -320,7 +320,7 @@ public class MoviePickClient
  
 	    URI theater1movie4link = response.getLocation();
 	    response.close();	// this response must be closed before we can reuse the client object
-	    System.out.println( "theater and the showtimes for a movie added; location: " + theater3movie3link.toString() );
+	    System.out.println( "theater and the showtimes for a movie added; location: " + theater1movie4link.toString() );
 	    
 	    // === Add theater2movie2show using POST request (JSON) ===
 	    // ===================================================
