@@ -49,8 +49,11 @@ public class TheaterResource
     @Consumes( MediaType.APPLICATION_JSON )
     public Response createEntryJSON( Theater theater ) 
     {
-        if(theaterDB.containsValue(theater))
-            return Response.created( URI.create("/theater/" + id) ).build();
+        for(Map.Entry<Integer, Theater> entry : theaterDB.entrySet()){
+            if(entry.getValue().equals(theater)){
+                return Response.created( URI.create("/theater/" + entry.getKey()) ).build();
+            }
+        }
         Integer id = theaterDB.size() + 1;
         theaterDB.put(id, theater);
         return Response.created( URI.create("/theater/" + id) ).build();
