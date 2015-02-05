@@ -36,7 +36,7 @@ public class MovieResource{
     System.out.println( "MovieResource.createEntry" );
     for(Map.Entry<Integer, Movie> entry : movieDB.entrySet()){
       if(entry.getValue().equals(movie)){
-        return Response.created( URI.create("/movie/" + entry.getKey()) ).build(); 
+        return Response.status(Response.Status.FOUND).build(); 
       }
     }
     Integer id = movieDB.size() + 1;
@@ -122,7 +122,7 @@ public class MovieResource{
     for(ShowTime time : TheaterResource.showTimes){
       if(time.getMovie().equals(movie) && time.getTheater().equals(theater)){
         //time.addAllTime(shows);
-        return Response.created( URI.create("/movie/" + movieId + "/theater/" + theaterId) ).build();
+        return Response.status(Response.Status.FOUND).build(); 
       }
     }
     ShowTime newShowTime = new ShowTime(movie, theater, shows);
@@ -165,4 +165,29 @@ public class MovieResource{
     return Response.ok().build();
   }
   
+  @GET
+  @Path("genre/{genre: [A-Z][a-zA-Z]*}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Map<Integer, Movie> getMovieByGenre(@PathParam("genre") String genre){
+    Map<Integer, Movie> movies = new HashMap<Integer, Movie>();
+    for(Map.Entry<Integer, Movie> entry : movieDB.entrySet()){
+      if(entry.getValue().getGenre().compareTo(genre) == 0){
+        movies.put(entry.getKey(), entry.getValue());
+      }
+    }
+    return movies;
+  }
+  
+  @GET
+  @Path("rate/{rate: [1-5]}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Map<Integer, Movie> getMovieByRate(@PathParam("rate") Integer rate){
+    Map<Integer, Movie> movies = new HashMap<Integer, Movie>();
+    for(Map.Entry<Integer, Movie> entry : movieDB.entrySet()){
+      if(entry.getValue().getRate() == rate){
+        movies.put(entry.getKey(), entry.getValue());
+      }
+    }
+    return movies;
+  }
 }
