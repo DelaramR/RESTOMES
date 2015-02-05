@@ -34,8 +34,11 @@ public class MovieResource{
   @Consumes( MediaType.APPLICATION_JSON )
   public Response createEntryJSON( Movie movie ){
     System.out.println( "MovieResource.createEntry" );
-    if(movieDB.containsValue(movie))
-      return Response.created( URI.create("/movie/" + id) ).build();
+    for(Map.Entry<Integer, Movie> entry : movieDB.entrySet()){
+      if(entry.getValue().equals(movie)){
+        return Response.created( URI.create("/movie/" + entry.getKey()) ).build(); 
+      }
+    }
     Integer id = movieDB.size() + 1;
     movieDB.put(id, movie);
     return Response.created( URI.create("/movie/" + id) ).build();
