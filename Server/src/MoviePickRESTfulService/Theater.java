@@ -31,7 +31,7 @@ public class Theater{
   }
   
   public boolean equals(Theater theater){
-    if(this.theaterName.compareTo(theater.getTheaterName()) == 0 && this.theaterAddress.compareTo(theater.getTheaterAddress()) == 0)
+    if(this.theaterName.toLowerCase().compareTo(theater.getTheaterName().toLowerCase()) == 0 && this.theaterAddress.toLowerCase().compareTo(theater.getTheaterAddress().toLowerCase()) == 0)
       return true;
     return false;
   }
