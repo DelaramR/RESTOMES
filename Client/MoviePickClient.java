@@ -458,6 +458,46 @@ public class MoviePickClient
 	    }
 	    response.close();
 	    
+	    // === Retrieve movies with the same genre using a GET request and JSON representation ===
+	    // ===============================================================================
+	    // perform a GET request, asking for an JSON representation
+	    System.out.println();
+	    System.out.println( "Retrieving movies by genre (JSON representation): " );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie/genre/Drama" );
+            response = target.request( MediaType.APPLICATION_JSON ).get();
+
+            if( response.getStatus() != 200 ) {
+                throw new RuntimeException( "GET Request failed: HTTP code: " + response.getStatus() );
+            }
+	    else {
+		System.out.println( "OK: Retrieved the movies by genre" );
+
+		String m = response.readEntity( String.class );
+		System.out.println( m );
+	    }
+	    response.close();
+	    
+	    // === Retrieve movies with the same rate using a GET request and JSON representation ===
+	    // ===============================================================================
+	    // perform a GET request, asking for an JSON representation
+	    System.out.println();
+	    System.out.println( "Retrieving movies by rate (JSON representation): " );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie/rate/3" );
+            response = target.request( MediaType.APPLICATION_JSON ).get();
+
+            if( response.getStatus() != 200 ) {
+                throw new RuntimeException( "GET Request failed: HTTP code: " + response.getStatus() );
+            }
+	    else {
+		System.out.println( "OK: Retrieved the movies by rate" );
+
+		String m = response.readEntity( String.class );
+		System.out.println( m );
+	    }
+	    response.close();
+	    
 	} 
 	catch( Exception e ) {
 	    System.out.println( e );
