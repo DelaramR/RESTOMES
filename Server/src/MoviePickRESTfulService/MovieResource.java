@@ -166,7 +166,7 @@ public class MovieResource{
   }
   
   @GET
-  @Path("genre/{genre: [a-z]+}")
+  @Path("genre/{genre: [A-Za-z]+}")
   @Produces(MediaType.APPLICATION_JSON)
   public Map<Integer, Movie> getMovieByGenre(@PathParam("genre") String genre){
     Map<Integer, Movie> movies = new HashMap<Integer, Movie>();
