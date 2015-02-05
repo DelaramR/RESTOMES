@@ -203,13 +203,13 @@ public class TheaterResource
     @DELETE
     @Path("{id}/movie/{id1}")
     public Response deleteShowsJSON(@PathParam("id") Integer theaterId, @PathParam("id1") Integer movieId){
-        Movie movie = movieDB.get(movieId);
+        Movie movie = MovieResource.movieDB.get(movieId);
         if(movie == null)
             throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
-        Theater theater = TheaterResource.theaterDB.get(theaterId);
+        Theater theater = theaterDB.get(theaterId);
         if(theater == null)
             throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
-        for(ShowTime time : TheaterResource.showTimes){
+        for(ShowTime time : showTimes){
             if(time.getMovie().equals(movie) && time.getTheater().equals(theater)){
                 TheaterResource.showTimes.remove(time);
             }
