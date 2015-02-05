@@ -123,23 +123,26 @@ public class TheaterResource
     @POST
     @Path( "{id}/movie" )
     @Consumes( MediaType.APPLICATION_JSON )
-    public Response registerTheaterForMovieJSON( @PathParam("id") Integer theaterId, Integer movieId, ArrayList<String> showTime ) 
+    public Response registerTheaterForMovieJSON( @PathParam("id") Integer theaterId, IntStringArray movieIdShows ) 
     {
         Theater theater = theaterDB.get(theaterId);
         if (theater == null)
             throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+        int movieId = movieIdShows.getInteger();
         Movie movie = MovieResource.movieDB.get(movieId);
         if (movie == null)
             throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+        ArrayList<String> shows = movieIdShow.getStringArray();
         
-        ShowTime showTimeObj = new ShowTime();
-        showTimeObj.setTime(showTime);
-        showTimeObj.setTheater(theater);
-        showTimeObj.setMovie(movie);
-        
+        for(ShowTime time : showTimes){
+            if(time.getMovie().equals(movie) && time.getTheater().equals(theater)){
+                time.addAllTime(shows);
+                return Response.created( URI.create("/theater/" + theaterId + "/movie/" + movieId) ).build();
+            }
+        }
+        ShowTime showTimeObj = new ShowTime(movie, theater, shows);
         showTimes.add(showTimeObj);
-        
-        return Response.created( URI.create("/theater/" + theaterId + "/movie/") ).build();
+        return Response.created( URI.create("/theater/" + theaterId + "/movie/" + movieId) ).build();
     }
     
     /**
@@ -179,11 +182,11 @@ public class TheaterResource
         if (movie == null)
             throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
          
-    ShowTime movieShows = new ShowTime();     
-    for (ShowTime st : showTimes){
-        if (st.getTheater().equals(theater) && st.getMovie().equals(movie))    
-            movieShows = st;
-    }
+        ShowTime movieShows = new ShowTime();     
+        for (ShowTime st : showTimes){
+            if (st.getTheater().equals(theater) && st.getMovie().equals(movie))    
+              movieShows = st;
+        }
         return movieShows;
     }
 }
