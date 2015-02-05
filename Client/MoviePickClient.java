@@ -360,7 +360,7 @@ public class MoviePickClient
 	    // ===============================================================================
 	    // perform a GET request, asking for an JSON representation
 	    System.out.println();
-	    System.out.println( "Retrieving theaters (JSON representation): " );
+	    System.out.println( "Retrieving movies (JSON representation): " );
 
 	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/theater/1/movie" );
             response = target.request( MediaType.APPLICATION_JSON ).get();
@@ -393,6 +393,26 @@ public class MoviePickClient
 
 		String t = response.readEntity( String.class );
 		System.out.println( t );
+	    }
+	    response.close();
+	    
+	    // === Retrieve movie1 from movies that are shown in theater1 using a GET request and JSON representation ===
+	    // ===============================================================================
+	    // perform a GET request, asking for an JSON representation
+	    System.out.println();
+	    System.out.println( "Retrieving a movie from a theater (JSON representation): " );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/theater/1/movie/1" );
+            response = target.request( MediaType.APPLICATION_JSON ).get();
+
+            if( response.getStatus() != 200 ) {
+                throw new RuntimeException( "GET Request failed: HTTP code: " + response.getStatus() );
+            }
+	    else {
+		System.out.println( "OK: Retrieved the movie and its show time from a theater" );
+
+		String m = response.readEntity( String.class );
+		System.out.println( m );
 	    }
 	    response.close();
 	    
