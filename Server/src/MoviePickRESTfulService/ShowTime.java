@@ -46,4 +46,8 @@ public class ShowTime{
   public void addTime(String time){
     this.time.add(time);
   }
+  
+  public void addAllTime(ArrayList<String> times){
+    this.time.addAll(times);
+  }
 }
