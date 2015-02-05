@@ -248,10 +248,10 @@ public class MoviePickClient
 		System.out.println( "OK: Deleted the movie" );
 	    response.close();
 
-	    // === Attempt to retrieve the deleted theater using a GET request using JSON representation
+	    // === Attempt to retrieve the deleted movie using a GET request using JSON representation
 	    // === This request SHOULD fail
 	    System.out.println();
-	    System.out.println( "Retrieving theater (JSON representation): " + movielink3 );
+	    System.out.println( "Retrieving movie (JSON representation): " + movielink3 );
 
 	    target = client.target( movielink3 );
             response = target.request( MediaType.APPLICATION_JSON ).get();
