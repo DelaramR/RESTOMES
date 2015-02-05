@@ -27,7 +27,7 @@ public class MoviePickClient
     static final String theater2 = "{\"theaterName\":\"Carmike\",\"theaterAddress\":\"Lexington Rd\"}";
     static final String theater3 = "{\"theaterName\":\"BeechWood\",\"theaterAddress\":\"Alps Rd\"}";
     
-    static final String movie1 = "{\"movieTitle\":\"American Sniper\",\"genre\":\"Wrong genre!\",\"rate\":5}";
+    static final String movie1 = "{\"movieTitle\":\"American Sniper\",\"genre\":\"Wrong genre!\",\"rate\":1}";
     static final String movie2 = "{\"movieTitle\":\"Paddington\",\"genre\":\"Comedy\",\"rate\":3}";
     static final String movie3 = "{\"movieTitle\":\"Black or White\",\"genre\":\"Drama\",\"rate\":2}";
     static final String movie4 = "{\"movieTitle\":\"The Loft\",\"genre\":\"Thriller\",\"rate\":4}";
