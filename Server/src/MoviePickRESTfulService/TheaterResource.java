@@ -110,7 +110,15 @@ public class TheaterResource
     @Path( "{id}" )
     public Response deleteTheater( @PathParam("id") Integer id ) 
     {
+        Theater theater = theaterDB.get(id);
+        if(theater == null)
+            throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
         theaterDB.remove( id );
+        for(ShowTime time : showTimes){
+            if(time.getTheater().equals(theater)){
+                showTimes.remove(time);
+            }
+        }
         return Response.ok().build();
     }
 
