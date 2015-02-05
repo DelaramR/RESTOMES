@@ -38,7 +38,7 @@ public class MoviePickClient
     static final String movie1theater3show = "{\"integer\":1,\"stringArray\":[\"Saturdays 7:30\",\"Sundays 6:00\"]}";
     
     static final String theater1movie2show = "{\"integer\":1,\"stringArray\":[\"Mondays 4:30\"]}";
-    static final String theater1movie4show = "{\"integer\":1,\"stringArray\":[\"Sundays 8:30\"]}";
+    static final String theater1movie3show = "{\"integer\":1,\"stringArray\":[\"Sundays 8:30\"]}";
     static final String theater2movie2show = "{\"integer\":2,\"stringArray\":[\"Saturdays 10:00\",\"Wednesdays 11:00\"]}";
     static final String theater3movie3show = "{\"integer\":3,\"stringArray\":[\"Fridays 6:30\"]}";
 	
@@ -311,20 +311,20 @@ public class MoviePickClient
 	    response.close();	// this response must be closed before we can reuse the client object
 	    System.out.println( "theater and the showtimes for a movie added; location: " + theater1movie2link.toString() );
 	    
-	    // === Add theater1movie4show using POST request (JSON) ===
+	    // === Add theater1movie3show using POST request (JSON) ===
 	    // ===================================================
-	    System.out.println( "Adding a theater and the showtimes to theaters that show a movie (JSON): " + theater1movie4show );
+	    System.out.println( "Adding a theater and the showtimes to theaters that show a movie (JSON): " + theater1movie3show );
 
-	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie/4/theater" );
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie/3/theater" );
 	    response = target.request().post( Entity.entity( theater1movie4show, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 	    }
  
-	    URI theater1movie4link = response.getLocation();
+	    URI theater1movie3link = response.getLocation();
 	    response.close();	// this response must be closed before we can reuse the client object
-	    System.out.println( "theater and the showtimes for a movie added; location: " + theater1movie4link.toString() );
+	    System.out.println( "theater and the showtimes for a movie added; location: " + theater1movie3link.toString() );
 	    
 	    // === Add theater2movie2show using POST request (JSON) ===
 	    // ===================================================
