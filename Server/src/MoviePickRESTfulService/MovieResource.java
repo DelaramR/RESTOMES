@@ -97,15 +97,21 @@ public class MovieResource{
   @POST
   @Path("{id}/theater")
   @Consumes(MediaType.APPLICATION_JSON)
-  public Response registerMovie2Theater(@PathParam("id") Integer movieId, Integer theaterId, String s, Integer i){//, ArrayList<String> shows){
+  public Response registerMovie2Theater(@PathParam("id") Integer movieId, IntStringArray theaterIdShows){
     Movie movie = movieDB.get(movieId);
     if(movie == null)
       throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+    int theaterId = theaterIdShows.getInteger();
     Theater theater = TheaterResource.theaterDB.get(theaterId);
     if(theater == null)
       throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
-    ArrayList<String> shows = new ArrayList<String>();
-    shows.add(i.toString());
+    ArrayList<String> shows = theaterIdShows.getStringArray();
+    for(ShowTime time : TheaterResource.showTimes){
+      if(time.getMovie().equals(movie) && time.getTheater().equals(theater)){
+        time.addAllTime(shows);
+        return Response.created( URI.create("/movie/" + movieId + "/theater/" + theaterId) ).build();
+      }
+    }
     ShowTime newShowTime = new ShowTime(movie, theater, shows);
     TheaterResource.showTimes.add(newShowTime);
     return Response.created( URI.create("/movie/" + movieId + "/theater/" + theaterId) ).build();
