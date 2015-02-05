@@ -285,11 +285,15 @@ public class MoviePickClient
 	    System.out.println( "Adding a movie and its showtimes to theater (JSON): " + movie1theater3show );
 
 	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/theater/3/movie" );
-	    response = target.request().post( Entity.entity( movie1theater2show, MediaType.APPLICATION_JSON ) );
+	    response = target.request().post( Entity.entity( movie1theater3show, MediaType.APPLICATION_JSON ) );
 
 	    if( response.getStatus() != 201 ) {
                 throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 	    }
+	     
+	    URI movie1theater3link = response.getLocation();
+	    response.close();	// this response must be closed before we can reuse the client object
+	    System.out.println( "movie and its showtimes added; location: " + movie1theater3link.toString() );
  
  	    // === Add theater1movie2show using POST request (JSON) ===
 	    // ===================================================
