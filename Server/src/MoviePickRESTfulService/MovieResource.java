@@ -36,7 +36,7 @@ public class MovieResource{
     System.out.println( "MovieResource.createEntry" );
     for(Map.Entry<Integer, Movie> entry : movieDB.entrySet()){
       if(entry.getValue().equals(movie)){
-        return Response.status(Response.Status.FOUND).build(); 
+        return Response.seeOther(URI.create("/movie/" + entry.getKey())).build(); 
       }
     }
     Integer id = movieDB.size() + 1;
@@ -122,7 +122,7 @@ public class MovieResource{
     for(ShowTime time : TheaterResource.showTimes){
       if(time.getMovie().equals(movie) && time.getTheater().equals(theater)){
         //time.addAllTime(shows);
-        return Response.status(Response.Status.FOUND).build(); 
+        return Response.seeOther(URI.create("/movie/" + movieId + "/theater/" + theaterId)).build(); 
       }
     }
     ShowTime newShowTime = new ShowTime(movie, theater, shows);
