@@ -1,6 +1,7 @@
 package MoviePickRESTfulService;
 
-import java.util.
+import java.util.ArrayList;
+
 public class IntStringArray{
   private Integer integer;
   private ArrayList<String> stringArray;
