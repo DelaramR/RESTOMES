@@ -132,7 +132,7 @@ public class TheaterResource
         Movie movie = MovieResource.movieDB.get(movieId);
         if (movie == null)
             throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
-        ArrayList<String> shows = movieIdShow.getStringArray();
+        ArrayList<String> shows = movieIdShows.getStringArray();
         
         for(ShowTime time : showTimes){
             if(time.getMovie().equals(movie) && time.getTheater().equals(theater)){
