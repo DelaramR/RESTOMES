@@ -33,6 +33,15 @@ public class MoviePickClient
     static final String movie4 = "{\"movieTitle\":\"The Loft\",\"genre\":\"Thriller\",\"rate\":4}";
     static final String movie5 = "{\"movieTitle\":\"American Sniper\",\"genre\":\"Action\",\"rate\":5}";
 
+    static final String movie1theater1show = "{\"integer\":1,\"stringArray\":[\"Tuesdays 2:30\",\"Thursdays 5:30\"]\"}";
+    static final String movie1theater2show = "{\"integer\":1,\"stringArray\":[\"Fridays 3:00\"]\"}";
+    static final String movie1theater3show = "{\"integer\":1,\"stringArray\":[\"Saturdays 7:30\",\"Sundays 6:00\"]\"}";
+    
+    static final String theater1movie2show = "{\"integer\":2,\"stringArray\":[\"Mondays 4:30\"]\"}";
+    static final String theater1movie4show = "{\"integer\":4,\"stringArray\":[\"Sundays 8:30\"]\"}";
+    static final String theater2movie2show = "{\"integer\":2,\"stringArray\":[\"Saturdays 10:00\",\"Wednesdays 11:00\"]\"}";
+    static final String theater3movie3show = "{\"integer\":3,\"stringArray\":[\"Fridays 6:30\"]\"}";
+	
     public static void main( String[] args )
     {
 	BufferedReader br = null;
@@ -240,6 +249,109 @@ public class MoviePickClient
 	    }
 	    response.close();
 
+    	    // === Add movie1theater1show using POST request (JSON) ===
+	    // ===================================================
+	    System.out.println();
+	    System.out.println( "Adding a movie and its showtimes to theater (JSON): " + movie1theater1show );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/theater/1/movie" );
+	    response = target.request().post( Entity.entity( movie1theater1show, MediaType.APPLICATION_JSON ) );
+
+	    if( response.getStatus() != 201 ) {
+                throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
+	    }
+ 
+	    URI movie1theater1link = response.getLocation();
+	    response.close();	// this response must be closed before we can reuse the client object
+	    System.out.println( "movie and its showtimes added; location: " + movie1theater1link.toString() );
+	    
+	    // === Add movie1theater2show using POST request (JSON) ===
+	    // ===================================================
+	    System.out.println( "Adding a movie and its showtimes to theater (JSON): " + movie1theater2show );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/theater/2/movie" );
+	    response = target.request().post( Entity.entity( movie1theater2show, MediaType.APPLICATION_JSON ) );
+
+	    if( response.getStatus() != 201 ) {
+                throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
+	    }
+ 
+	    URI movie1theater2link = response.getLocation();
+	    response.close();	// this response must be closed before we can reuse the client object
+	    System.out.println( "movie and its showtimes added; location: " + movie1theater2link.toString() );
+	    
+	    // === Add movie1theater3show using POST request (JSON) ===
+	    // ===================================================
+	    System.out.println( "Adding a movie and its showtimes to theater (JSON): " + movie1theater3show );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/theater/3/movie" );
+	    response = target.request().post( Entity.entity( movie1theater2show, MediaType.APPLICATION_JSON ) );
+
+	    if( response.getStatus() != 201 ) {
+                throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
+	    }
+ 
+ 	    // === Add theater1movie2show using POST request (JSON) ===
+	    // ===================================================
+	    System.out.println();
+	    System.out.println( "Adding a theater and the showtimes to theaters that show a movie (JSON): " + theater1movie2show );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie/2/theater" );
+	    response = target.request().post( Entity.entity( theater1movie2show, MediaType.APPLICATION_JSON ) );
+
+	    if( response.getStatus() != 201 ) {
+                throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
+	    }
+ 
+	    URI theater1movie2link = response.getLocation();
+	    response.close();	// this response must be closed before we can reuse the client object
+	    System.out.println( "theater and the showtimes for a movie added; location: " + theater1movie2link.toString() );
+	    
+	    // === Add theater1movie4show using POST request (JSON) ===
+	    // ===================================================
+	    System.out.println( "Adding a theater and the showtimes to theaters that show a movie (JSON): " + theater1movie4show );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie/4/theater" );
+	    response = target.request().post( Entity.entity( theater1movie4show, MediaType.APPLICATION_JSON ) );
+
+	    if( response.getStatus() != 201 ) {
+                throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
+	    }
+ 
+	    URI theater1movie4link = response.getLocation();
+	    response.close();	// this response must be closed before we can reuse the client object
+	    System.out.println( "theater and the showtimes for a movie added; location: " + theater3movie3link.toString() );
+	    
+	    // === Add theater2movie2show using POST request (JSON) ===
+	    // ===================================================
+	    System.out.println( "Adding a theater and the showtimes to theaters that show a movie (JSON): " + theater2movie2show );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie/2/theater" );
+	    response = target.request().post( Entity.entity( theater2movie2show, MediaType.APPLICATION_JSON ) );
+
+	    if( response.getStatus() != 201 ) {
+                throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
+	    }
+ 
+	    URI theater2movie2link = response.getLocation();
+	    response.close();	// this response must be closed before we can reuse the client object
+	    System.out.println( "theater and the showtimes for a movie added; location: " + theater2movie2link.toString() );
+	    
+	    // === Add theater3movie3show using POST request (JSON) ===
+	    // ===================================================
+	    System.out.println( "Adding a theater and the showtimes to theaters that show a movie (JSON): " + theater3movie3show );
+
+	    target = client.target( "http://uml.cs.uga.edu:8080/cs8350_5/rest/movie/3/theater" );
+	    response = target.request().post( Entity.entity( theater3movie3show, MediaType.APPLICATION_JSON ) );
+
+	    if( response.getStatus() != 201 ) {
+                throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
+	    }
+ 
+	    URI theater3movie3link = response.getLocation();
+	    response.close();	// this response must be closed before we can reuse the client object
+	    System.out.println( "theater and the showtimes for a movie added; location: " + theater3movie3link.toString() );
+	    
 	} 
 	catch( Exception e ) {
 	    System.out.println( e );
