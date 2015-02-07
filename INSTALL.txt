@@ -1,1 +1,14 @@
+There exists an ant build file in the current directory which provides the following options:
+1. Cleaning the project                                                         ant clean
+2. Compiling the web service server side application                            ant compile
+3. Creating a war file from the web service in order for deployment             ant war
+4. Deploying the server side application on uml machine                         ant deploy
+5. Compiling the client side application                                        ant client
 
+In order to run the client application run the following command from the current directory
+        java -cp .:Server/WebContent/WEB-INF/new-lib/* MoviePickClient
+        
+Client side application is a sequence of POST, PUT, GET and DELETE commands on the available resources.
+Client side has no interface, in order to do additional orders, please use one of the available plugins on browsers and do
+the desired and allowed functionality on a specific resource with a specific JSON object.
+Examples of JSON objects required for each command are available in UserGuide.pdf document.
