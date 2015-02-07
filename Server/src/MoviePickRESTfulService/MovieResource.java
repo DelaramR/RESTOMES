@@ -30,6 +30,11 @@ public class MovieResource{
   
   public static final Map<Integer, Movie> movieDB = new HashMap<Integer, Movie>();
   
+  /**
+     * Create a new movie entry using a JSON representation.
+     * @param movie the new movie object data; this will be converted to POJO by a JSON provider (Jackson)
+     * @return a response encoding
+     */
   @POST
   @Consumes( MediaType.APPLICATION_JSON )
   public Response createEntryJSON( Movie movie ){
@@ -44,12 +49,21 @@ public class MovieResource{
     return Response.created( URI.create("/movie/" + id) ).build();
   }
   
+     /**
+     * Retrieve all movies and return them as an object, using a JSON representation
+     * @return map object of all movies; it will be converted to JSON using a JSON provider (Jackson)
+     */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public Map<Integer, Movie> returnListJSON(){
     return movieDB;
   }
   
+     /**
+     * Retrieve a movie entry and return it as an object, using a JSON representation
+     * @param id path parameter identifying the movie entry
+     * @return a movie object requested; it will be converted to JSON using a JSON provider (Jackson)
+     */
   @GET
   @Path( "{id: [1-9][0-9]*}" )
   @Produces(MediaType.APPLICATION_JSON)
@@ -61,6 +75,12 @@ public class MovieResource{
     return movie;
   }
   
+  /**
+     * Update a movie entry using a JSON representation
+     * @param movie a new movie object data to be used as an update
+     * @param id path parameter identifying the movie resource to update
+     * @return a response encoding
+     */
   @PUT
   @Path("{id: [1-9][0-9]*}")
   @Consumes(MediaType.APPLICATION_JSON)
@@ -76,6 +96,11 @@ public class MovieResource{
     return Response.ok().build();
   }
   
+  /**
+     * Delete a movie entry
+     * @param id path parameter identifying the movie resource to delete
+     * @return a response encoding
+     */
   @DELETE
   @Path("{id: [1-9][0-9]*}")
   public Response deleteMovie(@PathParam("id") Integer id){
@@ -91,6 +116,11 @@ public class MovieResource{
     return Response.ok().build();
   }
   
+  /**
+     * Retrieve a list of theaters that are showing a movie with the showtims and return it as an object, using a JSON representation
+     * @param id path parameter identifying the movie entry
+     * @return a list of showtims object requested; it will be converted to JSON using a JSON provider (Jackson)
+     */
   @GET
   @Path("{id: [1-9][0-9]*}/theater")
   @Produces(MediaType.APPLICATION_JSON)
@@ -107,6 +137,11 @@ public class MovieResource{
     return shows;
   }
   
+  /**
+     * Register a movie to be shown in a theater, using a JSON representation
+     * @param id path parameter identifying the movie entry
+     * @return a response encoding
+     */
   @POST
   @Path("{id: [1-9][0-9]*}/theater")
   @Consumes(MediaType.APPLICATION_JSON)
@@ -130,6 +165,12 @@ public class MovieResource{
     return Response.created( URI.create("/movie/" + movieId + "/theater/" + theaterId) ).build();
   }
   
+  /**
+     * Retrieve movie showtims in a theater return it as an object, using a JSON representation
+     * @param id path parameter identifying the movie entry
+     * @param id1 path parameter identifying the theater entry
+     * @return a list of showtims object requested; it will be converted to JSON using a JSON provider (Jackson)
+     */
   @GET
   @Path("{id: [1-9][0-9]*}/theater/{id1: [1-9][0-9]*}")
   @Produces(MediaType.APPLICATION_JSON)
@@ -148,6 +189,12 @@ public class MovieResource{
     return shows;
   }
   
+  /**
+     * Delete a movie from a theater
+     * @param id path parameter identifying the movie resource to delete from the theater
+     * @param id1 path parameter identifying the theater resource to deleter from the theaters that are showing the movie
+     * @return a response encoding
+     */
   @DELETE
   @Path("{id: [1-9][0-9]*}/theater/{id1: [1-9][0-9]*}")
   public Response deleteShowsJSON(@PathParam("id") Integer movieId, @PathParam("id1") Integer theaterId){
@@ -165,6 +212,11 @@ public class MovieResource{
     return Response.ok().build();
   }
   
+    /**
+     * Retrieve a list of movies by genre and return it as an object, using a JSON representation
+     * @param genre path parameter identifying a genre
+     * @return a list of movies object requested; it will be converted to JSON using a JSON provider (Jackson)
+     */
   @GET
   @Path("genre/{genre: [A-Za-z]+}")
   @Produces(MediaType.APPLICATION_JSON)
@@ -178,6 +230,11 @@ public class MovieResource{
     return movies;
   }
   
+    /**
+     * Retrieve a list of movies and return it as an object, using a JSON representation
+     * @param rate path parameter identifying a rate value
+     * @return a list of movies object requested; it will be converted to JSON using a JSON provider (Jackson)
+     */
   @GET
   @Path("rate/{rate: [1-5]}")
   @Produces(MediaType.APPLICATION_JSON)
