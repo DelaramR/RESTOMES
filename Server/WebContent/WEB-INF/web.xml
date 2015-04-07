@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <web-app>
-    <display-name>MoviePick Web Application</display-name>
+    <display-name>Ontology Meta-data Extractor RESTful Application</display-name>
 
     <context-param>
        <param-name>resteasy.servlet.mapping.prefix</param-name>
@@ -13,7 +13,7 @@
         <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
         <init-param>
            <param-name>javax.ws.rs.Application</param-name>
-           <param-value>MoviePickRESTfulService.MoviePickApplication</param-value>
+           <param-value>RESTOMES.OntologyMetadataExtractorApplication</param-value>
         </init-param>
     </servlet>
 
