@@ -1,4 +1,4 @@
-package MoviePickRESTfulService;
+package RESTOMES;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +11,7 @@ import javax.ws.rs.core.Application;
  * It contains singleton objects representing the resource classes.
  *
  */
-public class MoviePickApplication extends Application
+public class OntologyMetadataExtractorApplication extends Application
 {
     private Set<Object> singletons = new HashSet<Object>();
     private Set<Class<?>> empty = new HashSet<Class<?>>();
