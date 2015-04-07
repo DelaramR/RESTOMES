@@ -1,4 +1,4 @@
-package MoviePickRESTfulService;
+package RESTOMES;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,7 +26,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.jboss.resteasy.spi.NoLogWebApplicationException;
 
 @Path("/movie")
-public class MovieResource{
+public class OntologyResource{
   
   public static final Map<Integer, Movie> movieDB = new HashMap<Integer, Movie>();
   
