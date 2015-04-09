@@ -1,4 +1,4 @@
-<project name="MoviePick_team_5" default="war">
+<project name="RESTOMES" default="war">
   <!--
   1. clean
   2. compile
@@ -20,7 +20,7 @@
     <delete>
       <fileset dir="Server/WebContent/WEB-INF/classes/" includes="**/*.class, *.class"/>
     </delete>
-    <delete file="cs8350_5.war"/>
+    <delete file="RESTOMES.war"/>
     <delete>
       <fileset dir="." includes="*.class"/>
     </delete>
@@ -34,14 +34,14 @@
   </target>
   <target name="war" depends="compile">
     <echo>Building a war file</echo>
-    <war destfile="cs8350_5.war" webxml="Server/WebContent/WEB-INF/web.xml">
+    <war destfile="RESTOMES.war" webxml="Server/WebContent/WEB-INF/web.xml">
       <fileset dir="Server/WebContent" excludes="**/web.xml, **/**/*.jar"/>
     </war>
   </target>
   <target name="deploy" depends="war">
     <echo>Deploying the war file</echo>
-    <copy overwrite="yes" file="cs8350_5.war" todir="/opt/wildfly-8.2.0.Final/standalone/deployments"/>
-    <chmod file="/opt/wildfly-8.2.0.Final/standalone/deployments/cs8350_5.war" perm="a+r"/>
+    <copy overwrite="yes" file="RESTOMES.war" todir="/opt/wildfly-8.2.0.Final/standalone/deployments"/>
+    <chmod file="/opt/wildfly-8.2.0.Final/standalone/deployments/RESTOMES" perm="a+r"/>
   </target>
   <target name="client">
     <echo>Compile the client code</echo>
