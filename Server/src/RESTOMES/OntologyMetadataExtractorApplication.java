@@ -16,9 +16,8 @@ public class OntologyMetadataExtractorApplication extends Application
     private Set<Object> singletons = new HashSet<Object>();
     private Set<Class<?>> empty = new HashSet<Class<?>>();
 
-    public MoviePickApplication() {
-        singletons.add(new MovieResource());
-        singletons.add(new TheaterResource());
+    public OntologyMetadataExtractorApplication() {
+        singletons.add(new OntologyResource());
     }
 
     @Override
