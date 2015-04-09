@@ -28,6 +28,7 @@
   <target name="compile" depends="clean">
     <echo>Compile the source files</echo>
     <property name="myclasspath" refid="classpath"/>
+    <mkdir dir="Server/WebContent/WEB-INF/classes"/>
     <javac srcdir="Server/src" destdir="Server/WebContent/WEB-INF/classes">
       <classpath refid="classpath"/>
     </javac>
