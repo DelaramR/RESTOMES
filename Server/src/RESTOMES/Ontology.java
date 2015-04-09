@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class Ontology{
 
-    private Strin name;
+    private String name;
     private Map<Integer, OntologyClass> ontologyClasses;
     private Map<Integer, ObjectProperty> objectProperties;
     private Map<Integer, DataProperty> dataProperties;
