@@ -138,7 +138,7 @@ public class OntologyResource{
     Ontology ontology = ontologyDB.get(oid);
     if(ontology == null)
       throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
-    DataProperty dataProperty = ontology.getDataProperties.get(dpid);
+    DataProperty dataProperty = ontology.getDataProperties().get(dpid);
     if(dataProperty == null)
       throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
     return dataProperty;
@@ -158,7 +158,7 @@ public class OntologyResource{
     Ontology ontology = ontologyDB.get(oid);
     if(ontology == null)
       throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
-    ObjectProperty objectProperty = ontology.getObjectProperties.get(opid);
+    ObjectProperty objectProperty = ontology.getObjectProperties().get(opid);
     if(objectProperty == null)
       throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
     return objectProperty;
