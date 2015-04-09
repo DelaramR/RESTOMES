@@ -10,10 +10,8 @@ import java.util.Map;
 import java.util.ArrayList;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -25,156 +23,118 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.jboss.resteasy.spi.NoLogWebApplicationException;
 
-@Path("/movie")
+@Path("/ontology")
 public class OntologyResource{
   
-  public static final Map<Integer, Movie> movieDB = new HashMap<Integer, Movie>();
+  public static final Map<Integer, Ontology> ontologyDB = new HashMap<Integer, Ontology>();
   
   /**
-     * Create a new movie entry using a JSON representation.
-     * @param movie the new movie object data; this will be converted to POJO by a JSON provider (Jackson)
+     * Register a new ontology entry using a JSON representation.
+     * @param ontology the new ontology object data; this will be converted to POJO by a JSON provider (Jackson)
      * @return a response encoding
      */
   @POST
   @Consumes( MediaType.APPLICATION_JSON )
-  public Response createEntryJSON( Movie movie ){
-    System.out.println( "MovieResource.createEntry" );
-    for(Map.Entry<Integer, Movie> entry : movieDB.entrySet()){
-      if(entry.getValue().equals(movie)){
-        return Response.seeOther(URI.create("/movie/" + entry.getKey())).build(); 
+  public Response createEntryJSON( Ontology ontology ){
+    System.out.println( "OntologyResource.createEntry" );
+    for(Map.Entry<Integer, Vntology> entry : ontologyDB.entrySet()){
+      if(entry.getValue().equals(ontology)){
+        return Response.seeOther(URI.create("/ontology/" + entry.getKey())).build(); 
       }
     }
-    Integer id = movieDB.size() + 1;
-    movieDB.put(id, movie);
-    return Response.created( URI.create("/movie/" + id) ).build();
+    Integer id = ontologyDB.size() + 1;
+    ontologyDB.put(id, ontology);
+    return Response.created( URI.create("/ontology/" + id) ).build();
   }
   
      /**
-     * Retrieve all movies and return them as an object, using a JSON representation
-     * @return map object of all movies; it will be converted to JSON using a JSON provider (Jackson)
+     * Retrieve all URI of ontologies and return them as an object, using a JSON representation
+     * @return map object of all ontologies; it will be converted to JSON using a JSON provider (Jackson)
      */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public Map<Integer, Movie> returnListJSON(){
-    return movieDB;
+  public Map<Integer, Ontology> returnListJSON(){
+    return ontologyDB;
   }
   
      /**
-     * Retrieve a movie entry and return it as an object, using a JSON representation
-     * @param id path parameter identifying the movie entry
-     * @return a movie object requested; it will be converted to JSON using a JSON provider (Jackson)
+     * Retrieve an ontology entry and return it as an object, using a JSON representation
+     * @param id path parameter identifying the ontology entry
+     * @return an ontology object requested; it will be converted to JSON using a JSON provider (Jackson)
      */
   @GET
-  @Path( "{id: [1-9][0-9]*}" )
+  @Path( "{oid: [1-9][0-9]*}" )
   @Produces(MediaType.APPLICATION_JSON)
-  public Movie getEntryJSON(@PathParam("id") Integer id){
-    final Movie movie = movieDB.get(id);
-    if(movie == null){
+  public Ontology getEntryJSON(@PathParam("oid") Integer id){
+    final Ontology ontology = ontologyDB.get(id);
+    if(ontology == null){
       throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
     }
-    return movie;
+    return ontology;
   }
   
-  /**
-     * Update a movie entry using a JSON representation
-     * @param movie a new movie object data to be used as an update
-     * @param id path parameter identifying the movie resource to update
-     * @return a response encoding
+  
+     /**
+     * Retrieve all URIs of classes of an ontology and return them as an object, using a JSON representation
+     * @param oid path parameter identifying the ontology entry
+     * @return map object of all classes; it will be converted to JSON using a JSON provider (Jackson)
      */
-  @PUT
-  @Path("{id: [1-9][0-9]*}")
-  @Consumes(MediaType.APPLICATION_JSON)
-  public Response updateMovieJSON(@PathParam("id") Integer id, Movie movie){
-    Movie current = movieDB.get(id);
-    if(current == null){
-      return Response.status(Response.Status.NOT_FOUND).build();
+  @GET
+  @Path( "{oid: [1-9][0-9]*}/class" )
+  @Produces(MediaType.APPLICATION_JSON)
+  public Map<Integer, OntClass> getEntryJSON(@PathParam("oid") Integer id){
+    final Ontology ontology = ontologyDB.get(id);
+    if(ontology == null){
+      throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
     }
-    current.setMovieTitle(movie.getMovieTitle());
-    current.setGenre(movie.getGenre());
-    current.setRate((current.getRate() + movie.getRate())/2);
+    Map<Integer, OntClass> classMap = ontology.getontologyClasses();
+    return classMap;
+  }
+  
+     /**
+     * Retrieve all URIs of dataproperties of an ontology and return them as an object, using a JSON representation
+     * @param oid path parameter identifying the ontology entry
+     * @return map object of all dataproperties; it will be converted to JSON using a JSON provider (Jackson)
+     */
+  @GET
+  @Path( "{oid: [1-9][0-9]*}/dataproperty" )
+  @Produces(MediaType.APPLICATION_JSON)
+  public Map<Integer, DataProperty> getEntryJSON(@PathParam("oid") Integer id){
+    final Ontology ontology = ontologyDB.get(id);
+    if(ontology == null){
+      throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
+    }
+    Map<Integer, DataProperty> dataPropertyMap = ontology.getdataProperties();
+    return dataPropertyMap;
+  }
     
-    return Response.ok().build();
-  }
-  
-  /**
-     * Delete a movie entry
-     * @param id path parameter identifying the movie resource to delete
-     * @return a response encoding
-     */
-  @DELETE
-  @Path("{id: [1-9][0-9]*}")
-  public Response deleteMovie(@PathParam("id") Integer id){
-    Movie movie = movieDB.get(id);
-    if(movie == null)
-      return Response.status(Response.Status.NOT_FOUND).build();
-    movieDB.remove(id);
-    for(ShowTime time : TheaterResource.showTimes){
-      if(time.getMovie().equals(movie)){
-        TheaterResource.showTimes.remove(time);
-      }
-    }
-    return Response.ok().build();
-  }
-  
-  /**
-     * Retrieve a list of theaters that are showing a movie with the showtims and return it as an object, using a JSON representation
-     * @param id path parameter identifying the movie entry
-     * @return a list of showtims object requested; it will be converted to JSON using a JSON provider (Jackson)
+     /**
+     * Retrieve all URIs of object properties of an ontology and return them as an object, using a JSON representation
+     * @param oid path parameter identifying the ontology entry
+     * @return map object of all dataproperties; it will be converted to JSON using a JSON provider (Jackson)
      */
   @GET
-  @Path("{id: [1-9][0-9]*}/theater")
+  @Path( "{oid: [1-9][0-9]*}/objectproperty" )
   @Produces(MediaType.APPLICATION_JSON)
-  public ArrayList<ShowTime> getTheatersShowTimeForMovie(@PathParam("id") Integer id){
-    ArrayList<ShowTime> shows = new ArrayList<ShowTime>();
-    Movie movie = movieDB.get(id);
-    if(movie == null)
+  public Map<Integer, ObjectProperty> getEntryJSON(@PathParam("oid") Integer id){
+    final Ontology ontology = ontologyDB.get(id);
+    if(ontology == null){
       throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
-    for(ShowTime show : TheaterResource.showTimes){
-      if(show.getMovie().equals(movie)){
-        shows.add(show);
-      }
     }
-    return shows;
+    Map<Integer, ObjectProperty> objectPropertyMap = ontology.getobjectProperties();
+    return objectPropertyMap;
   }
   
   /**
-     * Register a movie to be shown in a theater, using a JSON representation
-     * @param id path parameter identifying the movie entry
-     * @return a response encoding
-     */
-  @POST
-  @Path("{id: [1-9][0-9]*}/theater")
-  @Consumes(MediaType.APPLICATION_JSON)
-  public Response registerMovie2Theater(@PathParam("id") Integer movieId, IntStringArray theaterIdShows){
-    Movie movie = movieDB.get(movieId);
-    if(movie == null)
-      return Response.status(Response.Status.NOT_FOUND).build();
-    int theaterId = theaterIdShows.getInteger();
-    Theater theater = TheaterResource.theaterDB.get(theaterId);
-    if(theater == null)
-      return Response.status(Response.Status.NOT_FOUND).build();
-    ArrayList<String> shows = theaterIdShows.getStringArray();
-    for(ShowTime time : TheaterResource.showTimes){
-      if(time.getMovie().equals(movie) && time.getTheater().equals(theater)){
-        //time.addAllTime(shows);
-        return Response.seeOther(URI.create("/movie/" + movieId + "/theater/" + theaterId)).build(); 
-      }
-    }
-    ShowTime newShowTime = new ShowTime(movie, theater, shows);
-    TheaterResource.showTimes.add(newShowTime);
-    return Response.created( URI.create("/movie/" + movieId + "/theater/" + theaterId) ).build();
-  }
-  
-  /**
-     * Retrieve movie showtims in a theater return it as an object, using a JSON representation
-     * @param id path parameter identifying the movie entry
-     * @param id1 path parameter identifying the theater entry
-     * @return a list of showtims object requested; it will be converted to JSON using a JSON provider (Jackson)
+     * Retrieve dataproperty of a class of an ontology as an object, using a JSON representation
+     * @param oid path parameter identifying the ontology entry
+     * @param dpid path parameter identifying the dataproperty entry
+     * @return a datapropert object requested; it will be converted to JSON using a JSON provider (Jackson)
      */
   @GET
-  @Path("{id: [1-9][0-9]*}/theater/{id1: [1-9][0-9]*}")
+  @Path("{oid: [1-9][0-9]*}/dataproperty/{dpid: [1-9][0-9]*}")
   @Produces(MediaType.APPLICATION_JSON)
-  public ArrayList<ShowTime> getShowTimesOfMovieInTheaterJSON(@PathParam("id") Integer movieId, @PathParam("id1") Integer theaterId){
+  public DataProperty getEntryJSON(@PathParam("oid") Integer oid, @PathParam("dpid") Integer dpid){
     ArrayList<ShowTime> shows = new ArrayList<ShowTime>();
     Movie movie = movieDB.get(movieId);
     if(movie == null)
