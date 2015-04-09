@@ -52,7 +52,7 @@ public class Ontology{
 	return this.dataProperties;
     }
 
-    public void setDataProperties(Map<Integer, DaraProperty> dProperties){
+    public void setDataProperties(Map<Integer, DataProperty> dProperties){
 	this.dataProperties = dProperties;
     }
 }
