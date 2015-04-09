@@ -37,8 +37,8 @@ public class OntologyResource{
   @Consumes( MediaType.APPLICATION_JSON )
   public Response createEntryJSON( Ontology ontology ){
     System.out.println( "OntologyResource.createEntry" );
-    for(Map.Entry<Integer, Vntology> entry : ontologyDB.entrySet()){
-      if(entry.getValue().equals(ontology)){
+    for(Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
+      if(entry.getValue().getName().equals(ontology.getName())){
         return Response.seeOther(URI.create("/ontology/" + entry.getKey())).build(); 
       }
     }
@@ -82,12 +82,12 @@ public class OntologyResource{
   @GET
   @Path( "{oid: [1-9][0-9]*}/class" )
   @Produces(MediaType.APPLICATION_JSON)
-  public Map<Integer, OntClass> getEntryJSON(@PathParam("oid") Integer id){
+  public Map<Integer, OntologyClass> getEntryJSON(@PathParam("oid") Integer id){
     final Ontology ontology = ontologyDB.get(id);
     if(ontology == null){
       throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
     }
-    Map<Integer, OntClass> classMap = ontology.getOntologyClasses();
+    Map<Integer, OntologyClass> classMap = ontology.getOntologyClasses();
     return classMap;
   }
   
