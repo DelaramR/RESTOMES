@@ -35,7 +35,7 @@ public class OntologyResource{
      */
   @POST
   @Consumes( MediaType.APPLICATION_JSON )
-  public Response createEntryJSON( Ontology ontology ){
+  public Response createOntologyEntryJSON( Ontology ontology ){
     System.out.println( "OntologyResource.createEntry" );
     for(Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
       if(entry.getValue().getName().equals(ontology.getName())){
@@ -53,7 +53,7 @@ public class OntologyResource{
      */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public Map<Integer, Ontology> returnListJSON(){
+  public Map<Integer, Ontology> returnOntologyListJSON(){
     return ontologyDB;
   }
   
@@ -65,7 +65,7 @@ public class OntologyResource{
   @GET
   @Path( "{oid: [1-9][0-9]*}" )
   @Produces(MediaType.APPLICATION_JSON)
-  public Ontology getEntryJSON(@PathParam("oid") Integer id){
+  public Ontology getOntologyEntryJSON(@PathParam("oid") Integer id){
     final Ontology ontology = ontologyDB.get(id);
     if(ontology == null){
       throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
@@ -82,7 +82,7 @@ public class OntologyResource{
   @GET
   @Path( "{oid: [1-9][0-9]*}/class" )
   @Produces(MediaType.APPLICATION_JSON)
-  public Map<Integer, OntologyClass> getEntryJSON(@PathParam("oid") Integer id){
+  public Map<Integer, OntologyClass> getClassListJSON(@PathParam("oid") Integer id){
     final Ontology ontology = ontologyDB.get(id);
     if(ontology == null){
       throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
@@ -99,7 +99,7 @@ public class OntologyResource{
   @GET
   @Path( "{oid: [1-9][0-9]*}/dataproperty" )
   @Produces(MediaType.APPLICATION_JSON)
-  public Map<Integer, DataProperty> getEntryJSON(@PathParam("oid") Integer id){
+  public Map<Integer, DataProperty> getDataPropertyListJSON(@PathParam("oid") Integer id){
     final Ontology ontology = ontologyDB.get(id);
     if(ontology == null){
       throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
@@ -116,7 +116,7 @@ public class OntologyResource{
   @GET
   @Path( "{oid: [1-9][0-9]*}/objectproperty" )
   @Produces(MediaType.APPLICATION_JSON)
-  public Map<Integer, ObjectProperty> getEntryJSON(@PathParam("oid") Integer id){
+  public Map<Integer, ObjectProperty> getObjectPropertyListJSON(@PathParam("oid") Integer id){
     final Ontology ontology = ontologyDB.get(id);
     if(ontology == null){
       throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
@@ -134,7 +134,7 @@ public class OntologyResource{
   @GET
   @Path("{oid: [1-9][0-9]*}/dataproperty/{dpid: [1-9][0-9]*}")
   @Produces(MediaType.APPLICATION_JSON)
-  public DataProperty getEntryJSON(@PathParam("oid") Integer oid, @PathParam("dpid") Integer dpid){
+  public DataProperty getDataPropertyEntryJSON(@PathParam("oid") Integer oid, @PathParam("dpid") Integer dpid){
     Ontology ontology = ontologyDB.get(oid);
     if(ontology == null)
       throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
@@ -154,7 +154,7 @@ public class OntologyResource{
   @GET
   @Path("{oid: [1-9][0-9]*}/objectproperty/{opid: [1-9][0-9]*}")
   @Produces(MediaType.APPLICATION_JSON)
-  public ObjectProperty getEntryJSON(@PathParam("oid") Integer oid, @PathParam("opid") Integer dpid){
+  public ObjectProperty getObjectPropertyEntryJSON(@PathParam("oid") Integer oid, @PathParam("opid") Integer opid){
     Ontology ontology = ontologyDB.get(oid);
     if(ontology == null)
       throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
