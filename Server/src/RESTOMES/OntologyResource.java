@@ -44,10 +44,10 @@ public class OntologyResource{
     try{
       //byte[] bytes = ontologyContent.getBytes();
       File f = new File(ontologyFileName);
-      //FileOutputStream fop = new FileOutputStream(f);
+      FileOutputStream fop = new FileOutputStream(f);
       //fop.write(bytes);
       //fop.flush();
-      //fop.close();
+      fop.close();
       //File ontologyFile = new File(ontologyFileName);
       Ontology ontology = new Ontology();
       ontology.setFilePath(ontologyFileName);
