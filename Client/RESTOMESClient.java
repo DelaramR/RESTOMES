@@ -25,7 +25,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 // This client is using the new JAX-RS 2.0 client interface
 //
 public class RESTOMESClient{
-	public static String CreateJsonFile(String filePath, String fileName) throws FileNotFoundException{ 
+	public static String CreateJsonFile(String filePath, String fileName) throws FileNotFoundException, IOException{ 
 		File file = new File(filePath);
 		byte[] bytes = new byte[(int)file.length()];
 		FileInputStream fstream = new FileInputStream(file);
