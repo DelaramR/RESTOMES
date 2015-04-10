@@ -41,19 +41,23 @@ public class OntologyResource{
     System.out.println( "OntologyResource.createEntry" );
     String ontologyName = file.getName();
     String ontologyContent = file.getContent();
-    convertFile(ontologyName, ontologyContent);
-    File ontologyFile = new File(ontologyName);
-    Ontology ontology = new Ontology();
-    ontology.setName(ontologyName);
-    
-    for(Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
-      if(entry.getValue().getName().equals(ontology.getName())){
-        return Response.seeOther(URI.create("/ontology/" + entry.getKey())).build(); 
+    try{
+      convertFile(ontologyName, ontologyContent);
+      File ontologyFile = new File(ontologyName);
+      Ontology ontology = new Ontology();
+      ontology.setName(ontologyName);
+      
+      for(Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
+        if(entry.getValue().getName().equals(ontology.getName())){
+          return Response.seeOther(URI.create("/ontology/" + entry.getKey())).build(); 
+        }
       }
+      Integer id = ontologyDB.size() + 1;
+      ontologyDB.put(id, ontology);
+      return Response.created( URI.create("/ontology/" + id) ).build();
+    }catch(IOException ex){
+      return Response.status(Response.Status.NOT_FOUND).entity("Entity not found for: " + ontologyName).build();
     }
-    Integer id = ontologyDB.size() + 1;
-    ontologyDB.put(id, ontology);
-    return Response.created( URI.create("/ontology/" + id) ).build();
   }
   
      /**
