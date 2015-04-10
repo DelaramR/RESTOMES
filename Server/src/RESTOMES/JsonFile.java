@@ -1,6 +1,6 @@
 package RESTOMES;
 
-public class JasonFile{
+public class JsonFile{
 
 	private String name;
 	private String content;
