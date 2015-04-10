@@ -8,6 +8,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
+import java.io.FileOutputStream;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -35,10 +36,17 @@ public class OntologyResource{
      */
   @POST
   @Consumes( MediaType.APPLICATION_JSON )
-  public Response createOntologyEntryJSON( Ontology ontology ){
+  public Response createOntologyEntryJSON( JsonFile file ){
     System.out.println( "OntologyResource.createEntry" );
+    String ontologyName = file.getName();
+    String ontologyContent = file.getContent();
+    convertFile(ontologyName, ontologyContent);
+    File ontologyFile = new File(ontologyName);
+    Ontology ontology = new Ontology();
+    ontology.setName(ontologyName);
+    
     for(Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
-      if(entry.getValue().getName().equals(ontology.getName())){
+      if(entry.getValue().getName().equals(ontology.getName()){
         return Response.seeOther(URI.create("/ontology/" + entry.getKey())).build(); 
       }
     }
@@ -163,4 +171,13 @@ public class OntologyResource{
       throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
     return objectProperty;
   }
+  
+  public void convertFile(String name, String content) throws IOException{
+        byte[] bytes = content.getBytes();
+        File file = new File(name);
+        FileOutputStream fop = new FileOutputStream(file);
+        fop.write(bytes);
+        fop.flush();
+        fop.close();
+    }
 }
