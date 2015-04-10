@@ -5,7 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.File;
-import java.nio.file.Files;
+import java.io.FileInputStream;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -29,8 +29,10 @@ public class RESTOMESClient{
 	public static JsonObject CreateJsonFile(String filePath){
 		String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
 		File file = new File(filePath);
-		byte[] bytes = Files.readAllBytes(file.toPath());   
-        String fileString = new String(Base64.encode(bytes));
+		byte[] bytes = new byte[(int)file.length()];
+		FileInputStream fstream = new FileInputStream(file);
+		fstream.read(bytes, 0, bytes.lenght);
+        String fileString = new String(bytes);
 		JsonObject object = Json.createObjectBuilder()
 			.add("name", fileName)
 			.add("content", fileString)
