@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.io.FileOutputStream;
+import java.io.File;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
