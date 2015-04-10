@@ -39,18 +39,19 @@ public class OntologyResource{
   @Consumes( MediaType.APPLICATION_JSON )
   public Response createOntologyEntryJSON( JsonFile file ){
     System.out.println( "OntologyResource.createEntry" );
-    String ontologyName = file.getName();
+    String ontologyFileName = file.getName();
     String ontologyContent = file.getContent();
     try{
       byte[] bytes = ontologyContent.getBytes();
-      File file = new File(ontologyName);
+      File file = new File(ontologyFileName);
       FileOutputStream fop = new FileOutputStream(file);
       fop.write(bytes);
       fop.flush();
       fop.close();
-      File ontologyFile = new File(ontologyName);
+      File ontologyFile = new File(ontologyFileName);
       Ontology ontology = new Ontology();
-      ontology.setName(ontologyName);
+      ontology.setFilePath(ontologyFileName);
+      ontology.setName(ontologyFileName.substring(0,ontologyFileName.lastIndexOf(".")));
       
       for(Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
         if(entry.getValue().getName().equals(ontology.getName())){
