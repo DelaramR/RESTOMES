@@ -77,6 +77,10 @@ public class RESTOMESClient{
 				System.out.println( t );
 			}
 			response.close();
-		}	
+		}
+		catch( Exception e ) {
+			System.out.println( e );
+			e.printStackTrace();
+		}
 	}
 }
