@@ -42,12 +42,12 @@ public class OntologyResource{
     String ontologyFileName = file.getName();
     String ontologyContent = file.getContent();
     try{
-      byte[] bytes = ontologyContent.getBytes();
+      //byte[] bytes = ontologyContent.getBytes();
       File f = new File(ontologyFileName);
-      FileOutputStream fop = new FileOutputStream(f);
-      fop.write(bytes);
-      fop.flush();
-      fop.close();
+      //FileOutputStream fop = new FileOutputStream(f);
+      //fop.write(bytes);
+      //fop.flush();
+      //fop.close();
       //File ontologyFile = new File(ontologyFileName);
       Ontology ontology = new Ontology();
       ontology.setFilePath(ontologyFileName);
