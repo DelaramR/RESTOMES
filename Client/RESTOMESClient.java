@@ -29,7 +29,7 @@ public class RESTOMESClient{
 		byte[] bytes = new byte[(int)file.length()];
 		FileInputStream fstream = new FileInputStream(file);
 		fstream.read(bytes, 0, bytes.length);
-        String fileString = new String(Base64.encode(bytes));
+        String fileString = new String(bytes);
 		String object = "{\"name\":\"" + fileName + "\",\"content\":\"" + fileString + "\"}";
 		return object;
 	}
