@@ -43,14 +43,14 @@ public class RESTOMESClient{
 		String output = null;
 		try {
 			JsonObject ontology = RESTOMESClient.CreateJsonFile(args[0]);
-			System.out.println( "Creating an ontology (JSON): " + ontology );
+			System.out.println( "Creating an ontology (JSON): " + ontology.getString("name") );
 			ResteasyClient client = new ResteasyClientBuilder().build();
 			ResteasyWebTarget target = client.target( "http://uml.cs.uga.edu:8080/RESTOMES/rest/ontology" );
 			Response response = target.request().post( Entity.entity( ontology, MediaType.APPLICATION_JSON ) );
 			
 			if( response.getStatus() != 201 ) {
 				if(response.getStatus() == 303)
-					System.out.println(theater1 + " is already available");
+					System.out.println(ontology.getString("name") + " is already available");
 				else
 					throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 			}
