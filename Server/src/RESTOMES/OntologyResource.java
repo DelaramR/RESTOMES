@@ -48,7 +48,7 @@ public class OntologyResource{
       fop.write(bytes);
       fop.flush();
       fop.close();
-      File ontologyFile = new File(ontologyFileName);
+      //File ontologyFile = new File(ontologyFileName);
       Ontology ontology = new Ontology();
       ontology.setFilePath(ontologyFileName);
       ontology.setName(ontologyFileName.substring(0,ontologyFileName.lastIndexOf(".")));
