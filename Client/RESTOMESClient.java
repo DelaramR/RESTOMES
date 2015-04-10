@@ -5,7 +5,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.File;
+import java.io.Files;
 import java.io.FileInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 
 import java.net.MalformedURLException;
@@ -27,10 +29,15 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 public class RESTOMESClient{
 	public static String CreateJsonFile(String filePath, String fileName) throws FileNotFoundException, IOException{ 
 		File file = new File(filePath);
-		System.out.println((int)file.length());
 		byte[] bytes = new byte[(int)file.length()];
 		FileInputStream fstream = new FileInputStream(file);
-		fstream.read(bytes, 0, bytes.length);
+		ByteArrayOutputStream ostream = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024];
+		for(int n; (n = fstream.read(buffer)) != -1;){
+			ostream.write(buffer, 0, n);
+		}
+		
+		byte[] bytes = ostream.toByteArray();
         String fileString = new String(bytes);
 		String object = "{\"name\":\"" + fileName + "\",\"content\":\"" + fileString + "\"}";
 		return object;
