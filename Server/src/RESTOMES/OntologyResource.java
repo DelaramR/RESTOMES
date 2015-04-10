@@ -60,8 +60,7 @@ public class OntologyResource{
       }
       Integer id = ontologyDB.size() + 1;
       ontologyDB.put(id, ontology);
-      //return Response.created( URI.create("/ontology/" + id) ).build();
-      return Response.created( URI.create(ontologyContent) ).build();
+      return Response.created( URI.create("/ontology/" + id) ).build();
     }catch(IOException ex){
       return Response.status(Response.Status.NOT_FOUND).entity("Entity not found for: " + ontologyFileName).build();
     }
