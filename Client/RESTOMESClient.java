@@ -19,25 +19,18 @@ import javax.ws.rs.client.Entity;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
-import javax.json.Json;
-import javax.json.JsonObjectBuilder;
-import java.util.Base64;
 
 
 // This client is using the new JAX-RS 2.0 client interface
 //
 public class RESTOMESClient{
-	public static JsonObject CreateJsonFile(String filePath){
-		String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
+	public static String CreateJsonFile(String filePath, String fileName){
 		File file = new File(filePath);
 		byte[] bytes = new byte[(int)file.length()];
 		FileInputStream fstream = new FileInputStream(file);
 		fstream.read(bytes, 0, bytes.length);
         String fileString = new String(Base64.encode(bytes));
-		JsonObject object = Json.createObjectBuilder()
-			.add("name", fileName)
-			.add("content", fileString)
-			.build();
+		String object = "{\"name\":\"" + fileName + "\",\"content\":\"" + fileString + "\"}";
 		return object;
 	}
 	
@@ -45,15 +38,16 @@ public class RESTOMESClient{
 		BufferedReader br = null;
 		String output = null;
 		try {
-			JsonObject ontology = RESTOMESClient.CreateJsonFile(args[0]);
-			System.out.println( "Creating an ontology (JSON): " + ontology.getString("name") );
+			String ontologyName = args[0].substring(args[0].lastIndexOf("/" + 1);
+			String ontology = RESTOMESClient.CreateJsonFile(args[0], ontologyName);
+			System.out.println( "Creating an ontology (JSON): " + ontologyName );
 			ResteasyClient client = new ResteasyClientBuilder().build();
 			ResteasyWebTarget target = client.target( "http://uml.cs.uga.edu:8080/RESTOMES/rest/ontology" );
 			Response response = target.request().post( Entity.entity( ontology, MediaType.APPLICATION_JSON ) );
 			
 			if( response.getStatus() != 201 ) {
 				if(response.getStatus() == 303)
-					System.out.println(ontology.getString("name") + " is already available");
+					System.out.println(ontologyName + " is already available");
 				else
 					throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 			}
