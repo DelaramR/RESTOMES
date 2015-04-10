@@ -38,7 +38,7 @@ public class RESTOMESClient{
 		BufferedReader br = null;
 		String output = null;
 		try {
-			String ontologyName = args[0].substring(args[0].lastIndexOf("/" + 1);
+			String ontologyName = args[0].substring(args[0].lastIndexOf("/" + 1));
 			String ontology = RESTOMESClient.CreateJsonFile(args[0], ontologyName);
 			System.out.println( "Creating an ontology (JSON): " + ontologyName );
 			ResteasyClient client = new ResteasyClientBuilder().build();
