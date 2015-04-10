@@ -27,6 +27,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 public class RESTOMESClient{
 	public static String CreateJsonFile(String filePath, String fileName) throws FileNotFoundException, IOException{ 
 		File file = new File(filePath);
+		System.out.println((int)file.length());
 		byte[] bytes = new byte[(int)file.length()];
 		FileInputStream fstream = new FileInputStream(file);
 		fstream.read(bytes, 0, bytes.length);
@@ -41,7 +42,7 @@ public class RESTOMESClient{
 		try {
 			String ontologyName = args[0].substring(args[0].lastIndexOf("/") + 1);
 			String ontology = RESTOMESClient.CreateJsonFile(args[0], ontologyName);
-			System.out.print(ontology);
+			System.out.println(ontology);
 			System.out.println( "Creating an ontology (JSON): " + ontologyName );
 			ResteasyClient client = new ResteasyClientBuilder().build();
 			ResteasyWebTarget target = client.target( "http://uml.cs.uga.edu:8080/RESTOMES/rest/ontology" );
