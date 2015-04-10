@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -24,7 +25,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 // This client is using the new JAX-RS 2.0 client interface
 //
 public class RESTOMESClient{
-	public static String CreateJsonFile(String filePath, String fileName){
+	public static String CreateJsonFile(String filePath, String fileName) throws FileNotFoundException{ 
 		File file = new File(filePath);
 		byte[] bytes = new byte[(int)file.length()];
 		FileInputStream fstream = new FileInputStream(file);
