@@ -42,7 +42,12 @@ public class OntologyResource{
     String ontologyName = file.getName();
     String ontologyContent = file.getContent();
     try{
-      convertFile(ontologyName, ontologyContent);
+      byte[] bytes = ontologyContent.getBytes();
+      File file = new File(ontologyName);
+      FileOutputStream fop = new FileOutputStream(file);
+      fop.write(bytes);
+      fop.flush();
+      fop.close();
       File ontologyFile = new File(ontologyName);
       Ontology ontology = new Ontology();
       ontology.setName(ontologyName);
@@ -176,13 +181,4 @@ public class OntologyResource{
       throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
     return objectProperty;
   }
-  
-  public void convertFile(String name, String content) throws IOException{
-        byte[] bytes = content.getBytes();
-        File file = new File(name);
-        FileOutputStream fop = new FileOutputStream(file);
-        fop.write(bytes);
-        fop.flush();
-        fop.close();
-    }
 }
