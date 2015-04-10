@@ -17,7 +17,7 @@ public class Ontology{
 		this.ontologyClasses = new HashMap<Integer, OntologyClass>();
 		this.objectProperties = new HashMap<Integer, ObjectProperty>();
 		this.dataProperties = new HashMap<Integer, DataProperty>();
-    }
+	}
 
     public Ontology(String file, String name, Map<Integer, OntologyClass> classes, Map<Integer, ObjectProperty> oProperties, Map<Integer, DataProperty> dProperties){	
     	this.filePath = file;
