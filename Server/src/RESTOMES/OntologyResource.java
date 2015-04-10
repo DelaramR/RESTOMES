@@ -43,8 +43,8 @@ public class OntologyResource{
     String ontologyContent = file.getContent();
     try{
       byte[] bytes = ontologyContent.getBytes();
-      File file = new File(ontologyFileName);
-      FileOutputStream fop = new FileOutputStream(file);
+      File f = new File(ontologyFileName);
+      FileOutputStream fop = new FileOutputStream(f);
       fop.write(bytes);
       fop.flush();
       fop.close();
@@ -62,7 +62,7 @@ public class OntologyResource{
       ontologyDB.put(id, ontology);
       return Response.created( URI.create("/ontology/" + id) ).build();
     }catch(IOException ex){
-      return Response.status(Response.Status.NOT_FOUND).entity("Entity not found for: " + ontologyName).build();
+      return Response.status(Response.Status.NOT_FOUND).entity("Entity not found for: " + ontologyFileName).build();
     }
   }
   
