@@ -19,7 +19,7 @@ import javax.ws.rs.client.Entity;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
-import javax.json;
+import javax.json.*;
 import java.util.Base64;
 
 
@@ -31,7 +31,7 @@ public class RESTOMESClient{
 		File file = new File(filePath);
 		byte[] bytes = new byte[(int)file.length()];
 		FileInputStream fstream = new FileInputStream(file);
-		fstream.read(bytes, 0, bytes.lenght);
+		fstream.read(bytes, 0, bytes.length);
         String fileString = new String(bytes);
 		JsonObject object = Json.createObjectBuilder()
 			.add("name", fileName)
