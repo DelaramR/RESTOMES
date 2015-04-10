@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.io.File;
 
 public class Ontology{
-
+	
 	private String filePath;
     private String name;
     private Map<Integer, OntologyClass> ontologyClasses;
