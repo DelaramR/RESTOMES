@@ -37,20 +37,23 @@ public class OntologyResource{
      */
   @POST
   @Consumes( MediaType.APPLICATION_JSON )
-  public Response createOntologyEntryJSON( JsonFile file ){
+  public Response createOntologyEntryJSON( OntologyJsonObject object ){ //JsonFile file ){
     System.out.println( "OntologyResource.createEntry" );
-    String ontologyFileName = file.getName();
-    String ontologyContent = file.getContent();
-    try{
+    // String ontologyFileName = file.getName();
+    // String ontologyContent = file.getContent();
+    String ontologyName = object.getName();
+    String ontologyUrl = object.getUrl();
+    // try{
       //byte[] bytes = ontologyContent.getBytes();
-      File f = new File(ontologyFileName);
-      FileOutputStream fop = new FileOutputStream(f);
+      // File f = new File(ontologyFileName);
+      // FileOutputStream fop = new FileOutputStream(f);
       //fop.write(bytes);
       //fop.flush();
-      fop.close();
+      // fop.close();
       //File ontologyFile = new File(ontologyFileName);
+      
       Ontology ontology = new Ontology();
-      ontology.setFilePath(ontologyFileName);
+      ontology.setUrl(ontologyUrl);
       ontology.setName(ontologyFileName.substring(0,ontologyFileName.lastIndexOf(".")));
       
       for(Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
@@ -61,9 +64,9 @@ public class OntologyResource{
       Integer id = ontologyDB.size() + 1;
       ontologyDB.put(id, ontology);
       return Response.created( URI.create("/ontology/" + id) ).build();
-    }catch(IOException ex){
-      return Response.status(Response.Status.NOT_FOUND).entity("Entity not found for: " + ontologyFileName).build();
-    }
+    // }catch(IOException ex){
+      // return Response.status(Response.Status.NOT_FOUND).entity("Entity not found for: " + ontologyFileName).build();
+    // }
   }
   
      /**
