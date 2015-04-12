@@ -54,7 +54,7 @@ public class OntologyResource{
       
       Ontology ontology = new Ontology();
       ontology.setUrl(ontologyUrl);
-      ontology.setName(ontologyFileName.substring(0,ontologyFileName.lastIndexOf(".")));
+      ontology.setName(ontologyName);
       
       for(Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
         if(entry.getValue().getName().equals(ontology.getName())){
