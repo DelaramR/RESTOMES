@@ -25,6 +25,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.jboss.resteasy.spi.NoLogWebApplicationException;
 
+import com.hp.hpl.jena.rdf.model.*;
+import com.hp.hpl.jena.query.*;
+
 @Path("/ontology")
 public class OntologyResource{
   
@@ -55,6 +58,10 @@ public class OntologyResource{
       Ontology ontology = new Ontology();
       ontology.setUrl(ontologyUrl);
       ontology.setName(ontologyName);
+
+      Model model = ModelFactory.createDefaultModel();
+      model = model.read(ontologyUrl);
+//      String query = "select ?class where { ?class 
       
       for(Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
         if(entry.getValue().getUrl().equals(ontology.getUrl())){
