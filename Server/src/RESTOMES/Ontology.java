@@ -6,34 +6,34 @@ import java.util.HashMap;
 import java.io.File;
 
 public class Ontology{
-	private String URL;
+	private String url;
 	private String name;
 	private Map<Integer, OntologyClass> ontologyClasses;
 	private Map<Integer, ObjectProperty> objectProperties;
 	private Map<Integer, DataProperty> dataProperties;
 
 	public Ontology(){
-		this.URL = "";
+		this.url = "";
 		this.name = "";
 		this.ontologyClasses = new HashMap<Integer, OntologyClass>();
 		this.objectProperties = new HashMap<Integer, ObjectProperty>();
 		this.dataProperties = new HashMap<Integer, DataProperty>();
 	}
 
-	public Ontology(String URL, String name, Map<Integer, OntologyClass> classes, Map<Integer, ObjectProperty> oProperties, Map<Integer, DataProperty> dProperties){	
-		this.URL = URL;
+	public Ontology(String url, String name, Map<Integer, OntologyClass> classes, Map<Integer, ObjectProperty> oProperties, Map<Integer, DataProperty> dProperties){	
+		this.url = url;
 		this.name = name;
 		this.ontologyClasses = classes;
 		this.objectProperties = oProperties;
 		this.dataProperties = dProperties;
 	}
 
-	public String getURL(){
-		return this.filePath;
+	public String geturl(){
+		return this.url;
 	}
 
-	public void setURL(String URL){
-		this.URL = URL;
+	public void setURL(String url){
+		this.url = url;
 	}
 
 	public String getName(){
