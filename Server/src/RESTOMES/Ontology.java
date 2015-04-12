@@ -28,11 +28,11 @@ public class Ontology{
 		this.dataProperties = dProperties;
 	}
 
-	public String geturl(){
+	public String getUrl(){
 		return this.url;
 	}
 
-	public void setURL(String url){
+	public void setUrl(String url){
 		this.url = url;
 	}
 
