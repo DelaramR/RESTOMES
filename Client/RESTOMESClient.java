@@ -46,7 +46,8 @@ public class RESTOMESClient{
 		String output = null;
 		try {
 			String ontologyName = args[0].substring(args[0].lastIndexOf("/") + 1);
-			String ontology = RESTOMESClient.CreateJsonFile(args[0], ontologyName);
+			//String ontology = RESTOMESClient.CreateJsonFile(args[0], ontologyName);
+			String ontology = "{\"name\":\"" + ontologyName + "\",\"URL\":\"" + args[0] + "\"}";
 			System.out.println( "Creating an ontology (JSON): " + ontologyName );
 			ResteasyClient client = new ResteasyClientBuilder().build();
 			ResteasyWebTarget target = client.target( "http://uml.cs.uga.edu:8080/RESTOMES/rest/ontology" );
