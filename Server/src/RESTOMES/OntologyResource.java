@@ -57,7 +57,7 @@ public class OntologyResource{
       ontology.setName(ontologyName);
       
       for(Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
-        if(entry.getValue().getName().equals(ontology.getName())){
+        if(entry.getValue().getUrl().equals(ontology.getUrl())){
           return Response.seeOther(URI.create("/ontology/" + entry.getKey())).build(); 
         }
       }
