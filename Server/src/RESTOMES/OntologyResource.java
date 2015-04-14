@@ -25,8 +25,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.jboss.resteasy.spi.NoLogWebApplicationException;
 
-import com.hp.hpl.jena.rdf.model.*;
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.query.*;
+import com.hp.hpl.jena.ontology.*;
+import com.hp.hpl.jena.util.FileManager;
 
 @Path("/ontology")
 public class OntologyResource{
