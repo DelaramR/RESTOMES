@@ -59,15 +59,28 @@ public class OntologyResource{
       ontology.setUrl(ontologyUrl);
       ontology.setName(ontologyName);
 
-      Model model = ModelFactory.createDefaultModel();
-      model = model.read(ontologyUrl);
-//      String query = "select ?class where { ?class 
-      
       for(Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
         if(entry.getValue().getUrl().equals(ontology.getUrl())){
           return Response.seeOther(URI.create("/ontology/" + entry.getKey())).build(); 
         }
       }
+      Map<Integer, OntologyClass> ontologyClasses = new HashMap<Integer, OntologyClass>();
+      String queryString = "select distinct ?class where { ?class a owl:Class.}";
+      Model model = ModelFactory.createDefaultModel();
+      model = model.read(ontologyUrl);
+      Query query = QueryFactory.create(queryString);
+      try(QueryExecution queryExec = QueryExecutionFactory.create(query, model)){
+      ResultSet classes = queryExec.execSelect();
+      while(classes.hasNext()){
+	QuerySolution entity = classes.next();
+	String value = entity.getLiteral("class").toString();
+	int key = ontologyClasses.size() + 1;
+	OntologyClass ontologyClass = new OntologyClass(value);
+	ontologyClasses.put(key, ontologyClass);
+      }
+      }
+      ontology.setOntologyClasses(ontologyClasses);	
+
       Integer id = ontologyDB.size() + 1;
       ontologyDB.put(id, ontology);
       return Response.created( URI.create("/ontology/" + id) ).build();
