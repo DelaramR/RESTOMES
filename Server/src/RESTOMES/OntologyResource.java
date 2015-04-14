@@ -69,9 +69,9 @@ public class OntologyResource{
       }
       Map<Integer, OntologyClass> ontologyClasses = new HashMap<Integer, OntologyClass>();
       String queryString = "select distinct ?class where { ?class a owl:Class.}";
-      Model model = ModelFactory.createDefaultModel();
-      model = model.read(ontologyUrl);
-      Query query = QueryFactory.create(queryString);
+      //Model model = ModelFactory.createDefaultModel();
+      //model = model.read(ontologyUrl);
+      //Query query = QueryFactory.create(queryString);
   //    try(QueryExecution queryExec = QueryExecutionFactory.create(query, model)){
   //    ResultSet classes = queryExec.execSelect();
   //    while(classes.hasNext()){
