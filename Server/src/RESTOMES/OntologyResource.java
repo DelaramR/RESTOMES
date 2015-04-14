@@ -72,13 +72,14 @@ public class OntologyResource{
       try(QueryExecution queryExec = QueryExecutionFactory.create(query, model)){
       ResultSet classes = queryExec.execSelect();
       while(classes.hasNext()){
-	QuerySolution entity = classes.next();
-	String value = entity.getLiteral("class").toString();
-	int key = ontologyClasses.size() + 1;
-	OntologyClass ontologyClass = new OntologyClass(value);
-	ontologyClasses.put(key, ontologyClass);
+		QuerySolution entity = classes.next();
+		String value = entity.getLiteral("class").toString();
+		int key = ontologyClasses.size() + 1;
+		OntologyClass ontologyClass = new OntologyClass(value);
+		ontologyClasses.put(key, ontologyClass);
+	    }
       }
-      }
+      System.out.println("HERE");
       ontology.setOntologyClasses(ontologyClasses);	
 
       Integer id = ontologyDB.size() + 1;
