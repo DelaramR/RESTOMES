@@ -71,7 +71,7 @@ public class OntologyResource{
       try{
       Model model = ModelFactory.createDefaultModel();
       model = model.read(ontologyUrl);
-      //Query query = QueryFactory.create(queryString);
+      Query query = QueryFactory.create(queryString);
       //QueryExecution queryExec = QueryExecutionFactory.create(query, model);
    //   ResultSet classes = queryExec.execSelect();
    //   while(classes.hasNext()){
