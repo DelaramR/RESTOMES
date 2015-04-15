@@ -23,13 +23,12 @@ import javax.ws.rs.core.StreamingOutput;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.jboss.resteasy.spi.NoLogWebApplicationException;
-
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.*;
 import com.hp.hpl.jena.query.*;
 import com.hp.hpl.jena.ontology.*;
-import com.hp.hpl.jena.util.FileManager;
+
+import org.jboss.resteasy.spi.NoLogWebApplicationException;
+
 
 @Path("/ontology")
 public class OntologyResource{
@@ -68,20 +67,24 @@ public class OntologyResource{
         }
       }
       Map<Integer, OntologyClass> ontologyClasses = new HashMap<Integer, OntologyClass>();
-      String queryString = "select distinct ?class where { ?class a owl:Class.}";
-      //Model model = ModelFactory.createDefaultModel();
-      //model = model.read(ontologyUrl);
-      //Query query = QueryFactory.create(queryString);
-  //    try(QueryExecution queryExec = QueryExecutionFactory.create(query, model)){
-  //    ResultSet classes = queryExec.execSelect();
-  //    while(classes.hasNext()){
-		// QuerySolution entity = classes.next();
-		// String value = entity.getLiteral("class").toString();
-		// int key = ontologyClasses.size() + 1;
-		// OntologyClass ontologyClass = new OntologyClass(value);
-		// ontologyClasses.put(key, ontologyClass);
-	 //   }
-  //    }
+      String queryString = "select distinct ?class where { ?class a owl:Class.}";      
+      try{
+      Model model = ModelFactory.createDefaultModel();
+      model = model.read(ontologyUrl);
+      Query query = QueryFactory.create(queryString);
+      QueryExecution queryExec = QueryExecutionFactory.create(query, model);
+      ResultSet classes = queryExec.execSelect();
+      while(classes.hasNext()){
+		 QuerySolution entity = classes.next();
+		 String value = entity.getLiteral("class").toString();
+		 int key = ontologyClasses.size() + 1;
+		 OntologyClass ontologyClass = new OntologyClass(value);
+		 ontologyClasses.put(key, ontologyClass);
+	    }
+      }catch(Exception ex){
+	System.out.println("Exception");
+	return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Resource not found: " + ontologyUrl).build();
+      }
       System.out.println("HERE");
       ontology.setOntologyClasses(ontologyClasses);	
 

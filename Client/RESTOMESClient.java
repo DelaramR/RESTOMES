@@ -56,6 +56,10 @@ public class RESTOMESClient{
 			if( response.getStatus() != 201 ) {
 				if(response.getStatus() == 303)
 					System.out.println(ontologyName + " is already available");
+				else if(response.getStatus() == 500){
+					System.out.println("Resource not found: " + response.getEntity());
+					throw new RuntimeException( "Post Request failed: HTTP code: " + response.getStatus() );
+				}
 				else
 					throw new RuntimeException( "POST Request failed: HTTP code: " + response.getStatus() );
 			}

@@ -7,7 +7,7 @@ import javax.ws.rs.core.Application;
 
 
 /**
- * This is the Application class for the MoviePickRESTfulService
+ * This is the Application class for the OntologyMetadataExtractorApplication
  * It contains singleton objects representing the resource classes.
  *
  */

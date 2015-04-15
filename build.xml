@@ -7,11 +7,11 @@
   5. client
   -->
   <path id="classpath">
-    <fileset dir="Server/WebContent/WEB-INF/new-lib/jboss">
-      <include name="**/*.jar"/>
+    <fileset dir="Server/WebContent/WEB-INF/lib">
+      <include name="*.jar"/>
     </fileset>
-    <fileset dir="Server/WebContent/WEB-INF/new-lib/jena">
-      <include name="**/*.jar"/>
+    <fileset dir="Client/lib">
+      <include name="*.jar"/>
     </fileset>
     <pathelement location="/opt/wildfly-8.2.0.Final/modules/system/layers/base/javax/servlet/api/main/jboss-servlet-api_3.0_spec-1.0.2.Final-redhat-1.jar"/>
     <pathelement location="/opt/wildfly-8.2.0.Final/modules/system/layers/base/javax/ws/rs/api/main/jboss-jaxrs-api_1.1_spec-1.0.1.Final-redhat-2.jar"/>
@@ -20,13 +20,11 @@
   </path>
   <target name="clean">
     <echo> Removing all .class files from Server/WebContent/WEB-INF/classes directory</echo>
-    <delete>
-      <fileset dir="Server/WebContent/WEB-INF/classes/" includes="**/*.class, *.class"/>
-    </delete>
     <delete file="RESTOMES.war"/>
     <delete>
       <fileset dir="." includes="*.class"/>
     </delete>
+    <delete dir="Server/WebContent/WEB-INF/classes"/>
   </target>
   <target name="compile" depends="clean">
     <echo>Compile the source files</echo>
@@ -39,7 +37,7 @@
   <target name="war" depends="compile">
     <echo>Building a war file</echo>
     <war destfile="RESTOMES.war" webxml="Server/WebContent/WEB-INF/web.xml">
-      <fileset dir="Server/WebContent" excludes="**/web.xml, **/**/*.jar"/>
+      <fileset dir="Server/WebContent/" excludes="**/web.xmlr"/>
     </war>
   </target>
   <target name="deploy" depends="war">
