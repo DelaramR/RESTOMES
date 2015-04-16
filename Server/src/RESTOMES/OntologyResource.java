@@ -71,7 +71,7 @@ public class OntologyResource{
       try{
       Model model = ModelFactory.createDefaultModel();
       model = model.read(ontologyUrl);
-      //Query query = QueryFactory.create(queryString);
+      Query query = QueryFactory.create(queryString);
       //QueryExecution queryExec = QueryExecutionFactory.create(query, model);
    //   ResultSet classes = queryExec.execSelect();
    //   while(classes.hasNext()){
@@ -82,7 +82,7 @@ public class OntologyResource{
 		 //ontologyClasses.put(key, ontologyClass);
 	  //  }
       }catch(Exception ex){
-	System.out.println("Exception");
+	System.out.println(ex.toString();
 	return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Resource not found: " + ontologyUrl).build();
       }
       System.out.println("HERE");
