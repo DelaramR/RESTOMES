@@ -77,7 +77,7 @@ public class OntologyResource{
       ResultSet classes = queryExec.execSelect();
       while(classes.hasNext()){
 		 QuerySolution entity = classes.next();
-		 String value = entity.getLiteral("class").toString();
+		 String value = entity.get("class").toString();
 		 int key = ontologyClasses.size() + 1;
 		 OntologyClass ontologyClass = new OntologyClass(value);
 		 ontologyClasses.put(key, ontologyClass);
