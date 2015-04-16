@@ -34,6 +34,11 @@ import org.jboss.resteasy.spi.NoLogWebApplicationException;
 public class OntologyResource{
   
   public static final Map<Integer, Ontology> ontologyDB = new HashMap<Integer, Ontology>();
+  public static final String QUERY_NAMESPACES = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\n" +
+	"PREFIX owl: <http://www.w3.org/2002/07/owl#>\r\n" +
+	"PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\r\n" +
+	"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\r\n" +
+	"PREFIX fn: <http://www.w3.org/2005/xpath-functions#>"\r\n";
   
   /**
      * Register a new ontology entry using a JSON representation.
@@ -67,7 +72,7 @@ public class OntologyResource{
         }
       }
       Map<Integer, OntologyClass> ontologyClasses = new HashMap<Integer, OntologyClass>();
-      String queryString = "select distinct ?class where { ?class a owl:Class.}";      
+      String queryString = QUERY_NAMESPACES + "select distinct ?class where { ?class a owl:Class.}";      
       try{
       Model model = ModelFactory.createDefaultModel();
       model = model.read(ontologyUrl);
