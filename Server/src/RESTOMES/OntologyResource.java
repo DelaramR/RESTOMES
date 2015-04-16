@@ -82,7 +82,7 @@ public class OntologyResource{
 		 //ontologyClasses.put(key, ontologyClass);
 	  //  }
       }catch(Exception ex){
-	System.out.println(ex.toString();
+	System.out.println(ex.toString());
 	return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Resource not found: " + ontologyUrl).build();
       }
       System.out.println("HERE");
