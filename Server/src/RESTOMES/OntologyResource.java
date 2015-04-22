@@ -177,6 +177,26 @@ public class OntologyResource{
   }
   
   /**
+     * Retrieve class of an ontology as an object, using a JSON representation
+     * @param oid path parameter identifying the ontology entry
+     * @param cid path parameter identifying the class entry
+     * @return a class object requested; it will be converted to JSON using a JSON provider (Jackson)
+     */
+  @GET
+  @Path( "{oid: [1-9][0-9]*}/class/{cid: [1-9][0-9]*}" )
+  @Produces(MediaType.APPLICATION_JSON)
+  public OntologyClass getClassJSON(@PathParam("oid") Integer id, @PathParam("cid") Integer cid){
+    final Ontology ontology = ontologyDB.get(id);
+    if(ontology == null){
+      throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
+    }
+    OntologyClass ontologyClass = ontology.getOntologyClasses().get(cid);
+    if(ontologyClass == null)
+    	throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+    return ontologyClass;
+  }
+  
+  /**
      * Retrieve dataproperty of an ontology as an object, using a JSON representation
      * @param oid path parameter identifying the ontology entry
      * @param dpid path parameter identifying the dataproperty entry
