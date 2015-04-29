@@ -151,6 +151,7 @@ public class OntologyResource{
 		 int key = objectProperties.size() + 1;
 		 ObjectProperty objectProperty = new ObjectProperty(domain_list, range_list, property_name);
 		 objectProperties.put(key, ObjectProperty);
+      }
 
       ///Building metadata of Data Properties	    
       Query query2 = QueryFactory.create(queryString2);
