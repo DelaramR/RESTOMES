@@ -85,7 +85,7 @@ public class OntologyResource{
 		"optional { ?ObjectProperty rdfs:domain ?domain. }" +
 		"optional { ?ObjectProperty rdfs:range ?range. }" +		
 		"}" +
-	"group by ?ObjectProperty";" 
+	"group by ?ObjectProperty"; 
 
       Map<Integer, DataProperty> dataProperties = new HashMap<Integer, DataProperty>();
       String queryString2 = QUERY_NAMESPACES + "SELECT distinct " + 
@@ -96,7 +96,7 @@ public class OntologyResource{
 		"optional { ?DatatypeProperty rdfs:domain ?domain. }" +
 		"optional { ?DatatypeProperty rdfs:range ?range. }" +		
 		"}" +
-	"group by ?DatatypeProperty";" 	
+	"group by ?DatatypeProperty"; 	
       
       try{
       Model model = ModelFactory.createDefaultModel();
