@@ -121,30 +121,49 @@ public class OntologyResource{
 		 QuerySolution entity = objectProperties_result.next();
 		 
 		 String domains = entity.get("domains").toString();
-		 String[] domains_tokens = domains.split(" | ");
 		 ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
-		 for(int i = 0; i < domains_tokens.length; i++){
-		 	String domain_name = domains_tokens[i].substring(domains_tokens[i].lastIndexOf("/") + 1);	
-		 	Integer id;
-		 	if((id = classNameIDMap.get(domain_name)) != null){
-		 		OntologyClass oc;
-		 		if((oc = ontologyClasses.get(id)) != null)
-		 			domain_list.add(oc);
-		 	}
+		 if(domains.indexOf("|") != -1){
+			 String[] domains_tokens = domains.split(" | ");
+			 for(int i = 0; i < domains_tokens.length; i++){
+			 	String domain_name = domains_tokens[i].substring(domains_tokens[i].lastIndexOf("/") + 1);	
+			 	Integer id;
+			 	if((id = classNameIDMap.get(domain_name)) != null){
+			 		OntologyClass oc;
+			 		if((oc = ontologyClasses.get(id)) != null)
+			 			domain_list.add(oc);
+			 	}
+			 }
+		 }else{
+		 	domains = domains.substring(domains.lastIndexOf("/") + 1);	
+			 	Integer id;
+			 	if((id = classNameIDMap.get(domains)) != null){
+			 		OntologyClass oc;
+			 		if((oc = ontologyClasses.get(id)) != null)
+			 			domain_list.add(oc);
+			 	}
 		 }
 		 String ranges = entity.get("ranges").toString();
-		 String[] range_tokens = ranges.split(" | ");
 		 ArrayList<OntologyClass> range_list = new ArrayList<OntologyClass>();
-		 for(int i = 0; i < range_tokens.length; i++){
-		 	String range_name = range_tokens[i].substring(range_tokens[i].lastIndexOf("/") + 1);	
-		 	Integer id;
-		 	if((id = classNameIDMap.get(range_name)) != null){
-		 		OntologyClass oc;
-		 		if((oc = ontologyClasses.get(id)) != null)
-		 			range_list.add(oc);
-		 	}
-		 }
-		 
+		 if(ranges.indexOf("|") != -1){
+			 String[] range_tokens = ranges.split(" | ");
+			 for(int i = 0; i < range_tokens.length; i++){
+			 	String range_name = range_tokens[i].substring(range_tokens[i].lastIndexOf("/") + 1);	
+			 	Integer id;
+			 	if((id = classNameIDMap.get(range_name)) != null){
+			 		OntologyClass oc;
+			 		if((oc = ontologyClasses.get(id)) != null)
+			 			range_list.add(oc);
+			 	}
+			 }
+		 }else{
+		 	ranges = ranges.substring(ranges.lastIndexOf("/") + 1);	
+			 	Integer id;
+			 	if((id = classNameIDMap.get(ranges)) != null){
+			 		OntologyClass oc;
+			 		if((oc = ontologyClasses.get(id)) != null)
+			 			range_list.add(oc);
+			 	}
+		 }		 
 		 String property_name = entity.get("ObjectProperty").toString();
 		 property_name = property_name.substring(property_name.lastIndexOf("/") + 1);
 		 
@@ -161,16 +180,26 @@ public class OntologyResource{
 		 QuerySolution entity = dataProperties_result.next();
 		 
 		 String domains = entity.get("domains").toString();
-		 String[] domains_tokens = domains.split(" | ");
-		 ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
-		 for(int i = 0; i < domains_tokens.length; i++){
-		 	String domain_name = domains_tokens[i].substring(domains_tokens[i].lastIndexOf("/") + 1);	
-		 	Integer id;
-		 	if((id = classNameIDMap.get(domain_name)) != null){
-		 		OntologyClass oc;
-		 		if((oc = ontologyClasses.get(id)) != null)
-		 			domain_list.add(oc);
-		 	}
+		 		 ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
+		 if(domains.indexOf("|") != -1){
+			 String[] domains_tokens = domains.split(" | ");
+			 for(int i = 0; i < domains_tokens.length; i++){
+			 	String domain_name = domains_tokens[i].substring(domains_tokens[i].lastIndexOf("/") + 1);	
+			 	Integer id;
+			 	if((id = classNameIDMap.get(domain_name)) != null){
+			 		OntologyClass oc;
+			 		if((oc = ontologyClasses.get(id)) != null)
+			 			domain_list.add(oc);
+			 	}
+			 }
+		 }else{
+		 	domains = domains.substring(domains.lastIndexOf("/") + 1);	
+			 	Integer id;
+			 	if((id = classNameIDMap.get(domains)) != null){
+			 		OntologyClass oc;
+			 		if((oc = ontologyClasses.get(id)) != null)
+			 			domain_list.add(oc);
+			 	}
 		 }
 		 String ranges = entity.get("ranges").toString();
 		 ranges = ranges.substring(ranges.lastIndexOf("/") + 1);
