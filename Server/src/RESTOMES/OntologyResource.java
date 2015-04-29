@@ -36,6 +36,8 @@ public class OntologyResource{
   public static final Map<Integer, Ontology> ontologyDB = new HashMap<Integer, Ontology>();
   public static final String QUERY_NAMESPACES = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\r\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\r\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\r\nPREFIX fn: <http://www.w3.org/2005/xpath-functions#>\r\n";
   
+  @Context
+  UriInfo uri;
   /**
      * Register a new ontology entry using a JSON representation.
      * @param ontology the new ontology object data; this will be converted to POJO by a JSON provider (Jackson)
@@ -123,10 +125,10 @@ public class OntologyResource{
 		"<button id=\"btnLogin\">Upload</button>\r\n" +
 		"</div>\r\n" +
 		"<div align=\"center\" id=\"result\">\r\n";
-	Iterator it = ontologyDB.entrySet().iterator();
-	while (it.hasNext()) {
-		Map.Entry pair = (Map.Entry)it.next();
-		String value = URI.toString() + pair.getKey();
+	for (Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
+		UriBuilder ub = uri.getAbsolutePathBuilder();
+            	URI userUri = ub.path(userEntity.getUserId()).build();
+		String value = userUri.toString() + entry.getKey();
 		html += "<a href=" + value + ">" + value + "</a>\r\n";
 	}
 	html += "</div>\r\n" +
