@@ -238,7 +238,7 @@ public class OntologyResource{
 	
 	
 	return html;
-  
+  }
      /**
      * Retrieve an ontology entry and return it as an object, using a JSON representation
      * @param id path parameter identifying the ontology entry
