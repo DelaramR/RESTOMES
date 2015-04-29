@@ -36,36 +36,6 @@ public class OntologyResource{
   public static final Map<Integer, Ontology> ontologyDB = new HashMap<Integer, Ontology>();
   public static final String QUERY_NAMESPACES = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\r\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\r\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\r\nPREFIX fn: <http://www.w3.org/2005/xpath-functions#>\r\n";
   
-  @GET
-  @Path("/index")
-  @Produces(MediaType.TEXT_HTML)
-  public String returnHomePage(){
-  	String html = "<html>\r\n" +
-  		"<head>\r\n" + 
-  		"</head>\r\n" + 
-  		"<body>" + 
-  		"<table width=\"100%\" border=\"0\" cellspacing=\"10\" cellpadding=\"10\">\r\n" +
-  		"<tr>\r\n" +
-  		"<td><h1>Ontology Browser</h1></td>\r\n" +
-		"</tr>\r\n" +
-		"</table>\r\n" +
-		"<table border=\"10\" width=\"100%\" align=\"center\">\r\n" +
-		"<tr>\r\n" + 
-		"<td width=\"100%\">\r\n" +
-		"<div id=\"upload\">\r\n" +
-		"Ontology URI: <input type=\"text\" id=\"uri\"><br>\r\n" +
-		"<br>\r\n" +
-		"<button id=\"btnLogin\">Upload</button>\r\n" +
-		"</div>\r\n" +
-		"<div align=\"center\" id=\"result\"></div>\r\n" +
-		"</td>\r\n" +
-		"</tr>\r\n" +
-		"</table>\r\n" +
-		"</body>\r\n" +
-		"</html>";
-	return html;
-  }
-  
   /**
      * Register a new ontology entry using a JSON representation.
      * @param ontology the new ontology object data; this will be converted to POJO by a JSON provider (Jackson)
@@ -133,9 +103,41 @@ public class OntologyResource{
      * @return map object of all ontologies; it will be converted to JSON using a JSON provider (Jackson)
      */
   @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  public Map<Integer, Ontology> returnOntologyListJSON(){
-    return ontologyDB;
+  @Produces(MediaType.TEXT_HTML)
+  public String returnOntologyListJSON(){
+  	String html = "<html>\r\n" +
+  		"<head>\r\n" + 
+  		"</head>\r\n" + 
+  		"<body>" + 
+  		"<table>\r\n" +
+  		"<tr>\r\n" +
+  		"<td><h4>RESTful Ontology Metadata Extractor/Storage System</h4></td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"<table>\r\n" +
+		"<tr>\r\n" + 
+		"<td>\r\n" +
+		"<div>\r\n" +
+		"Ontology URI: <input type=\"text\" id=\"uri\"><br>\r\n" +
+		"<br>\r\n" +
+		"<button id=\"btnLogin\">Upload</button>\r\n" +
+		"</div>\r\n" +
+		"<div align=\"center\" id=\"result\">\r\n";
+	Iterator it = ontologyDB.entrySet().iterator();
+	while (it.hasNext()) {
+		Map.Entry pair = (Map.Entry)it.next();
+		String value = URI.toString() + pair.getKey();
+		html += "<a href=" + value + ">" + value + "</a>\r\n";
+	}
+	html += "</div>\r\n" +
+		"</td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"</body>\r\n" +
+		"</html>";
+	
+	
+	return html;
   }
   
      /**
