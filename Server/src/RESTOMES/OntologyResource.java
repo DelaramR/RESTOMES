@@ -38,7 +38,7 @@ public class OntologyResource{
   
   @GET
   @Path("/index")
-  @Produce(MediaType.TEXT_HTML)
+  @Produces(MediaType.TEXT_HTML)
   public String returnHomePage(){
   	String html = "<html>\r\n" +
   		"<head>\r\n" + 
