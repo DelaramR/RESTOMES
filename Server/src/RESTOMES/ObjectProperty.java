@@ -1,36 +1,37 @@
 package RESTOMES;
+import java.util.ArrayList;
 
 public class ObjectProperty{
 
-    private OntologyClass domain;
-    private OntologyClass range;
+    private ArrayList<OntologyClass> domain;
+    private ArrayList<OntologyClass> range;
     private String property;
 
     public ObjectProperty(){
-	this.domain = new OntologyClass();
-	this.range = new OntologyClass();
+	this.domain = new ArrayList<OntologyClass>();
+	this.range = new ArrayList<OntologyClass>();
 	this.property = "";
     }
 
-    public ObjectProperty(OntologyClass domain, OntologyClass range, String property){
+    public ObjectProperty(ArrayList<OntologyClass> domain, ArrayList<OntologyClass> range, String property){
 	this.domain = domain;
 	this.range = range;
 	this.property = property;
     }
 
-    public OntologyClass getDomain(){
+    public ArrayList<OntologyClass> getDomain(){
 	return this.domain;
     }
 
-    public void setDomain(OntologyClass domain){
+    public void setDomain(ArrayList<OntologyClass> domain){
 	this.domain = domain;
     }
 
-    public OntologyClass getRange(){
+    public ArrayList<OntologyClass> getRange(){
 	return this.range;
     }
 
-    public void setRange(OntologyClass range){
+    public void setRange(ArrayList<OntologyClass> range){
 	this.range = range;
     }
 
