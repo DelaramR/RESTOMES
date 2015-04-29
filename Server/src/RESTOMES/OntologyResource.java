@@ -130,7 +130,7 @@ public class OntologyResource{
 		"<div align=\"center\" id=\"result\">\r\n";
 	for (Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
 		UriBuilder ub = uri.getAbsolutePathBuilder();
-            	URI userUri = ub.path(entry.getKey()).build();
+            	URI userUri = ub.path(entry.getKey().toString()).build();
 		String value = userUri.toString();
 		html += "<a href=" + value + ">" + value + "</a>\r\n";
 	}
