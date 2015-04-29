@@ -125,9 +125,12 @@ public class OntologyResource{
 		 ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
 		 for(int i = 0; i < domains_tokens.length; i++){
 		 	String domain_name = domains_tokens[i].substring(domains_tokens[i].lastIndexOf("/") + 1);	
-		 	if((Integer id = classNameIDMap.get(domain_name)) != null)
-		 		if((OntologyClass oc = ontologyClasses.get(id)) != null)
+		 	Integer id;
+		 	if((id = classNameIDMap.get(domain_name)) != null){
+		 		OntologyClass oc;
+		 		if((oc = ontologyClasses.get(id)) != null)
 		 			domain_list.put(oc);
+		 	}
 		 }
 		 String ranges = entity.get("ranges").toString();
 		 String[] range_tokens = range.split(" | ");
