@@ -16,6 +16,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -36,6 +39,9 @@ public class OntologyResource{
   public static final Map<Integer, Ontology> ontologyDB = new HashMap<Integer, Ontology>();
   public static final String QUERY_NAMESPACES = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\r\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\r\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\r\nPREFIX fn: <http://www.w3.org/2005/xpath-functions#>\r\n";
   
+  @Context
+  UriInfo uri;
+
   /**
      * Register a new ontology entry using a JSON representation.
      * @param ontology the new ontology object data; this will be converted to POJO by a JSON provider (Jackson)
@@ -185,11 +191,43 @@ public class OntologyResource{
      * Retrieve all URI of ontologies and return them as an object, using a JSON representation
      * @return map object of all ontologies; it will be converted to JSON using a JSON provider (Jackson)
      */
+
   @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  public Map<Integer, Ontology> returnOntologyListJSON(){
-    return ontologyDB;
-  }
+  @Produces(MediaType.TEXT_HTML)
+  public String returnOntologyListJSON(){
+  	String html = "<html>\r\n" +
+  		"<head>\r\n" + 
+  		"</head>\r\n" + 
+  		"<body>" + 
+  		"<table>\r\n" +
+  		"<tr>\r\n" +
+  		"<td><h4>RESTful Ontology Metadata Extractor/Storage System</h4></td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"<table>\r\n" +
+		"<tr>\r\n" + 
+		"<td>\r\n" +
+		"<div>\r\n" +
+		"Ontology URI: <input type=\"text\" id=\"uri\"><br>\r\n" +
+		"<br>\r\n" +
+		"<button id=\"btnLogin\">Upload</button>\r\n" +
+		"</div>\r\n" +
+		"<div align=\"center\" id=\"result\">\r\n";
+	for (Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
+		UriBuilder ub = uri.getAbsolutePathBuilder();
+            	URI userUri = ub.path(entry.getKey().toString()).build();
+		String value = userUri.toString();
+		html += "<a href=" + value + ">" + value + "</a>\r\n";
+	}
+	html += "</div>\r\n" +
+		"</td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"</body>\r\n" +
+		"</html>";
+	
+	
+	return html;
   
      /**
      * Retrieve an ontology entry and return it as an object, using a JSON representation
