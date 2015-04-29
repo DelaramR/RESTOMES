@@ -17,6 +17,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
@@ -127,8 +130,8 @@ public class OntologyResource{
 		"<div align=\"center\" id=\"result\">\r\n";
 	for (Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
 		UriBuilder ub = uri.getAbsolutePathBuilder();
-            	URI userUri = ub.path(userEntity.getUserId()).build();
-		String value = userUri.toString() + entry.getKey();
+            	URI userUri = ub.path(entry.getKey()).build();
+		String value = userUri.toString();
 		html += "<a href=" + value + ">" + value + "</a>\r\n";
 	}
 	html += "</div>\r\n" +
