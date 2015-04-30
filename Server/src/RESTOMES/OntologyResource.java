@@ -83,9 +83,9 @@ public class OntologyResource{
       for(Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
         if(entry.getValue().getUrl().equals(ontology.getUrl())){
           //return Response.seeOther(URI.create("/ontology/" + entry.getKey())).build(); 
-          for (Map.Entry<Integer, Ontology> ont : ontologyDB.entrySet()){
+          for (Map.Entry<Integer, Ontology> entry1 : ontologyDB.entrySet()){
 		UriBuilder ub = uri.getAbsolutePathBuilder();
-            	URI userUri = ub.path(ont.getKey().toString()).build();
+            	URI userUri = ub.path(entry1.getKey().toString()).build();
 		String value = userUri.toString();
 		html += "<a href=" + value + ">" + value + "</a></br>\r\n";
 	}
