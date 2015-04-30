@@ -248,7 +248,6 @@ public class OntologyResource{
 	// System.out.println(ex.toString());
 	return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Resource not found: " + ontologyUrl).build();
       }
-      System.out.println("HERE");
       ontology.setOntologyClasses(ontologyClasses);
       ontology.setDataProperties(dataProperties);
       ontology.setObjectProperties(objectProperties);
@@ -282,16 +281,19 @@ public class OntologyResource{
 		"<tr>\r\n" + 
 		"<td>\r\n" +
 		"<div>\r\n" +
-		"Ontology URI: <input type=\"text\" id=\"uri\"><br>\r\n" +
+		
 		"<br>\r\n" +
-		"<input type=\"submit\" method=\"POST\" id=\"btnSubmit\">Submit</button>\r\n" +
+		"<form method=\"POST\" action=\""+ uri +"\">" +
+		"Ontology URI: <input type=\"text\" id=\"uri\"><br>\r\n" +
+		"<input type=\"submit\" value=\"Submit\">\r\n" +
+		"</from>" +
 		"</div>\r\n" +
 		"<div align=\"center\" id=\"result\">\r\n";
 	for (Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
 		UriBuilder ub = uri.getAbsolutePathBuilder();
             	URI userUri = ub.path(entry.getKey().toString()).build();
 		String value = userUri.toString();
-		html += "<a href=" + value + ">" + value + "</a>\r\n";
+		html += "<a href=" + value + ">" + value + "</a><br>\r\n";
 	}
 	html += "</div>\r\n" +
 		"</td>\r\n" +
