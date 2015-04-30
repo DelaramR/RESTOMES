@@ -75,8 +75,8 @@ public class OntologyResource{
       }
       Map<Integer, OntologyClass> ontologyClasses = new HashMap<Integer, OntologyClass>();
       Map<String, Integer> classNameIDMap = new HashMap<String, Integer>();
-      Map<String, Integer> objectPropertyNameIDMap = new HashMap<String, Integer>();
-      Map<String, Integer> dataPropertyNameIDMap = new HashMap<String, Integer>();
+      Map<String, Integer> objectPropertyIDMap = new HashMap<String, Integer>();
+      Map<String, Integer> dataPropertyIDMap = new HashMap<String, Integer>();
       String queryString = QUERY_NAMESPACES + "select distinct ?class where { ?class a owl:Class.}";
       Map<Integer, ObjectProperty> objectProperties = new HashMap<Integer, ObjectProperty>();
       String queryString1 = QUERY_NAMESPACES + "SELECT distinct " + 
@@ -183,7 +183,7 @@ public class OntologyResource{
 		 String property_name = entity.get("DatatypeProperty").toString();
 		 property_name = property_name.substring(property_name.lastIndexOf("/") + 1);
 		 if(dataPropertyIDMap.get(property_name) != null){
-		 	Integer id = dataIDMap.get(property_name);
+		 	Integer id = dataPropertyIDMap.get(property_name);
 		 	String domains = entity.get("domains").toString();	
 		 	domains = domains.substring(domains.lastIndexOf("/") + 1);
 		 	String ranges = entity.get("ranges").toString();	
