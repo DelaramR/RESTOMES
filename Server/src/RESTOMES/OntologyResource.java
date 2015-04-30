@@ -49,7 +49,7 @@ public class OntologyResource{
      * @return a response encoding
      */
   @POST
-  public Response createOntologyEntry(@FormParam("uri") String ont){ //( OntologyJsonObject object ){ //JsonFile file ){
+  public void createOntologyEntry(@FormParam("uri") String ont){ //( OntologyJsonObject object ){ //JsonFile file ){
     System.out.println( "OntologyResource.createEntry   " + ont );
     // String ontologyFileName = file.getName();
     // String ontologyContent = file.getContent();
@@ -256,7 +256,8 @@ public class OntologyResource{
 
       Integer id = ontologyDB.size() + 1;
       ontologyDB.put(id, ontology);
-      return Response.created( URI.create("/ontology/" + id) ).build();
+      Response.temporaryRedirect( URI.create("/ontology/" + id) ).build();
+      //return Response.created( URI.create("/ontology/" + id) ).build();
     // }catch(IOException ex){
       // return Response.status(Response.Status.NOT_FOUND).entity("Entity not found for: " + ontologyFileName).build();
     // }
