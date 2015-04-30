@@ -114,10 +114,10 @@ public class OntologyResource{
 		 ontologyClasses.put(key, ontologyClass);
 	    }
       ///Building metadata of Object Properties	
-      /*
       Query query1 = QueryFactory.create(queryString1);
       QueryExecution queryExec1 = QueryExecutionFactory.create(query1, model);
       ResultSet objectProperties_result = queryExec1.execSelect();
+      /*
       while(objectProperties_result.hasNext()){
 		 QuerySolution entity = objectProperties_result.next();
 		 
