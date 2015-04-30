@@ -113,7 +113,8 @@ public class OntologyResource{
 		 OntologyClass ontologyClass = new OntologyClass(value);
 		 ontologyClasses.put(key, ontologyClass);
 	    }
-      ///Building metadata of Object Properties	    
+      ///Building metadata of Object Properties	
+      /*
       Query query1 = QueryFactory.create(queryString1);
       QueryExecution queryExec1 = QueryExecutionFactory.create(query1, model);
       ResultSet objectProperties_result = queryExec1.execSelect();
@@ -211,6 +212,7 @@ public class OntologyResource{
 		 dataProperties.put(key, dataProperty);
 
 	    }
+	    */
       }catch(Exception ex){
 	System.out.println(ex.toString());
 	return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Resource not found: " + ontologyUrl).build();
