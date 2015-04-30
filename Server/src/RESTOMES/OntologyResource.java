@@ -70,7 +70,7 @@ public class OntologyResource{
 		
 		"<br>\r\n" +
 		"<form method=\"POST\" action=\"\">" +
-		"Ontology URI: <input type=\"text\" name=\"uri\"><br>\r\n" +
+		"Ontology URI: <input type=\"text\" name=\"uri\"></br>\r\n" +
 		"<input type=\"submit\" value=\"Submit\">\r\n" +
 		"</from>" +
 		"</div>\r\n" +
@@ -90,7 +90,7 @@ public class OntologyResource{
 		html += "<a href=" + value + ">" + value + "</a></br>\r\n";
 	}
 	html += "</div>\r\n" +
-		"<div>\r\n" +
+		"</br><div style=\"color:red\">\r\n" +
 		"Duplicate Request" +
 		"</div>\r\n" +
 		"</td>\r\n" +
@@ -283,7 +283,7 @@ public class OntologyResource{
 		html += "<a href=" + value + ">" + value + "</a></br>\r\n";
 	}
 	html += "</div>\r\n" +
-		"<div>\r\n" +
+		"</br><div style=\"color:red\">\r\n" +
 		"Server Internal Error" +
 		"</div>\r\n" +
 		"</td>\r\n" +
@@ -343,7 +343,7 @@ public class OntologyResource{
 		
 		"<br>\r\n" +
 		"<form method=\"POST\" action=\"\">" +
-		"Ontology URI: <input type=\"text\" name=\"uri\"><br>\r\n" +
+		"Ontology URI: <input type=\"text\" name=\"uri\"></br>\r\n" +
 		"<input type=\"submit\" value=\"Submit\">\r\n" +
 		"</from>" +
 		"</div>\r\n" +
