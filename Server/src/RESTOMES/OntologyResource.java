@@ -50,22 +50,31 @@ public class OntologyResource{
      */
   @POST
   @Produces(MediaType.TEXT_HTML)
-  public Response createOntologyEntry(@FormParam("uri") String ont){ //( OntologyJsonObject object ){ //JsonFile file ){
+  public String createOntologyEntry(@FormParam("uri") String ont){ //( OntologyJsonObject object ){ //JsonFile file ){
     System.out.println( "OntologyResource.createEntry   " + ont );
-    // String ontologyFileName = file.getName();
-    // String ontologyContent = file.getContent();
-    //String ontologyName = object.getName();
-    //String ontologyUrl = object.getUrl();
     String ontologyUrl = ont;
     String ontologyName = ontologyUrl.substring(ontologyUrl.lastIndexOf("/") + 1);
-    // try{
-      //byte[] bytes = ontologyContent.getBytes();
-      // File f = new File(ontologyFileName);
-      // FileOutputStream fop = new FileOutputStream(f);
-      //fop.write(bytes);
-      //fop.flush();
-      // fop.close();
-      //File ontologyFile = new File(ontologyFileName);
+    String html = "<html>\r\n" +
+  		"<head>\r\n" + 
+  		"</head>\r\n" + 
+  		"<body>" + 
+  		"<table>\r\n" +
+  		"<tr>\r\n" +
+  		"<td><h4>RESTful Ontology Metadata Extractor/Storage System</h4></td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"<table>\r\n" +
+		"<tr>\r\n" + 
+		"<td>\r\n" +
+		"<div>\r\n" +
+		
+		"<br>\r\n" +
+		"<form method=\"POST\" action=\"rest/ontology\">" +
+		"Ontology URI: <input type=\"text\" name=\"uri\"><br>\r\n" +
+		"<input type=\"submit\" value=\"Submit\">\r\n" +
+		"</from>" +
+		"</div>\r\n" +
+		"<div align=\"center\" id=\"result\">\r\n";
       
       Ontology ontology = new Ontology();
       ontology.setUrl(ontologyUrl);
@@ -73,7 +82,8 @@ public class OntologyResource{
 
       for(Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
         if(entry.getValue().getUrl().equals(ontology.getUrl())){
-          return Response.seeOther(URI.create("/ontology/" + entry.getKey())).build(); 
+          //return Response.seeOther(URI.create("/ontology/" + entry.getKey())).build(); 
+          
         }
       }
       Map<Integer, OntologyClass> ontologyClasses = new HashMap<Integer, OntologyClass>();
@@ -249,7 +259,7 @@ public class OntologyResource{
 	    
       }catch(Exception ex){
 	// System.out.println(ex.toString());
-	return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Resource not found: " + ontologyUrl).build();
+	// return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Resource not found: " + ontologyUrl).build();
       }
       ontology.setOntologyClasses(ontologyClasses);
       ontology.setDataProperties(dataProperties);
@@ -258,11 +268,22 @@ public class OntologyResource{
       Integer id = ontologyDB.size() + 1;
       ontologyDB.put(id, ontology);
       URI location = URI.create("/ontology/" + id);
-      //Response.temporaryRedirect(location).build();
-      return Response.created( location ).build();
-    // }catch(IOException ex){
-      // return Response.status(Response.Status.NOT_FOUND).entity("Entity not found for: " + ontologyFileName).build();
-    // }
+      
+      for (Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
+		UriBuilder ub = uri.getAbsolutePathBuilder();
+            	URI userUri = ub.path(entry.getKey().toString()).build();
+		String value = userUri.toString();
+		html += "<a href=" + value + ">" + value + "</a></br>\r\n";
+	}
+	html += "</div>\r\n" +
+		"</td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"</body>\r\n" +
+		"</html>";
+		
+	return html;
+      //return Response.created( location ).build();
   }
   
      /**
