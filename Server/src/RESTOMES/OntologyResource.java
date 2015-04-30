@@ -75,7 +75,7 @@ public class OntologyResource{
 		"</br><input type=\"submit\" value=\"Submit\">\r\n" +
 		"</from>" +
 		"</div>\r\n" +
-		"<div align=\"center\" id=\"result\">\r\n" + 
+		"<div id=\"result\">\r\n" + 
 		"Existing Ontologies:</br>\r\n";
       
       Ontology ontology = new Ontology();
@@ -349,7 +349,7 @@ public class OntologyResource{
 		"</br><input type=\"submit\" value=\"Submit\">\r\n" +
 		"</from>" +
 		"</div>\r\n" +
-		"<div align=\"center\" id=\"result\">\r\n" +
+		"<div id=\"result\">\r\n" +
 		"Existing Ontologies:</br>\r\n";
 	for (Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
 		UriBuilder ub = uri.getAbsolutePathBuilder();
