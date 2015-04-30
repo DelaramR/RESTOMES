@@ -75,28 +75,28 @@ public class OntologyResource{
       }
       Map<Integer, OntologyClass> ontologyClasses = new HashMap<Integer, OntologyClass>();
       Map<String, Integer> classNameIDMap = new HashMap<String, Integer>();
+      Map<String, Integer> objectPropertyNameIDMap = new HashMap<String, Integer>();
+      Map<String, Integer> dataPropertyNameIDMap = new HashMap<String, Integer>();
       String queryString = QUERY_NAMESPACES + "select distinct ?class where { ?class a owl:Class.}";
       Map<Integer, ObjectProperty> objectProperties = new HashMap<Integer, ObjectProperty>();
       String queryString1 = QUERY_NAMESPACES + "SELECT distinct " + 
-      "?ObjectProperty (group_concat(distinct ?range;separator=\" | \") as ?ranges)" + 
-      " (group_concat(distinct ?domain;separator=\" | \") as ?domains)" +
+      " ?ObjectProperty ?ranges" + 
+      " ?domains" +
 	" WHERE { " + 
 		" ?ObjectProperty a owl:ObjectProperty." +
-		" optional { ?ObjectProperty rdfs:domain ?domain. }" +
-		" optional { ?ObjectProperty rdfs:range ?range. }" +		
-		" } " +
-	"group by ?ObjectProperty"; 
+		" optional { ?ObjectProperty rdfs:domain ?domains. }" +
+		" optional { ?ObjectProperty rdfs:range ?ranges. }" +		
+		" } " ; 
 
       Map<Integer, DataProperty> dataProperties = new HashMap<Integer, DataProperty>();
       String queryString2 = QUERY_NAMESPACES + "SELECT distinct " + 
-      "?DatatypeProperty (group_concat(distinct ?range;separator=\" | \") as ?ranges)" + 
-      " (group_concat(distinct ?domain;separator=\" | \") as ?domains)" +
+      "?DatatypeProperty ?ranges)" + 
+      " ?domains " +
 	" WHERE { " + 
 		" ?DatatypeProperty a owl:DatatypeProperty." +
-		" optional { ?DatatypeProperty rdfs:domain ?domain. }" +
-		" optional { ?DatatypeProperty rdfs:range ?range. }" +		
-		" } " +
-	"group by ?DatatypeProperty"; 	
+		" optional { ?DatatypeProperty rdfs:domain ?domains. }" +
+		" optional { ?DatatypeProperty rdfs:range ?ranges. }" +		
+		" } " ; 	
       
       try{
       Model model = ModelFactory.createDefaultModel();
@@ -112,6 +112,7 @@ public class OntologyResource{
 		 int key = ontologyClasses.size() + 1;
 		 OntologyClass ontologyClass = new OntologyClass(value);
 		 ontologyClasses.put(key, ontologyClass);
+		 classNameIDMap.put(value, key);
 	    }
       ///Building metadata of Object Properties	
       Query query1 = QueryFactory.create(queryString1);
@@ -120,58 +121,58 @@ public class OntologyResource{
       while(objectProperties_result.hasNext()){
 		 QuerySolution entity = objectProperties_result.next();
 		 
-		 //String domains = entity.get("domains").toString();
-		 //ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
-		 //if(domains.indexOf("|") != -1){
-			//  String[] domains_tokens = domains.split(" | ");
-			//  for(int i = 0; i < domains_tokens.length; i++){
-			//  	String domain_name = domains_tokens[i].substring(domains_tokens[i].lastIndexOf("/") + 1);	
-			//  	Integer id;
-			//  	if((id = classNameIDMap.get(domain_name)) != null){
-			//  		OntologyClass oc;
-			//  		if((oc = ontologyClasses.get(id)) != null)
-			//  			domain_list.add(oc);
-			//  	}
-			//  }
-		 //}else{
-		 //	domains = domains.substring(domains.lastIndexOf("/") + 1);	
-			//  	Integer id;
-			//  	if((id = classNameIDMap.get(domains)) != null){
-			//  		OntologyClass oc;
-			//  		if((oc = ontologyClasses.get(id)) != null)
-			//  			domain_list.add(oc);
-			//  	}
-		 //}
-		 //String ranges = entity.get("ranges").toString();
-		 //ArrayList<OntologyClass> range_list = new ArrayList<OntologyClass>();
-		 //if(ranges.indexOf("|") != -1){
-			//  String[] range_tokens = ranges.split(" | ");
-			//  for(int i = 0; i < range_tokens.length; i++){
-			//  	String range_name = range_tokens[i].substring(range_tokens[i].lastIndexOf("/") + 1);	
-			//  	Integer id;
-			//  	if((id = classNameIDMap.get(range_name)) != null){
-			//  		OntologyClass oc;
-			//  		if((oc = ontologyClasses.get(id)) != null)
-			//  			range_list.add(oc);
-			//  	}
-			//  }
-		 //}else{
-		 //	ranges = ranges.substring(ranges.lastIndexOf("/") + 1);	
-			//  	Integer id;
-			//  	if((id = classNameIDMap.get(ranges)) != null){
-			//  		OntologyClass oc;
-			//  		if((oc = ontologyClasses.get(id)) != null)
-			//  			range_list.add(oc);
-			//  	}
-		 //}		 
-		 //String property_name = entity.get("ObjectProperty").toString();
-		 //property_name = property_name.substring(property_name.lastIndexOf("/") + 1);
-		 
-		 //int key = objectProperties.size() + 1;
-		 //ObjectProperty objectProperty = new ObjectProperty(domain_list, range_list, property_name);
-		 //objectProperties.put(key, objectProperty);
+		 String property_name = entity.get("ObjectProperty").toString();
+		 property_name = property_name.substring(property_name.lastIndexOf("/") + 1);
+		 if(objectPropertyIDMap.get(property_name) != null){
+		 	Integer id = objectPropertyIDMap.get(property_name);
+		 	String domains = entity.get("domains").toString();	
+		 	domains = domains.substring(domains.lastIndexOf("/") + 1);
+		 	String ranges = entity.get("ranges").toString();	
+		 	ranges = ranges.substring(ranges.lastIndexOf("/") + 1);
+		 	
+		 	Integer cid;
+		 	if((cid = classNameIDMap.get(domains)) != null){
+		 		OntologyClass oc;
+		 		if((oc = ontologyClasses.get(cid)) != null){
+		 			if(!objectProperties.get(id).getDomain().contains(oc))
+		 				objectProperties.get(id).getDomain().add(oc);
+		 		}
+		 	}
+		 	if((cid = classNameIDMap.get(ranges)) != null){
+		 		OntologyClass oc;
+		 		if((oc = ontologyClasses.get(cid)) != null){
+		 			if(!objectProperties.get(id).getRange().contains(oc))
+		 				objectProperties.get(id).getRange().add(oc);
+		 		}
+		 	}
+		 }else{
+		 	String domains = entity.get("domains").toString();	
+		 	domains = domains.substring(domains.lastIndexOf("/") + 1);
+		 	String ranges = entity.get("ranges").toString();	
+		 	ranges = ranges.substring(ranges.lastIndexOf("/") + 1);
+		 	ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
+		 	ArrayList<OntologyClass> range_list = new ArrayList<OntologyClass>();
+		 	
+		 	Integer cid;
+		 	if((cid = classNameIDMap.get(domains)) != null){
+		 		OntologyClass oc;
+		 		if((oc = ontologyClasses.get(cid)) != null){
+		 			domain_list.add(oc);
+		 		}
+		 	}
+		 	if((cid = classNameIDMap.get(ranges)) != null){
+		 		OntologyClass oc;
+		 		if((oc = ontologyClasses.get(cid)) != null){
+		 			range_list.add(oc);
+		 		}
+		 	}
+		 	int key = objectProperties.size() + 1;
+		 	ObjectProperty objectProperty = new ObjectProperty(domain_list, range_list, property_name);
+		 	objectProperties.put(key, objectProperty);
+		 	objectPropertyIDMap.put(property_name, key);
+		 }
       }
-/*
+
       ///Building metadata of Data Properties	    
       Query query2 = QueryFactory.create(queryString2);
       QueryExecution queryExec2 = QueryExecutionFactory.create(query2, model);
@@ -179,37 +180,46 @@ public class OntologyResource{
       while(dataProperties_result.hasNext()){
 		 QuerySolution entity = dataProperties_result.next();
 		 
-		 String domains = entity.get("domains").toString();
-		 ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
-		 //if(domains.indexOf("|") != -1){
-			//  String[] domains_tokens = domains.split(" | ");
-			//  for(int i = 0; i < domains_tokens.length; i++){
-			//  	String domain_name = domains_tokens[i].substring(domains_tokens[i].lastIndexOf("/") + 1);	
-			//  	Integer id;
-			//  	if((id = classNameIDMap.get(domain_name)) != null){
-			//  		OntologyClass oc;
-			//  		if((oc = ontologyClasses.get(id)) != null)
-			//  			domain_list.add(oc);
-			//  	}
-			//  }
-		 //}else{
-		 //	domains = domains.substring(domains.lastIndexOf("/") + 1);	
-			//  	Integer id;
-			//  	if((id = classNameIDMap.get(domains)) != null){
-			//  		OntologyClass oc;
-			//  		if((oc = ontologyClasses.get(id)) != null)
-			//  			domain_list.add(oc);
-			//  	}
-		 //}
-		 String ranges = entity.get("ranges").toString();
-		 ranges = ranges.substring(ranges.lastIndexOf("/") + 1);
-		 String property_name = entity.get("DataTypeProperty").toString();
+		 String property_name = entity.get("DatatypeProperty").toString();
 		 property_name = property_name.substring(property_name.lastIndexOf("/") + 1);
-		 
-		 int key = dataProperties.size() + 1;
-		 DataProperty dataProperty = new DataProperty(domain_list, ranges, property_name);
-		 dataProperties.put(key, dataProperty);
-
+		 if(dataPropertyIDMap.get(property_name) != null){
+		 	Integer id = dataIDMap.get(property_name);
+		 	String domains = entity.get("domains").toString();	
+		 	domains = domains.substring(domains.lastIndexOf("/") + 1);
+		 	String ranges = entity.get("ranges").toString();	
+		 	ranges = ranges.substring(ranges.lastIndexOf("/") + 1);
+		 	
+		 	Integer cid;
+		 	if((cid = classNameIDMap.get(domains)) != null){
+		 		OntologyClass oc;
+		 		if((oc = ontologyClasses.get(cid)) != null){
+		 			if(!dataProperties.get(id).getDomain().contains(oc))
+		 				dataProperties.get(id).getDomain().add(oc);
+		 		}
+		 	}
+		 	if(!dataProperties.get(id).getRange().contains(ranges))
+		 		dataProperties.get(id).getRange().add(ranges);
+		 }else{
+		 	String domains = entity.get("domains").toString();	
+		 	domains = domains.substring(domains.lastIndexOf("/") + 1);
+		 	String ranges = entity.get("ranges").toString();	
+		 	ranges = ranges.substring(ranges.lastIndexOf("/") + 1);
+		 	ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
+		 	ArrayList<String> range_list = new ArrayList<String>();
+		 	
+		 	Integer cid;
+		 	if((cid = classNameIDMap.get(domains)) != null){
+		 		OntologyClass oc;
+		 		if((oc = ontologyClasses.get(cid)) != null){
+		 			domain_list.add(oc);
+		 		}
+		 	}
+		 	range_list.add(ranges);
+		 	int key = objectProperties.size() + 1;
+		 	DataProperty dataProperty = new DataProperty(domain_list, range_list, property_name);
+		 	dataProperties.put(key, dataProperty);
+		 	dataPropertyIDMap.put(property_name, key);
+		 }
 	    }
 	    */
       }catch(Exception ex){
