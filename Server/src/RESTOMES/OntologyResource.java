@@ -78,8 +78,8 @@ public class OntologyResource{
       String queryString = QUERY_NAMESPACES + "select distinct ?class where { ?class a owl:Class.}";
       Map<Integer, ObjectProperty> objectProperties = new HashMap<Integer, ObjectProperty>();
       String queryString1 = QUERY_NAMESPACES + "SELECT distinct " + 
-      "?ObjectProperty group_concat(distinct ?range;separator=\" | \") as ?ranges" + 
-      " group_concat(distinct ?domain;separator=\" | \") as ?domains" +
+      "?ObjectProperty (group_concat(distinct ?range;separator=\" | \") as ?ranges)" + 
+      " (group_concat(distinct ?domain;separator=\" | \") as ?domains)" +
 	" WHERE { " + 
 		" ?ObjectProperty a owl:ObjectProperty." +
 		" optional { ?ObjectProperty rdfs:domain ?domain. }" +
