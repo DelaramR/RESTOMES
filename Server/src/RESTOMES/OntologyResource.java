@@ -70,11 +70,13 @@ public class OntologyResource{
 		
 		"<br>\r\n" +
 		"<form method=\"POST\" action=\"\">" +
+		"Please enter a valid ontology URI</br>\r\n" +
 		"Ontology URI: <input type=\"text\" name=\"uri\"></br>\r\n" +
-		"<input type=\"submit\" value=\"Submit\">\r\n" +
+		"</br><input type=\"submit\" value=\"Submit\">\r\n" +
 		"</from>" +
 		"</div>\r\n" +
-		"<div align=\"center\" id=\"result\">\r\n";
+		"<div align=\"center\" id=\"result\">\r\n" + 
+		"Existing Ontologies:</br>\r\n";
       
       Ontology ontology = new Ontology();
       ontology.setUrl(ontologyUrl);
@@ -91,7 +93,7 @@ public class OntologyResource{
 	}
 	html += "</div>\r\n" +
 		"</br><div style=\"color:red\">\r\n" +
-		"Duplicate Request" +
+		"Duplicate Request: Ontology already exists" +
 		"</div>\r\n" +
 		"</td>\r\n" +
 		"</tr>\r\n" +
@@ -344,10 +346,11 @@ public class OntologyResource{
 		"<br>\r\n" +
 		"<form method=\"POST\" action=\"\">" +
 		"Ontology URI: <input type=\"text\" name=\"uri\"></br>\r\n" +
-		"<input type=\"submit\" value=\"Submit\">\r\n" +
+		"</br><input type=\"submit\" value=\"Submit\">\r\n" +
 		"</from>" +
 		"</div>\r\n" +
-		"<div align=\"center\" id=\"result\">\r\n";
+		"<div align=\"center\" id=\"result\">\r\n" +
+		"Existing Ontologies:</br>\r\n";
 	for (Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
 		UriBuilder ub = uri.getAbsolutePathBuilder();
             	URI userUri = ub.path(entry.getKey().toString()).build();
