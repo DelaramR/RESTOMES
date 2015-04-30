@@ -79,7 +79,7 @@ public class OntologyResource{
       Map<String, Integer> dataPropertyIDMap = new HashMap<String, Integer>();
       String queryString = QUERY_NAMESPACES + "select distinct ?class where { ?class a owl:Class.}";
       Map<Integer, ObjectProperty> objectProperties = new HashMap<Integer, ObjectProperty>();
-      String queryString1 = QUERY_NAMESPACES + "SELECT distinct ?ranges ?ObjectProperty ?domains" +
+      String queryString1 = QUERY_NAMESPACES + "SELECT distinct ?ObjectProperty ?ranges ?domains" +
 	" WHERE { " + 
 		" ?ObjectProperty a owl:ObjectProperty." +
 		" optional { ?ObjectProperty rdfs:domain ?domains. }" +
@@ -119,7 +119,7 @@ public class OntologyResource{
 		 
 		 //String property_name = entity.get("?ObjectProperty").toString();
 		 //property_name = property_name.substring(property_name.lastIndexOf("/") + 1);
-		 String domains = entity.get("?ranges").toString();
+		 String domains = entity.getResource("domains").getLocalName();
 		 //if(objectPropertyIDMap.get(property_name) != null){
 		 //	Integer id = objectPropertyIDMap.get(property_name);
 		 //	String domains = entity.get("domains").toString();	
