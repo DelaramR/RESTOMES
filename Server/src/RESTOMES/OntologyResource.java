@@ -94,6 +94,7 @@ public class OntologyResource{
 		" optional { ?DatatypeProperty rdfs:range ?ranges. }" +		
 		" } " ; 	
       
+      String exist = "exist";
       try{
       Model model = ModelFactory.createDefaultModel();
       model = model.read(ontologyUrl);
@@ -120,7 +121,7 @@ public class OntologyResource{
 		 //String property_name = entity.get("?ObjectProperty").toString();
 		 //property_name = property_name.substring(property_name.lastIndexOf("/") + 1);
 		 if(entity.contains("domains")){
-		 	System.out.println("DOMAIN");
+		 	exist += "!!!!!!!!!";
 		 }
 		 //String domains = entity.getResource("domains").getLocalName();
 		 //if(objectPropertyIDMap.get(property_name) != null){
@@ -223,8 +224,8 @@ public class OntologyResource{
 	    }
 	    
       }catch(Exception ex){
-	System.out.println(ex.toString());
-	return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Resource not found: " + ontologyUrl).build();
+	// System.out.println(ex.toString());
+	return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Resource not found: " + exist).build();
       }
       System.out.println("HERE");
       ontology.setOntologyClasses(ontologyClasses);
