@@ -180,8 +180,7 @@ public class OntologyResource{
 			ObjectProperty objectProperty = new ObjectProperty(domain_list, range_list, property_name);
 			objectProperties.put(key, objectProperty);
 			objectPropertyIDMap.put(property_name, key);
-			 }
-		 }
+		}
       }
 
       ///Building metadata of Data Properties	    
