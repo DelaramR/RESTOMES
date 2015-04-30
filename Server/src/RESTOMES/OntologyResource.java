@@ -406,7 +406,7 @@ public class OntologyResource{
     	"</br>Ontology Classes:</br>";
     for (Map.Entry<Integer, OntologyClass> entry : ontology.getOntologyClasses().entrySet()){
 		UriBuilder ub = uri.getAbsolutePathBuilder();
-            	URI userUri = ub.path(id + "/class/" + entry.getKey().toString()).build();
+            	URI userUri = ub.path("class/" + entry.getKey().toString()).build();
 		String value = userUri.toString();
 		html += "<a href=" + value + ">" + value + "</a><br>\r\n";
 	}
