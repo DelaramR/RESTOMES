@@ -71,7 +71,7 @@ public class OntologyResource{
 		"<br>\r\n" +
 		"<form method=\"POST\" action=\"\">" +
 		"Please enter a valid ontology URI</br></br>\r\n" +
-		"Ontology URI: <input type=\"text\" name=\"uri\" width=\"100\"> " +
+		"Ontology URI: <input type=\"text\" name=\"uri\" size=\"100\"> " +
 		"<input type=\"submit\" value=\"Submit\">\r\n" +
 		"</from>" +
 		"</div>\r\n" +
@@ -346,7 +346,7 @@ public class OntologyResource{
 		"<br>\r\n" +
 		"<form method=\"POST\" action=\"\">" +
 		"Please enter a valid ontology URI</br></br>\r\n" +
-		"Ontology URI: <input type=\"text\" name=\"uri\" width=\"100\"> " +
+		"Ontology URI: <input type=\"text\" name=\"uri\" size=\"100\"> " +
 		"<input type=\"submit\" value=\"Submit\">\r\n" +
 		"</from>" +
 		"</div>\r\n" +
