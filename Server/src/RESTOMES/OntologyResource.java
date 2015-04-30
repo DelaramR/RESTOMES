@@ -121,8 +121,8 @@ public class OntologyResource{
 		 QuerySolution entity = objectProperties_result.next();
 		 Iterator<String> vars = entity.varNames();
 		 while(vars.hasNext())
-		 	String var = vars.next();
-		 	System.out.println(var);
+		 	String s = vars.next();
+		 	System.out.println(s);
 		 }
 		 //String domains = entity.get("domains").toString();
 		 //ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
