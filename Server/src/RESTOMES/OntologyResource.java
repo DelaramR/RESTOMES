@@ -258,7 +258,7 @@ public class OntologyResource{
       Integer id = ontologyDB.size() + 1;
       ontologyDB.put(id, ontology);
       URI location = URI.create("/ontology/" + id);
-      Response.temporaryRedirect(location).build();
+      //Response.temporaryRedirect(location).build();
       return Response.created( location ).build();
     // }catch(IOException ex){
       // return Response.status(Response.Status.NOT_FOUND).entity("Entity not found for: " + ontologyFileName).build();
