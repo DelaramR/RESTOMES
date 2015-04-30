@@ -121,7 +121,7 @@ public class OntologyResource{
 		 QuerySolution entity = objectProperties_result.next();
 		 
 		 String domains = entity.get("domains").toString();
-		 ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
+		 //ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
 		 //if(domains.indexOf("|") != -1){
 			//  String[] domains_tokens = domains.split(" | ");
 			//  for(int i = 0; i < domains_tokens.length; i++){
@@ -142,8 +142,8 @@ public class OntologyResource{
 			//  			domain_list.add(oc);
 			//  	}
 		 //}
-		 String ranges = entity.get("ranges").toString();
-		 ArrayList<OntologyClass> range_list = new ArrayList<OntologyClass>();
+		 //String ranges = entity.get("ranges").toString();
+		 //ArrayList<OntologyClass> range_list = new ArrayList<OntologyClass>();
 		 //if(ranges.indexOf("|") != -1){
 			//  String[] range_tokens = ranges.split(" | ");
 			//  for(int i = 0; i < range_tokens.length; i++){
