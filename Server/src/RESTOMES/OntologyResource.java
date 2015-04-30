@@ -284,7 +284,7 @@ public class OntologyResource{
 		"<div>\r\n" +
 		"Ontology URI: <input type=\"text\" id=\"uri\"><br>\r\n" +
 		"<br>\r\n" +
-		"<button id=\"btnLogin\">Upload</button>\r\n" +
+		"<input type=\"submit\" method=\"POST\" id=\"btnSubmit\">Submit</button>\r\n" +
 		"</div>\r\n" +
 		"<div align=\"center\" id=\"result\">\r\n";
 	for (Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
