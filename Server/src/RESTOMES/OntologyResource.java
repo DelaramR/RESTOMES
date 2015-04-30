@@ -217,7 +217,7 @@ public class OntologyResource{
 		 	// DataProperty dataProperty = new DataProperty(domain_list, range_list, property_name);
 		 	// dataProperties.put(key, dataProperty);
 		 	// dataPropertyIDMap.put(property_name, key);
-		 }
+		 //}
 	    }
 	    
       }catch(Exception ex){
