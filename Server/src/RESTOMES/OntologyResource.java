@@ -120,7 +120,7 @@ public class OntologyResource{
       while(objectProperties_result.hasNext()){
 		 QuerySolution entity = objectProperties_result.next();
 		 
-		 String domains = entity.get("domains").toString();
+		 //String domains = entity.get("domains").toString();
 		 //ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
 		 //if(domains.indexOf("|") != -1){
 			//  String[] domains_tokens = domains.split(" | ");
