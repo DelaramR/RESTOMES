@@ -287,7 +287,7 @@ public class OntologyResource{
 		"<br>\r\n" +
 		"<form method=\"POST\">" +
 		"Ontology URI: <input type=\"text\" name=\"uri\"><br>\r\n" +
-		"<input type=\"submit\" value=\"Submit\">\r\n" +
+		"<input type=\"submit\" value=\"Submit\" target=\"\">\r\n" +
 		"</from>" +
 		"</div>\r\n" +
 		"<div align=\"center\" id=\"result\">\r\n";
