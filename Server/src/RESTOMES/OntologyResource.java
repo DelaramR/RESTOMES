@@ -90,7 +90,7 @@ public class OntologyResource{
 
       Map<Integer, DataProperty> dataProperties = new HashMap<Integer, DataProperty>();
       String queryString2 = QUERY_NAMESPACES + "SELECT distinct " + 
-      "?DatatypeProperty ?ranges)" + 
+      "?DatatypeProperty ?ranges" + 
       " ?domains " +
 	" WHERE { " + 
 		" ?DatatypeProperty a owl:DatatypeProperty." +
