@@ -221,7 +221,7 @@ public class OntologyResource{
 		 	dataPropertyIDMap.put(property_name, key);
 		 }
 	    }
-	    */
+	    
       }catch(Exception ex){
 	System.out.println(ex.toString());
 	return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Resource not found: " + ontologyUrl).build();
