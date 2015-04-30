@@ -117,11 +117,11 @@ public class OntologyResource{
       while(objectProperties_result.hasNext()){
 		 QuerySolution entity = objectProperties_result.next();
 		 
-		 String property_name = entity.get("ObjectProperty").toString();
+		 String property_name = entity.get("?ObjectProperty").toString();
 		 property_name = property_name.substring(property_name.lastIndexOf("/") + 1);
 		 //
-		 String domains = entity.get("domains").toString();	
-		 String ranges = entity.get("ranges").toString();	
+		 String domains = entity.get("?domains").toString();	
+		 String ranges = entity.get("?ranges").toString();	
 		 //
 		 //if(objectPropertyIDMap.get(property_name) != null){
 		 //	Integer id = objectPropertyIDMap.get(property_name);
@@ -180,7 +180,7 @@ public class OntologyResource{
       while(dataProperties_result.hasNext()){
 		 QuerySolution entity = dataProperties_result.next();
 		 
-		 String property_name = entity.get("DatatypeProperty").toString();
+		 String property_name = entity.get("?DatatypeProperty").toString();
 		 property_name = property_name.substring(property_name.lastIndexOf("/") + 1);
 		 //if(dataPropertyIDMap.get(property_name) != null){
 		 //	Integer id = dataPropertyIDMap.get(property_name);
