@@ -83,7 +83,23 @@ public class OntologyResource{
       for(Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
         if(entry.getValue().getUrl().equals(ontology.getUrl())){
           //return Response.seeOther(URI.create("/ontology/" + entry.getKey())).build(); 
-          
+          for (Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
+		UriBuilder ub = uri.getAbsolutePathBuilder();
+            	URI userUri = ub.path(entry.getKey().toString()).build();
+		String value = userUri.toString();
+		html += "<a href=" + value + ">" + value + "</a></br>\r\n";
+	}
+	html += "</div>\r\n" +
+		"<div>\r\n" +
+		"Duplicate Request" +
+		"</div>\r\n" +
+		"</td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"</body>\r\n" +
+		"</html>";
+		
+	return html;
         }
       }
       Map<Integer, OntologyClass> ontologyClasses = new HashMap<Integer, OntologyClass>();
@@ -260,6 +276,23 @@ public class OntologyResource{
       }catch(Exception ex){
 	// System.out.println(ex.toString());
 	// return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Resource not found: " + ontologyUrl).build();
+	for (Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
+		UriBuilder ub = uri.getAbsolutePathBuilder();
+            	URI userUri = ub.path(entry.getKey().toString()).build();
+		String value = userUri.toString();
+		html += "<a href=" + value + ">" + value + "</a></br>\r\n";
+	}
+	html += "</div>\r\n" +
+		"<div>\r\n" +
+		"Server Internal Error" +
+		"</div>\r\n" +
+		"</td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"</body>\r\n" +
+		"</html>";
+		
+	return html;
       }
       ontology.setOntologyClasses(ontologyClasses);
       ontology.setDataProperties(dataProperties);
