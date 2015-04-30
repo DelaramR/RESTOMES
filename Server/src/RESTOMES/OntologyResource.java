@@ -69,7 +69,7 @@ public class OntologyResource{
 		"<div>\r\n" +
 		
 		"<br>\r\n" +
-		"<form method=\"POST\" action=\"rest/ontology\">" +
+		"<form method=\"POST\" action=\"\">" +
 		"Ontology URI: <input type=\"text\" name=\"uri\"><br>\r\n" +
 		"<input type=\"submit\" value=\"Submit\">\r\n" +
 		"</from>" +
@@ -309,7 +309,7 @@ public class OntologyResource{
 		"<div>\r\n" +
 		
 		"<br>\r\n" +
-		"<form method=\"POST\" action=\"rest/ontology\">" +
+		"<form method=\"POST\" action=\"\">" +
 		"Ontology URI: <input type=\"text\" name=\"uri\"><br>\r\n" +
 		"<input type=\"submit\" value=\"Submit\">\r\n" +
 		"</from>" +
