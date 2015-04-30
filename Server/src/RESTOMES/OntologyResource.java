@@ -402,20 +402,17 @@ public class OntologyResource{
 	return html;
     }
     
-    html += "Ontology URI: " + ontology.getUrl() + "</br>\r\n" +
-    	"</br>Ontology Classes:";
-    	UriBuilder ub = uri.getAbsolutePathBuilder();
-        URI userUri = ub.path("class").build();
-        String value = userUri.toString();
-        html += "<a href=" + value + ">" + value + "</a><br>\r\n";
-    html += "</br>Ontology ObjectProperties:";
+    html += "Ontology URI: " + ontology.getUrl() + "</br>\r\n";
+    UriBuilder ub = uri.getAbsolutePathBuilder();
+    URI userUri = ub.path("class").build();
+    String value = userUri.toString();
+    html += "<a href=" + value + ">" + "Ontology Classes" + "</a><br>\r\n";
     URI userUri1 = ub.path("objectproperty").build();
     value = userUri1.toString();
-    html += "<a href=" + value + ">" + value + "</a><br>\r\n";
-    html += "</br>Ontology DataTypeProperties:";
+    html += "<a href=" + value + ">" + "Ontology ObjectProperties" + "</a><br>\r\n";
     URI userUri2 = ub.path("dataproperty").build();
     value = userUri2.toString();
-    html += "<a href=" + value + ">" + value + "</a><br>\r\n";
+    html += "<a href=" + value + ">" + "Ontology DataTypeProperties" + "</a><br>\r\n";
     html += "</div></br>\r\n" +
 		"</td>\r\n" +
 		"</tr>\r\n" +
