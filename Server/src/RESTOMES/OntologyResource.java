@@ -375,13 +375,48 @@ public class OntologyResource{
      */
   @GET
   @Path( "{oid: [1-9][0-9]*}" )
-  @Produces(MediaType.APPLICATION_JSON)
-  public Ontology getOntologyEntryJSON(@PathParam("oid") Integer id){
+  @Produces(MediaType.TEXT_HTML)
+  public String getOntologyEntryJSON(@PathParam("oid") Integer id){
+    String html = "<html>\r\n" +
+  		"<head>\r\n" + 
+  		"</head>\r\n" + 
+  		"<body>" + 
+		"<table>\r\n" +
+		"<tr>\r\n" + 
+		"<td>\r\n" +
+		"<div id=\"result\">\r\n";
+	
     final Ontology ontology = ontologyDB.get(id);
     if(ontology == null){
-      throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
+      //throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
+      html += "</div></br>\r\n" +
+      		"</br><div style=\"color:red\">\r\n" +
+      		"Ontology not found" +
+      		"</div>\r\n" +
+		"</td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"</body>\r\n" +
+		"</html>";
+		
+	return html;
     }
-    return ontology;
+    
+    html += "Ontology URI: " + ontology.getUrl() + "</br>\r\n" +
+    	"</br>Ontology Classes:</br>";
+    for (Map.Entry<Integer, OntologyClass> entry : ontology.getOntologyClasses().entrySet()){
+		UriBuilder ub = uri.getAbsolutePathBuilder();
+            	URI userUri = ub.path(id + "/class/" + entry.getKey().toString()).build();
+		String value = userUri.toString();
+		html += "<a href=" + velue + ">" + value + "</a><br>\r\n";
+	}
+    html += "</div></br>\r\n" +
+		"</td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"</body>\r\n" +
+		"</html>";
+    return html;
   }
   
   
