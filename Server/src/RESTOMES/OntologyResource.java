@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URI;
+import java.util.Iterator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
@@ -119,8 +120,9 @@ public class OntologyResource{
       ResultSet objectProperties_result = queryExec1.execSelect();
       while(objectProperties_result.hasNext()){
 		 QuerySolution entity = objectProperties_result.next();
-		 while(entity.varNames().hasNext()){
-		 	String s = entity.varNames().next();
+		 Iterator<String> vars = entity.varNames();
+		 while(vars.hasNext()){
+		 	String s = vars.next();
 		 	System.out.println(s);
 		 }
 		 //String domains = entity.get("domains").toString();
