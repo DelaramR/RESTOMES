@@ -208,7 +208,7 @@ public class OntologyResource{
 		 			}
 		 		}
 		 	}
-		 	if(ranges_nodes != null){
+		 	if(ranges_node != null){
 		 		String ranges = ranges_node.toString();	
 		 		ranges = ranges.substring(ranges.lastIndexOf("/") + 1);
 		 		
