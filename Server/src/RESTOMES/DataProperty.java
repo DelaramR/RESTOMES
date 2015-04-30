@@ -4,16 +4,16 @@ import java.util.ArrayList;
 public class DataProperty{
 
     private ArrayList<OntologyClass> domain;
-    private String range;
+    private ArrayList<String> range;
     private String property;
 
     public DataProperty(){
 	this.domain = new ArrayList<OntologyClass>();
-	this.range = "";
+	this.range = new ArrayList<String>();
 	this.property = "";
     }
 
-    public DataProperty(ArrayList<OntologyClass> domain, String range, String property){
+    public DataProperty(ArrayList<OntologyClass> domain, ArrayList<String> range, String property){
 	this.domain = domain;
 	this.range = range;
 	this.property = property;
@@ -27,11 +27,11 @@ public class DataProperty{
 	this.domain = domain;
     }
 
-    public String getRange(){
+    public ArrayList<String> getRange(){
 	return this.range;
     }
 
-    public void setRange(String range){
+    public void setRange(ArrayList<String> range){
 	this.range = range;
     }
 
