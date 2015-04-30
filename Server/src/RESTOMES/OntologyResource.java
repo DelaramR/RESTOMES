@@ -142,8 +142,10 @@ public class OntologyResource{
 		 	// 	}
 		 	// }
 		 }else{
+		 	System.out.println("Before");
 		 	String domains = entity.get("domains").toString();	
 		 	domains = domains.substring(domains.lastIndexOf("/") + 1);
+		 	System.out.println("After");
 		 	String ranges = entity.get("ranges").toString();	
 		 	ranges = ranges.substring(ranges.lastIndexOf("/") + 1);
 		 	ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
@@ -178,12 +180,12 @@ public class OntologyResource{
 		 
 		 String property_name = entity.get("DatatypeProperty").toString();
 		 property_name = property_name.substring(property_name.lastIndexOf("/") + 1);
-		 if(dataPropertyIDMap.get(property_name) != null){
-		 	Integer id = dataPropertyIDMap.get(property_name);
-		 	String domains = entity.get("domains").toString();	
-		 	domains = domains.substring(domains.lastIndexOf("/") + 1);
-		 	String ranges = entity.get("ranges").toString();	
-		 	ranges = ranges.substring(ranges.lastIndexOf("/") + 1);
+		 //if(dataPropertyIDMap.get(property_name) != null){
+		 //	Integer id = dataPropertyIDMap.get(property_name);
+		 //	String domains = entity.get("domains").toString();	
+		 //	domains = domains.substring(domains.lastIndexOf("/") + 1);
+		 //	String ranges = entity.get("ranges").toString();	
+		 //	ranges = ranges.substring(ranges.lastIndexOf("/") + 1);
 		 	
 		 //	Integer cid;
 		 //	if((cid = classNameIDMap.get(domains)) != null){
@@ -195,13 +197,13 @@ public class OntologyResource{
 		 //	}
 		 //	if(!dataProperties.get(id).getRange().contains(ranges))
 		 //		dataProperties.get(id).getRange().add(ranges);
-		 }else{
-		 	String domains = entity.get("domains").toString();	
-		 	domains = domains.substring(domains.lastIndexOf("/") + 1);
-		 	String ranges = entity.get("ranges").toString();	
-		 	ranges = ranges.substring(ranges.lastIndexOf("/") + 1);
-		 	ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
-		 	ArrayList<String> range_list = new ArrayList<String>();
+		 //}else{
+		 //	String domains = entity.get("domains").toString();	
+		 //	domains = domains.substring(domains.lastIndexOf("/") + 1);
+		 //	String ranges = entity.get("ranges").toString();	
+		 //	ranges = ranges.substring(ranges.lastIndexOf("/") + 1);
+		 //	ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
+		 //	ArrayList<String> range_list = new ArrayList<String>();
 		 	
 		 //	Integer cid;
 		 //	if((cid = classNameIDMap.get(domains)) != null){
@@ -211,10 +213,10 @@ public class OntologyResource{
 		 //		}
 		 //	}
 		 //	range_list.add(ranges);
-		 	int key = objectProperties.size() + 1;
-		 	DataProperty dataProperty = new DataProperty(domain_list, range_list, property_name);
-		 	dataProperties.put(key, dataProperty);
-		 	dataPropertyIDMap.put(property_name, key);
+		 	// int key = objectProperties.size() + 1;
+		 	// DataProperty dataProperty = new DataProperty(domain_list, range_list, property_name);
+		 	// dataProperties.put(key, dataProperty);
+		 	// dataPropertyIDMap.put(property_name, key);
 		 }
 	    }
 	    
