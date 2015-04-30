@@ -89,7 +89,7 @@ public class OntologyResource{
 		UriBuilder ub = uri.getAbsolutePathBuilder();
             	URI userUri = ub.path(entry1.getKey().toString()).build();
 		String value = userUri.toString();
-		html += "<a href=" + value + ">" + value + "</a></br>\r\n";
+		html += "<a href=" + value + ">" + ontologyUrl + "</a></br>\r\n";
 	}
 	html += "</div>\r\n" +
 		"</br><div style=\"color:red\">\r\n" +
@@ -282,7 +282,7 @@ public class OntologyResource{
 		UriBuilder ub = uri.getAbsolutePathBuilder();
             	URI userUri = ub.path(entry.getKey().toString()).build();
 		String value = userUri.toString();
-		html += "<a href=" + value + ">" + value + "</a></br>\r\n";
+		html += "<a href=" + value + ">" + entry.getValue().getUrl() + "</a></br>\r\n";
 	}
 	html += "</div>\r\n" +
 		"</br><div style=\"color:red\">\r\n" +
@@ -308,7 +308,7 @@ public class OntologyResource{
 		UriBuilder ub = uri.getAbsolutePathBuilder();
             	URI userUri = ub.path(entry.getKey().toString()).build();
 		String value = userUri.toString();
-		html += "<a href=" + value + ">" + value + "</a></br>\r\n";
+		html += "<a href=" + value + ">" + entry.getValue().getUrl() + "</a></br>\r\n";
 	}
 	html += "</div>\r\n" +
 		"</td>\r\n" +
@@ -356,7 +356,7 @@ public class OntologyResource{
 		UriBuilder ub = uri.getAbsolutePathBuilder();
             	URI userUri = ub.path(entry.getKey().toString()).build();
 		String value = userUri.toString();
-		html += "<a href=" + value + ">" + value + "</a><br>\r\n";
+		html += "<a href=" + value + ">" + entry.getValue().getUrl() + "</a><br>\r\n";
 	}
 	html += "</div>\r\n" +
 		"</td>\r\n" +
@@ -408,7 +408,7 @@ public class OntologyResource{
 		UriBuilder ub = uri.getAbsolutePathBuilder();
             	URI userUri = ub.path("class/" + entry.getKey().toString()).build();
 		String value = userUri.toString();
-		html += "<a href=" + value + ">" + value + "</a><br>\r\n";
+		html += "<a href=" + value + ">" + entry.getValue().getClassName() + "</a><br>\r\n";
 	}
     html += "</div></br>\r\n" +
 		"</td>\r\n" +
