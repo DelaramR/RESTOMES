@@ -20,6 +20,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.Produces;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
@@ -31,8 +32,6 @@ import com.hp.hpl.jena.query.*;
 import com.hp.hpl.jena.ontology.*;
 
 import org.jboss.resteasy.spi.NoLogWebApplicationException;
-import org.jboss.resteasy.plugins.providers.multipart.InputPart;
-import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 
 @Path("/ontology")
@@ -50,7 +49,6 @@ public class OntologyResource{
      * @return a response encoding
      */
   @POST
-  @Consumes("multipart/form-data")
   public Response createOntologyEntry(@FormParam("uri") String ont){ //( OntologyJsonObject object ){ //JsonFile file ){
     System.out.println( "OntologyResource.createEntry" );
     // String ontologyFileName = file.getName();
@@ -287,7 +285,7 @@ public class OntologyResource{
 		"<div>\r\n" +
 		
 		"<br>\r\n" +
-		"<form method=\"POST\" action=\"\" enctype=\"multipart/form-data\">" +
+		"<form method=\"POST\" action=\"\">" +
 		"Ontology URI: <input type=\"text\" id=\"uri\" name=\"uri\"><br>\r\n" +
 		"<input type=\"submit\" value=\"Submit\">\r\n" +
 		"</from>" +
