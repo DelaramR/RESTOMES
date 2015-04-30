@@ -79,8 +79,8 @@ public class OntologyResource{
       String queryString = QUERY_NAMESPACES + "select distinct ?class where { ?class a owl:Class.}";
       Map<Integer, ObjectProperty> objectProperties = new HashMap<Integer, ObjectProperty>();
       String queryString1 = QUERY_NAMESPACES + "SELECT distinct " + 
-      "?ObjectProperty ?ranges ?domains (group_concat(distinct ?range;separator=\" | \") as ?ranges)" + 
-      " (group_concat(distinct ?domain;separator=\" | \") as ?domains)" +
+      "?ObjectProperty group_concat(distinct ?range;separator=\" | \") as ?ranges" + 
+      " group_concat(distinct ?domain;separator=\" | \") as ?domains" +
 	" WHERE { " + 
 		" ?ObjectProperty a owl:ObjectProperty." +
 		" optional { ?ObjectProperty rdfs:domain ?domain. }" +
@@ -120,12 +120,8 @@ public class OntologyResource{
       ResultSet objectProperties_result = queryExec1.execSelect();
       while(objectProperties_result.hasNext()){
 		 QuerySolution entity = objectProperties_result.next();
-		 Iterator<String> vars = entity.varNames();
-		 while(vars.hasNext()){
-		 	String s = vars.next();
-		 	System.out.println(s);
-		 }
-		 //String domains = entity.get("domains").toString();
+		 
+		 String domains = entity.get("domains").toString();
 		 //ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
 		 //if(domains.indexOf("|") != -1){
 			//  String[] domains_tokens = domains.split(" | ");
