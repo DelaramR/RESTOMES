@@ -407,10 +407,12 @@ public class OntologyResource{
     URI userUri = ub.path("class").build();
     String value = userUri.toString();
     html += "<a href=" + value + ">" + "Ontology Classes" + "</a><br>\r\n";
-    URI userUri1 = ub.path("objectproperty").build();
+    UriBuilder ub1 = uri.getAbsolutePathBuilder();
+    URI userUri1 = ub1.path("objectproperty").build();
     value = userUri1.toString();
     html += "<a href=" + value + ">" + "Ontology ObjectProperties" + "</a><br>\r\n";
-    URI userUri2 = ub.path("dataproperty").build();
+    UriBuilder ub2 = uri.getAbsolutePathBuilder();
+    URI userUri2 = ub2.path("dataproperty").build();
     value = userUri2.toString();
     html += "<a href=" + value + ">" + "Ontology DataTypeProperties" + "</a><br>\r\n";
     html += "</div></br>\r\n" +
