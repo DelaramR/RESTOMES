@@ -49,6 +49,7 @@ public class OntologyResource{
      * @return a response encoding
      */
   @POST
+  @Produces(MediaType.TEXT_HTML)
   public Response createOntologyEntry(@FormParam("uri") String ont){ //( OntologyJsonObject object ){ //JsonFile file ){
     System.out.println( "OntologyResource.createEntry   " + ont );
     // String ontologyFileName = file.getName();
@@ -287,7 +288,7 @@ public class OntologyResource{
 		"<div>\r\n" +
 		
 		"<br>\r\n" +
-		"<form method=\"POST\">" +
+		"<form method=\"POST\" action=\"rest/ontology\">" +
 		"Ontology URI: <input type=\"text\" name=\"uri\"><br>\r\n" +
 		"<input type=\"submit\" value=\"Submit\">\r\n" +
 		"</from>" +
