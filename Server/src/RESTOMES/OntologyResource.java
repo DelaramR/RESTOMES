@@ -50,7 +50,7 @@ public class OntologyResource{
      */
   @POST
   public Response createOntologyEntry(@FormParam("uri") String ont){ //( OntologyJsonObject object ){ //JsonFile file ){
-    System.out.println( "OntologyResource.createEntry" );
+    System.out.println( "OntologyResource.createEntry   " + ont );
     // String ontologyFileName = file.getName();
     // String ontologyContent = file.getContent();
     //String ontologyName = object.getName();
@@ -286,7 +286,7 @@ public class OntologyResource{
 		
 		"<br>\r\n" +
 		"<form method=\"POST\" action=\"\">" +
-		"Ontology URI: <input type=\"text\" id=\"uri\" name=\"uri\"><br>\r\n" +
+		"Ontology URI: <input type=\"text\" name=\"uri\"><br>\r\n" +
 		"<input type=\"submit\" value=\"Submit\">\r\n" +
 		"</from>" +
 		"</div>\r\n" +
