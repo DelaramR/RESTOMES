@@ -49,12 +49,14 @@ public class OntologyResource{
      */
   @POST
   @Consumes( MediaType.APPLICATION_JSON )
-  public Response createOntologyEntryJSON( OntologyJsonObject object ){ //JsonFile file ){
+  public Response createOntologyEntryJSON(String object){ //( OntologyJsonObject object ){ //JsonFile file ){
     System.out.println( "OntologyResource.createEntry" );
     // String ontologyFileName = file.getName();
     // String ontologyContent = file.getContent();
-    String ontologyName = object.getName();
-    String ontologyUrl = object.getUrl();
+    //String ontologyName = object.getName();
+    //String ontologyUrl = object.getUrl();
+    String ontologyName = object.substring(object.lastIndexOf("/") + 1);
+    String ontologyUrl = object;
     // try{
       //byte[] bytes = ontologyContent.getBytes();
       // File f = new File(ontologyFileName);
