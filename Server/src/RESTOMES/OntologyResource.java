@@ -410,6 +410,21 @@ public class OntologyResource{
 		String value = userUri.toString();
 		html += "<a href=" + value + ">" + entry.getValue().getClassName() + "</a><br>\r\n";
 	}
+	
+    html += "</br>Ontology ObjectProperties:</br>";
+    for (Map.Entry<Integer, ObjectProperty> entry : ontology.getObjectProperties().entrySet()){
+		UriBuilder ub = uri.getAbsolutePathBuilder();
+            	URI userUri = ub.path("objectproperty/" + entry.getKey().toString()).build();
+		String value = userUri.toString();
+		html += "<a href=" + value + ">" + entry.getValue().getProperty() + "</a><br>\r\n";
+	}
+    html += "</br>Ontology DataTypeProperties:</br>";
+    for (Map.Entry<Integer, DataProperty> entry : ontology.getDataProperties().entrySet()){
+		UriBuilder ub = uri.getAbsolutePathBuilder();
+            	URI userUri = ub.path("dataproperty/" + entry.getKey().toString()).build();
+		String value = userUri.toString();
+		html += "<a href=" + value + ">" + entry.getValue().getProperty() + "</a><br>\r\n";
+	}
     html += "</div></br>\r\n" +
 		"</td>\r\n" +
 		"</tr>\r\n" +
