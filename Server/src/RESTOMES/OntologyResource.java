@@ -164,12 +164,12 @@ public class OntologyResource{
 			//  			range_list.add(oc);
 			//  	}
 		 //}		 
-		 String property_name = entity.get("ObjectProperty").toString();
-		 property_name = property_name.substring(property_name.lastIndexOf("/") + 1);
+		 //String property_name = entity.get("ObjectProperty").toString();
+		 //property_name = property_name.substring(property_name.lastIndexOf("/") + 1);
 		 
-		 int key = objectProperties.size() + 1;
-		 ObjectProperty objectProperty = new ObjectProperty(domain_list, range_list, property_name);
-		 objectProperties.put(key, objectProperty);
+		 //int key = objectProperties.size() + 1;
+		 //ObjectProperty objectProperty = new ObjectProperty(domain_list, range_list, property_name);
+		 //objectProperties.put(key, objectProperty);
       }
 /*
       ///Building metadata of Data Properties	    
