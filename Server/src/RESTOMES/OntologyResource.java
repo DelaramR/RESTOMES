@@ -119,10 +119,7 @@ public class OntologyResource{
 		 
 		 //String property_name = entity.get("?ObjectProperty").toString();
 		 //property_name = property_name.substring(property_name.lastIndexOf("/") + 1);
-		 if(entity.contains("domains")){
-		 	System.out.println("HHHHH");
-		 }
-		 //String domains = entity.getResource("domains").getLocalName();
+		 String domains = entity.getLiteral("domains").toString();
 		 //if(objectPropertyIDMap.get(property_name) != null){
 		 //	Integer id = objectPropertyIDMap.get(property_name);
 		 //	String domains = entity.get("domains").toString();	
