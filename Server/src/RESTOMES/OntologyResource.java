@@ -120,54 +120,66 @@ public class OntologyResource{
 		 String property_name = entity.get("?ObjectProperty").toString();
 		 property_name = property_name.substring(property_name.lastIndexOf("/") + 1);
 		 RDFNode domains_node = entity.get("domains");
-		 if(domains_node != null){
-			 if(objectPropertyIDMap.get(property_name) != null){
-			 	Integer id = objectPropertyIDMap.get(property_name);
-			 	String domains = domains_node.toString();	
-			 //	domains = domains.substring(domains.lastIndexOf("/") + 1);
-			 //	String ranges = entity.get("ranges").toString();	
-			 //	ranges = ranges.substring(ranges.lastIndexOf("/") + 1);
+		 RDFNode ranges_node = entity.get("ranges");
+		if(objectPropertyIDMap.get(property_name) != null){
+			Integer id = objectPropertyIDMap.get(property_name);
+		 	if(domains_node != null){
+		 		String domains = domains_node.toString();	
+			 	domains = domains.substring(domains.lastIndexOf("/") + 1);
 			 	
-			 	// Integer cid;
-			 	// if((cid = classNameIDMap.get(domains)) != null){
-			 	// 	OntologyClass oc;
-			 	// 	if((oc = ontologyClasses.get(cid)) != null){
-			 	// 		if(!objectProperties.get(id).getDomain().contains(oc))
-			 	// 			objectProperties.get(id).getDomain().add(oc);
-			 	// 	}
-			 	// }
-			 	// if((cid = classNameIDMap.get(ranges)) != null){
-			 	// 	OntologyClass oc;
-			 	// 	if((oc = ontologyClasses.get(cid)) != null){
-			 	// 		if(!objectProperties.get(id).getRange().contains(oc))
-			 	// 			objectProperties.get(id).getRange().add(oc);
-			 	// 	}
-			 	// }
-			 }else{
+			 	Integer cid;
+			 	if((cid = classNameIDMap.get(domains)) != null){
+			 		OntologyClass oc;
+			 		if((oc = ontologyClasses.get(cid)) != null){
+			 			if(!objectProperties.get(id).getDomain().contains(oc))
+			 				objectProperties.get(id).getDomain().add(oc);
+			 		}
+			 	}
+		 	}
+		 	if(ranges_node != null){
+			 	String ranges = ranges_node.toString();	
+			 	ranges = ranges.substring(ranges.lastIndexOf("/") + 1);
+			 	
+			 	Integer cid;
+			 	if((cid = classNameIDMap.get(ranges)) != null){
+			 		OntologyClass oc;
+			 		if((oc = ontologyClasses.get(cid)) != null){
+			 			if(!objectProperties.get(id).getRange().contains(oc))
+			 				objectProperties.get(id).getRange().add(oc);
+			 		}
+			 	}
+		 	}
+		}else{
+			ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
+			ArrayList<OntologyClass> range_list = new ArrayList<OntologyClass>();
+			if(domains_node != null){
 			 	String domains = domains_node.toString();	
 			 	domains = domains.substring(domains.lastIndexOf("/") + 1);
-			 //	String ranges = entity.get("ranges").toString();	
-			 //	ranges = ranges.substring(ranges.lastIndexOf("/") + 1);
-			 //	ArrayList<OntologyClass> domain_list = new ArrayList<OntologyClass>();
-			 //	ArrayList<OntologyClass> range_list = new ArrayList<OntologyClass>();
+			 	Integer cid;
+			 	if((cid = classNameIDMap.get(domains)) != null){
+			 		OntologyClass oc;
+			 		if((oc = ontologyClasses.get(cid)) != null){
+			 			domain_list.add(oc);
+			 		}
+			 	}
+			}
+			if(ranges_node != null){
+			 	String ranges = ranges_node.toString();	
+			 	ranges = ranges.substring(ranges.lastIndexOf("/") + 1);
 			 	
-			 	// Integer cid;
-			 	// if((cid = classNameIDMap.get(domains)) != null){
-			 	// 	OntologyClass oc;
-			 	// 	if((oc = ontologyClasses.get(cid)) != null){
-			 	// 		domain_list.add(oc);
-			 	// 	}
-			 	// }
-			 	// if((cid = classNameIDMap.get(ranges)) != null){
-			 	// 	OntologyClass oc;
-			 	// 	if((oc = ontologyClasses.get(cid)) != null){
-			 	// 		range_list.add(oc);
-			 	// 	}
-			 	// }
-			 	// int key = objectProperties.size() + 1;
-			 	// ObjectProperty objectProperty = new ObjectProperty(domain_list, range_list, property_name);
-			 	// objectProperties.put(key, objectProperty);
-			 	// objectPropertyIDMap.put(property_name, key);
+			 	Integer cid;
+			 	if((cid = classNameIDMap.get(ranges)) != null){
+			 		OntologyClass oc;
+			 		if((oc = ontologyClasses.get(cid)) != null){
+			 			range_list.add(oc);
+			 		}
+			 	}
+			}
+			 	
+			int key = objectProperties.size() + 1;
+			ObjectProperty objectProperty = new ObjectProperty(domain_list, range_list, property_name);
+			objectProperties.put(key, objectProperty);
+			objectPropertyIDMap.put(property_name, key);
 			 }
 		 }
       }
