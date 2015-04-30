@@ -408,7 +408,7 @@ public class OntologyResource{
 		UriBuilder ub = uri.getAbsolutePathBuilder();
             	URI userUri = ub.path(id + "/class/" + entry.getKey().toString()).build();
 		String value = userUri.toString();
-		html += "<a href=" + velue + ">" + value + "</a><br>\r\n";
+		html += "<a href=" + value + ">" + value + "</a><br>\r\n";
 	}
     html += "</div></br>\r\n" +
 		"</td>\r\n" +
