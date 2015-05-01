@@ -156,8 +156,8 @@ public class OntologyResource{
 		 classWithSub = classWithSub.substring(classWithSub.lastIndexOf("/") + 1);
 		 String sub = entity.get("sub").toString();
 		 sub = sub.substring(sub.lastIndexOf("/") + 1);
-		 int classKey = classNameIDMap.get(classWithSub);
-		 int subKey = classNameIDMap.get(sub);
+		 Integer classKey = classNameIDMap.get(classWithSub);
+		 Integer subKey = classNameIDMap.get(sub);
 		 ontologyClasses.get(classkey).getSubClassOf().add(ontologyClasses.get(subkey));
 	    }	    
 	    
