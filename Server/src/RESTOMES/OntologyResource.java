@@ -54,13 +54,16 @@ public class OntologyResource{
     System.out.println( "OntologyResource.createEntry   " + ont );
     String ontologyUrl = ont;
     String ontologyName = ontologyUrl.substring(ontologyUrl.lastIndexOf("/") + 1);
+    UriBuilder ub_home = uri.getBaseUriBuilder();
+    URI userUri_home = ub_home.path("ontology").build();
+    String value_home = userUri_home.toString();
     String html = "<html>\r\n" +
   		"<head>\r\n" + 
   		"</head>\r\n" + 
   		"<body>" + 
   		"<table>\r\n" +
   		"<tr>\r\n" +
-  		"<td><h4>RESTful Ontology Metadata Extractor/Storage System</h4></td>\r\n" +
+  		"<td><a href=" + value_home + "><h4>RESTful Ontology Metadata Extractor/Storage System</h4></a></td>\r\n" +
 		"</tr>\r\n" +
 		"</table>\r\n" +
 		"<table>\r\n" +
@@ -342,6 +345,9 @@ public class OntologyResource{
 		String value = userUri.toString();
 		html += "<a href=" + value + ">" + entry.getValue().getUrl() + "</a></br>\r\n";
 	}
+	UriBuilder ub_home = uri.getBaseUriBuilder();
+	URI userUri_home = ub_home.path("ontology").build();
+	String value_home = userUri_home.toString();
 	html += "</div>\r\n" +
 		"</br><div style=\"color:red\">\r\n" +
 		"Server Internal Error" +
@@ -387,13 +393,16 @@ public class OntologyResource{
   @GET
   @Produces(MediaType.TEXT_HTML)
   public String returnOntologyListJSON(){
+  	UriBuilder ub_home = uri.getBaseUriBuilder();
+  	URI userUri_home = ub_home.path("ontology").build();
+  	String value_home = userUri_home.toString();
   	String html = "<html>\r\n" +
   		"<head>\r\n" + 
   		"</head>\r\n" + 
   		"<body>" + 
   		"<table>\r\n" +
   		"<tr>\r\n" +
-  		"<td><h4>RESTful Ontology Metadata Extractor/Storage System</h4></td>\r\n" +
+  		"<td><a href=" + value_home + "><h4>RESTful Ontology Metadata Extractor/Storage System</h4></a></td>\r\n" +
 		"</tr>\r\n" +
 		"</table>\r\n" +
 		"<table>\r\n" +
@@ -435,6 +444,9 @@ public class OntologyResource{
   @Path( "{oid: [1-9][0-9]*}" )
   @Produces(MediaType.TEXT_HTML)
   public String getOntologyEntryJSON(@PathParam("oid") Integer id){
+    UriBuilder ub_home = uri.getBaseUriBuilder();
+    URI userUri_home = ub_home.path("ontology").build();
+    String value_home = userUri_home.toString();
     String html = "<html>\r\n" +
   		"<head>\r\n" + 
   		"</head>\r\n" + 
@@ -492,10 +504,18 @@ public class OntologyResource{
   @Path( "{oid: [1-9][0-9]*}/class" )
   @Produces(MediaType.TEXT_HTML)
   public String getClassListJSON(@PathParam("oid") Integer id){
+    UriBuilder ub_home = uri.getBaseUriBuilder();
+    URI userUri_home = ub_home.path("ontology").build();
+    String value_home = userUri_home.toString();
     String html = "<html>\r\n" +
   		"<head>\r\n" + 
   		"</head>\r\n" + 
   		"<body>" + 
+  		"<table>\r\n" +
+  		"<tr>\r\n" +
+  		"<td><a href=" + value_home + "><h4>RESTful Ontology Metadata Extractor/Storage System</h4></a></td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
 		"<table>\r\n" +
 		"<tr>\r\n" + 
 		"<td>\r\n" +
@@ -542,10 +562,18 @@ public class OntologyResource{
   @Path( "{oid: [1-9][0-9]*}/dataproperty" )
   @Produces(MediaType.TEXT_HTML)
   public String getDataPropertyListJSON(@PathParam("oid") Integer id){
+    UriBuilder ub_home = uri.getBaseUriBuilder();
+    URI userUri_home = ub_home.path("ontology").build();
+    String value_home = userUri_home.toString();
     String html = "<html>\r\n" +
   		"<head>\r\n" + 
   		"</head>\r\n" + 
   		"<body>" + 
+  		"<table>\r\n" +
+  		"<tr>\r\n" +
+  		"<td><a href=" + value_home + "><h4>RESTful Ontology Metadata Extractor/Storage System</h4></a></td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
 		"<table>\r\n" +
 		"<tr>\r\n" + 
 		"<td>\r\n" +
@@ -591,10 +619,18 @@ public class OntologyResource{
   @Path( "{oid: [1-9][0-9]*}/objectproperty" )
   @Produces(MediaType.TEXT_HTML)
   public String getObjectPropertyListJSON(@PathParam("oid") Integer id){
+  	UriBuilder ub_home = uri.getBaseUriBuilder();
+  	URI userUri_home = ub_home.path("ontology").build();
+  	String value_home = userUri_home.toString();
   	String html = "<html>\r\n" +
   		"<head>\r\n" + 
   		"</head>\r\n" + 
   		"<body>" + 
+  		"<table>\r\n" +
+  		"<tr>\r\n" +
+  		"<td><a href=" + value_home + "><h4>RESTful Ontology Metadata Extractor/Storage System</h4></a></td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
 		"<table>\r\n" +
 		"<tr>\r\n" + 
 		"<td>\r\n" +
@@ -642,10 +678,18 @@ public class OntologyResource{
   @Path( "{oid: [1-9][0-9]*}/class/{cid: [1-9][0-9]*}" )
   @Produces(MediaType.TEXT_HTML)
   public String getClassJSON(@PathParam("oid") Integer id, @PathParam("cid") Integer cid){
+    UriBuilder ub_home = uri.getBaseUriBuilder();
+    URI userUri_home = ub_home.path("ontology").build();
+    String value_home = userUri_home.toString();
     String html = "<html>\r\n" +
   		"<head>\r\n" + 
   		"</head>\r\n" + 
   		"<body>" + 
+  		"<table>\r\n" +
+  		"<tr>\r\n" +
+  		"<td><a href=" + value_home + "><h4>RESTful Ontology Metadata Extractor/Storage System</h4></a></td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
 		"<table>\r\n" +
 		"<tr>\r\n" + 
 		"<td>\r\n" +
@@ -724,10 +768,18 @@ public class OntologyResource{
   @Path("{oid: [1-9][0-9]*}/dataproperty/{dpid: [1-9][0-9]*}")
   @Produces(MediaType.TEXT_HTML)
   public String getDataPropertyEntryJSON(@PathParam("oid") Integer oid, @PathParam("dpid") Integer dpid){
+    UriBuilder ub_home = uri.getBaseUriBuilder();
+    URI userUri_home = ub_home.path("ontology").build();
+    String value_home = userUri_home.toString();
     String html = "<html>\r\n" +
   		"<head>\r\n" + 
   		"</head>\r\n" + 
   		"<body>" + 
+  		"<table>\r\n" +
+  		"<tr>\r\n" +
+  		"<td><a href=" + value_home + "><h4>RESTful Ontology Metadata Extractor/Storage System</h4></a></td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
 		"<table>\r\n" +
 		"<tr>\r\n" + 
 		"<td>\r\n" +
@@ -799,10 +851,18 @@ public class OntologyResource{
   @Path("{oid: [1-9][0-9]*}/objectproperty/{opid: [1-9][0-9]*}")
   @Produces(MediaType.TEXT_HTML)
   public String getObjectPropertyEntryJSON(@PathParam("oid") Integer oid, @PathParam("opid") Integer opid){
+    UriBuilder ub_home = uri.getBaseUriBuilder();
+    URI userUri_home = ub_home.path("ontology").build();
+    String value_home = userUri_home.toString();
     String html = "<html>\r\n" +
   		"<head>\r\n" + 
   		"</head>\r\n" + 
   		"<body>" + 
+  		"<table>\r\n" +
+  		"<tr>\r\n" +
+  		"<td><a href=" + value_home + "><h4>RESTful Ontology Metadata Extractor/Storage System</h4></a></td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
 		"<table>\r\n" +
 		"<tr>\r\n" + 
 		"<td>\r\n" +
