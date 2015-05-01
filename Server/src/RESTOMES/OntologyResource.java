@@ -123,7 +123,13 @@ public class OntologyResource{
 		" ?DatatypeProperty a owl:DatatypeProperty." +
 		" optional { ?DatatypeProperty rdfs:domain ?domains. }" +
 		" optional { ?DatatypeProperty rdfs:range ?ranges. }" +		
-		" } " ; 	
+		" } " ;
+		
+	String queryString3 = QUERY_NAMESPACES + "SELECT distinct ?class ?sub" +
+	" WHERE { " + 
+		" ?class a owl:Class." +
+		" ?sub rdfs:subClassOf ?class." +
+		" } " ;	
       
       try{
       Model model = ModelFactory.createDefaultModel();
@@ -141,6 +147,20 @@ public class OntologyResource{
 		 ontologyClasses.put(key, ontologyClass);
 		 classNameIDMap.put(value, key);
 	    }
+      Query query3 = QueryFactory.create(queryString3);
+      QueryExecution queryExec3 = QueryExecutionFactory.create(query3, model);
+      ResultSet classesWithSubs = queryExec3.execSelect();
+      while(classesWithSubs.hasNext()){
+		 QuerySolution entity = classesWithSubs.next();
+		 String classWithSub = entity.get("class").toString();
+		 classWithSub = classWithSub.substring(classWithSub.lastIndexOf("/") + 1);
+		 String sub = entity.get("sub").toString();
+		 sub = sub.substring(sub.lastIndexOf("/") + 1);
+		 int classKey = ontologyClasses.get(classWithSub);
+		 int subKey = ontologyClasses.get(sub);
+		 ontologyClasses.get(classkey).getSubClassOf().add(ontologyClasses.get(subkey));
+	    }	    
+	    
       ///Building metadata of Object Properties	
       Query query1 = QueryFactory.create(queryString1);
       QueryExecution queryExec1 = QueryExecutionFactory.create(query1, model);
