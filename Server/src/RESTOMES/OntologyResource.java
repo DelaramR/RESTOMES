@@ -582,16 +582,54 @@ public class OntologyResource{
      */
   @GET
   @Path( "{oid: [1-9][0-9]*}/class/{cid: [1-9][0-9]*}" )
-  @Produces(MediaType.APPLICATION_JSON)
-  public OntologyClass getClassJSON(@PathParam("oid") Integer id, @PathParam("cid") Integer cid){
+  @Produces(MediaType.TEXT_HTML)
+  public String getClassJSON(@PathParam("oid") Integer id, @PathParam("cid") Integer cid){
+    String html = "<html>\r\n" +
+  		"<head>\r\n" + 
+  		"</head>\r\n" + 
+  		"<body>" + 
+		"<table>\r\n" +
+		"<tr>\r\n" + 
+		"<td>\r\n" +
+		"<div id=\"result\">\r\n";
     final Ontology ontology = ontologyDB.get(id);
     if(ontology == null){
-      throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
+      //throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
+      html += "</div></br>\r\n" +
+      		"</br><div style=\"color:red\">\r\n" +
+      		"Ontology not found" +
+      		"</div>\r\n" +
+		"</td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"</body>\r\n" +
+		"</html>";
+		
+	return html;
     }
     OntologyClass ontologyClass = ontology.getOntologyClasses().get(cid);
-    if(ontologyClass == null)
-    	throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
-    return ontologyClass;
+    if(ontologyClass == null){
+    	// throw new NoLogWebApplicationException(Response.Status.NOT_FOUND);
+    	html += "</div></br>\r\n" +
+      		"</br><div style=\"color:red\">\r\n" +
+      		"Resource not found" +
+      		"</div>\r\n" +
+		"</td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"</body>\r\n" +
+		"</html>";
+		
+	return html;
+    }
+    html += "Class Name: " + ontologyClass.getClassName() + "</br>\r\n";
+    html += "</div></br>\r\n" +
+		"</td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"</body>\r\n" +
+		"</html>";
+    return html;
   }
   
   /**
@@ -602,15 +640,65 @@ public class OntologyResource{
      */
   @GET
   @Path("{oid: [1-9][0-9]*}/dataproperty/{dpid: [1-9][0-9]*}")
-  @Produces(MediaType.APPLICATION_JSON)
-  public DataProperty getDataPropertyEntryJSON(@PathParam("oid") Integer oid, @PathParam("dpid") Integer dpid){
+  @Produces(MediaType.TEXT_HTML)
+  public String getDataPropertyEntryJSON(@PathParam("oid") Integer oid, @PathParam("dpid") Integer dpid){
+    String html = "<html>\r\n" +
+  		"<head>\r\n" + 
+  		"</head>\r\n" + 
+  		"<body>" + 
+		"<table>\r\n" +
+		"<tr>\r\n" + 
+		"<td>\r\n" +
+		"<div id=\"result\">\r\n";
     Ontology ontology = ontologyDB.get(oid);
-    if(ontology == null)
-      throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
+    if(ontology == null){
+      //throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
+      html += "</div></br>\r\n" +
+      		"</br><div style=\"color:red\">\r\n" +
+      		"Ontology not found" +
+      		"</div>\r\n" +
+		"</td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"</body>\r\n" +
+		"</html>";
+		
+	return html;
+    }
     DataProperty dataProperty = ontology.getDataProperties().get(dpid);
-    if(dataProperty == null)
-      throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
-    return dataProperty;
+    if(dataProperty == null){
+      //throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
+      html += "</div></br>\r\n" +
+      		"</br><div style=\"color:red\">\r\n" +
+      		"Resource not found" +
+      		"</div>\r\n" +
+		"</td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"</body>\r\n" +
+		"</html>";
+		
+	return html;
+    }
+    html += "Property Name: " + dataProperty.getProperty() + "</br>\r\n";
+    for(OntologyClass entry : dataProperty.getDomain()){
+    	for (Map.Entry<Integer, OntologyClass> entry1 : ontology.getOntologyClasses().entrySet()){
+    		if(entry1.getValue().getClassName().compareTo(entry.getClassName()) == 0){
+    			UriBuilder ub = uri.getBaseUri();
+    			URI userUri = ub.path("class/" + entry1.getKey()).build();
+    			String value = userUri.toString();
+    			html += "<a href=" + value + ">" + entry.getClassName() + "</a><br>\r\n";
+    			break;
+    		}
+	}
+    }
+    html += "</div></br>\r\n" +
+		"</td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"</body>\r\n" +
+		"</html>";
+    return html;
   }
   
   
