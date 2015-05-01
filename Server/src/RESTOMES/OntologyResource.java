@@ -180,8 +180,8 @@ public class OntologyResource{
 			 dis2 = dis2.substring(dis2.lastIndexOf("/") + 1);
 			 Integer dis1Key = classNameIDMap.get(dis1);
 			 Integer dis2Key = classNameIDMap.get(dis2);
-			 ontologyClasses.get(dis1Key).getSubClassOf().add(ontologyClasses.get(dis2Key));
-			 ontologyClasses.get(dis2Key).getSubClassOf().add(ontologyClasses.get(dis1Key));
+			 ontologyClasses.get(dis1Key).getDisjointWith().add(ontologyClasses.get(dis2Key));
+			 ontologyClasses.get(dis2Key).getDisjointWith().add(ontologyClasses.get(dis1Key));
 		    }	    	    
 	    
       ///Building metadata of Object Properties	
