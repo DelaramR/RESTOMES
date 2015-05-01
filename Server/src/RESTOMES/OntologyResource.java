@@ -643,6 +643,18 @@ public class OntologyResource{
 	return html;
     }
     html += "Class Name: " + ontologyClass.getClassName() + "</br>\r\n";
+    html += "SubClassOf: </br>\r\n";
+    for(OntologyClass entry : ontologyClass.getSubClassOf()){
+    	for (Map.Entry<Integer, OntologyClass> entry1 : ontology.getOntologyClasses().entrySet()){
+    		if(entry1.getValue().getClassName().compareTo(entry.getClassName()) == 0){
+    			UriBuilder ub = uri.getBaseUriBuilder();
+    			URI userUri = ub.path("ontology/" + oid + "/class/" + entry1.getKey()).build();
+    			String value = userUri.toString();
+    			html += "<a href=" + value + ">" + entry.getClassName() + "</a><br>\r\n";
+    			break;
+    		}
+	}
+    }
     html += "</div></br>\r\n" +
 		"</td>\r\n" +
 		"</tr>\r\n" +
