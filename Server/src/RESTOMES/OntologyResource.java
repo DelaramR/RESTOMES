@@ -151,25 +151,32 @@ public class OntologyResource{
       ResultSet classes = queryExec.execSelect();
       while(classes.hasNext()){
 		 QuerySolution entity = classes.next();
-		 String value = entity.get("class").toString();
-		 value = value.substring(value.lastIndexOf("/") + 1);
-		 int key = ontologyClasses.size() + 1;
-		 OntologyClass ontologyClass = new OntologyClass(value);
-		 ontologyClasses.put(key, ontologyClass);
-		 classNameIDMap.put(value, key);
+		 RDFNode class_node = entity.get("class");
+		 if(class_node.isURIResource()){
+			 String value = class_node.toString();
+			 value = value.substring(value.lastIndexOf("/") + 1);
+			 int key = ontologyClasses.size() + 1;
+			 OntologyClass ontologyClass = new OntologyClass(value);
+			 ontologyClasses.put(key, ontologyClass);
+			 classNameIDMap.put(value, key);
+		 }
 	    }
       Query query3 = QueryFactory.create(queryString3);
       QueryExecution queryExec3 = QueryExecutionFactory.create(query3, model);
       ResultSet classesWithSubs = queryExec3.execSelect();
       while(classesWithSubs.hasNext()){
 		 QuerySolution entity = classesWithSubs.next();
-		 String classWithSub = entity.get("class").toString();
-		 classWithSub = classWithSub.substring(classWithSub.lastIndexOf("/") + 1);
-		 String sub = entity.get("sub").toString();
-		 sub = sub.substring(sub.lastIndexOf("/") + 1);
-		 Integer classKey = classNameIDMap.get(classWithSub);
-		 Integer subKey = classNameIDMap.get(sub);
-		 ontologyClasses.get(classKey).getSubClassOf().add(ontologyClasses.get(subKey));
+		 RDFNode classWithSub_node = entity.get("class");
+		 RDFNode sub_node = entity.get("sub");
+		 if(classWithSub_node.isURIResource() && sub_node.isURIResource()){
+			 String classWithSub = classWithSub_node.toString();
+			 classWithSub = classWithSub.substring(classWithSub.lastIndexOf("/") + 1);
+			 String sub = sub_node.toString();
+			 sub = sub.substring(sub.lastIndexOf("/") + 1);
+			 Integer classKey = classNameIDMap.get(classWithSub);
+			 Integer subKey = classNameIDMap.get(sub);
+			 ontologyClasses.get(classKey).getSubClassOf().add(ontologyClasses.get(subKey));
+		 }
 	    }	    
 		    
 	Query query5 = QueryFactory.create(queryString5);
@@ -177,14 +184,18 @@ public class OntologyResource{
 	      ResultSet disjoints = queryExec5.execSelect();
 	      while(disjoints.hasNext()){
 			 QuerySolution entity = disjoints.next();
-			 String dis1 = entity.get("dis1").toString();
-			 dis1 = dis1.substring(dis1.lastIndexOf("/") + 1);
-			 String dis2 = entity.get("dis2").toString();
-			 dis2 = dis2.substring(dis2.lastIndexOf("/") + 1);
-			 Integer dis1Key = classNameIDMap.get(dis1);
-			 Integer dis2Key = classNameIDMap.get(dis2);
-			 ontologyClasses.get(dis1Key).getDisjointWith().add(ontologyClasses.get(dis2Key));
-			 ontologyClasses.get(dis2Key).getDisjointWith().add(ontologyClasses.get(dis1Key));
+			 RDFNode dis1_node = entity.get("dis1");
+			 RDFNode dis2_node = entity.get("dis2");
+			 if(dis1_node.isURIResource() && dis2_node.isURIResource()){
+				 String dis1 = dis1_node.toString();
+				 dis1 = dis1.substring(dis1.lastIndexOf("/") + 1);
+				 String dis2 = dis2_node.toString();
+				 dis2 = dis2.substring(dis2.lastIndexOf("/") + 1);
+				 Integer dis1Key = classNameIDMap.get(dis1);
+				 Integer dis2Key = classNameIDMap.get(dis2);
+				 ontologyClasses.get(dis1Key).getDisjointWith().add(ontologyClasses.get(dis2Key));
+				 ontologyClasses.get(dis2Key).getDisjointWith().add(ontologyClasses.get(dis1Key));
+			 }
 		    }	    	    
 	    
       ///Building metadata of Object Properties	
