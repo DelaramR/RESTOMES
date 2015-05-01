@@ -5,18 +5,21 @@ public class ObjectProperty{
 
     private ArrayList<OntologyClass> domain;
     private ArrayList<OntologyClass> range;
+    private ArrayList<ObjectProperty> inverseOf;
     private String property;
 
     public ObjectProperty(){
 	this.domain = new ArrayList<OntologyClass>();
 	this.range = new ArrayList<OntologyClass>();
 	this.property = "";
+	this.inverseOf = new ArrayList<ObjectProperty>();
     }
 
     public ObjectProperty(ArrayList<OntologyClass> domain, ArrayList<OntologyClass> range, String property){
 	this.domain = domain;
 	this.range = range;
 	this.property = property;
+	this.inverseOf = new ArrayList<ObjectProperty>();
     }
 
     public ArrayList<OntologyClass> getDomain(){
@@ -41,5 +44,13 @@ public class ObjectProperty{
 
     public void setProperty(String property){
 	this.property = property;
+    }
+    
+    public ArrayList<ObjectProperty> getInverseOf(){
+    	return this.inverseOf;
+    }
+    
+    public void setInverseOf(ArrayList<ObjectProperty> inverseOf){
+    	this.inverseOf = inverseOf;
     }
 }
