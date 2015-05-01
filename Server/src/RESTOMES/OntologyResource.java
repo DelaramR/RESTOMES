@@ -643,7 +643,7 @@ public class OntologyResource{
 	return html;
     }
     html += "Class Name: " + ontologyClass.getClassName() + "</br>\r\n";
-    html += "SubClassOf: </br>\r\n";
+    html += "SubClasses: </br>\r\n";
     for(OntologyClass entry : ontologyClass.getSubClassOf()){
     	for (Map.Entry<Integer, OntologyClass> entry1 : ontology.getOntologyClasses().entrySet()){
     		if(entry1.getValue().getClassName().compareTo(entry.getClassName()) == 0){
