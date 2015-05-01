@@ -345,9 +345,6 @@ public class OntologyResource{
 		String value = userUri.toString();
 		html += "<a href=" + value + ">" + entry.getValue().getUrl() + "</a></br>\r\n";
 	}
-	UriBuilder ub_home = uri.getBaseUriBuilder();
-	URI userUri_home = ub_home.path("ontology").build();
-	String value_home = userUri_home.toString();
 	html += "</div>\r\n" +
 		"</br><div style=\"color:red\">\r\n" +
 		"Server Internal Error" +
