@@ -726,6 +726,7 @@ public class OntologyResource{
 		
 	return html;
     }
+    html += "Ontology URI: " + ontology.getUrl() + "</br>\r\n";
     html += "Class Name: " + ontologyClass.getClassName() + "</br>\r\n";
     html += "SubClasses: </br>\r\n";
     for(OntologyClass entry : ontologyClass.getSubClassOf()){
@@ -816,6 +817,7 @@ public class OntologyResource{
 		
 	return html;
     }
+    html += "Ontology URI: " + ontology.getUrl() + "</br>\r\n";
     html += "Property Name: " + dataProperty.getProperty() + "</br>\r\n";
     html += "Domain: </br>\r\n";
     for(OntologyClass entry : dataProperty.getDomain()){
@@ -899,6 +901,7 @@ public class OntologyResource{
 		
 	return html;
     }
+    html += "Ontology URI: " + ontology.getUrl() + "</br>\r\n";
     html += "Property Name: " + objectProperty.getProperty() + "</br>\r\n";
     html += "Domain: </br>\r\n";
     for(OntologyClass entry : objectProperty.getDomain()){
