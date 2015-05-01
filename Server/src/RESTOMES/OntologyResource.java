@@ -152,7 +152,7 @@ public class OntologyResource{
       while(classes.hasNext()){
 		 QuerySolution entity = classes.next();
 		 String value = entity.get("class").toString();
-		 //value = value.substring(value.lastIndexOf("/") + 1);
+		 value = value.substring(value.lastIndexOf("/") + 1);
 		 int key = ontologyClasses.size() + 1;
 		 OntologyClass ontologyClass = new OntologyClass(value);
 		 ontologyClasses.put(key, ontologyClass);
@@ -164,9 +164,9 @@ public class OntologyResource{
       while(classesWithSubs.hasNext()){
 		 QuerySolution entity = classesWithSubs.next();
 		 String classWithSub = entity.get("class").toString();
-		 //classWithSub = classWithSub.substring(classWithSub.lastIndexOf("/") + 1);
+		 classWithSub = classWithSub.substring(classWithSub.lastIndexOf("/") + 1);
 		 String sub = entity.get("sub").toString();
-		 //sub = sub.substring(sub.lastIndexOf("/") + 1);
+		 sub = sub.substring(sub.lastIndexOf("/") + 1);
 		 Integer classKey = classNameIDMap.get(classWithSub);
 		 Integer subKey = classNameIDMap.get(sub);
 		 ontologyClasses.get(classKey).getSubClassOf().add(ontologyClasses.get(subKey));
