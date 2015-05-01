@@ -836,7 +836,7 @@ public class OntologyResource{
     	for (Map.Entry<Integer, ObjectProperty> entry1 : ontology.getObjectProperties().entrySet()){
     		if(entry1.getValue().getProperty().compareTo(entry.getProperty()) == 0){
     			UriBuilder ub = uri.getBaseUriBuilder();
-    			URI userUri = ub.path("ontology/" + id + "/objectproperty/" + entry1.getKey()).build();
+    			URI userUri = ub.path("ontology/" + oid + "/objectproperty/" + entry1.getKey()).build();
     			String value = userUri.toString();
     			html += "<a href=" + value + ">" + entry.getProperty() + "</a><br>\r\n";
     			break;
