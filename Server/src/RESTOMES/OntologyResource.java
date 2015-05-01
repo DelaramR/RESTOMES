@@ -249,8 +249,8 @@ public class OntologyResource{
 		 inv2 = inv2.substring(inv2.lastIndexOf("/") + 1);
 		 Integer inv1Key = objectPropertyIDMap.get(inv1);
 		 Integer inv2Key = objectPropertyIDMap.get(inv2);
-		 ontologyClasses.get(inv1Key).getInverseOf().add(objectProperties.get(inv2Key));
-		 ontologyClasses.get(inv2Key).getInverseOf().add(objectProperties.get(inv1Key));
+		 objectProperties.get(inv1Key).getInverseOf().add(objectProperties.get(inv2Key));
+		 objectProperties.get(inv2Key).getInverseOf().add(objectProperties.get(inv1Key));
 	    }
 
       ///Building metadata of Data Properties	    
