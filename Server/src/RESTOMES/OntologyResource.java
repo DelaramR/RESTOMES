@@ -710,14 +710,64 @@ public class OntologyResource{
      */
   @GET
   @Path("{oid: [1-9][0-9]*}/objectproperty/{opid: [1-9][0-9]*}")
-  @Produces(MediaType.APPLICATION_JSON)
-  public ObjectProperty getObjectPropertyEntryJSON(@PathParam("oid") Integer oid, @PathParam("opid") Integer opid){
+  @Produces(MediaType.TEXT_HTML)
+  public String getObjectPropertyEntryJSON(@PathParam("oid") Integer oid, @PathParam("opid") Integer opid){
+    String html = "<html>\r\n" +
+  		"<head>\r\n" + 
+  		"</head>\r\n" + 
+  		"<body>" + 
+		"<table>\r\n" +
+		"<tr>\r\n" + 
+		"<td>\r\n" +
+		"<div id=\"result\">\r\n";
     Ontology ontology = ontologyDB.get(oid);
-    if(ontology == null)
-      throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
+    if(ontology == null){
+      //throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
+      html += "</div></br>\r\n" +
+      		"</br><div style=\"color:red\">\r\n" +
+      		"Ontology not found" +
+      		"</div>\r\n" +
+		"</td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"</body>\r\n" +
+		"</html>";
+		
+	return html;
+    }
     ObjectProperty objectProperty = ontology.getObjectProperties().get(opid);
-    if(objectProperty == null)
-      throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
-    return objectProperty;
+    if(objectProperty == null){
+      //throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
+      html += "</div></br>\r\n" +
+      		"</br><div style=\"color:red\">\r\n" +
+      		"Resource not found" +
+      		"</div>\r\n" +
+		"</td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"</body>\r\n" +
+		"</html>";
+		
+	return html;
+    }
+    html += "Property Name: " + objectProperty.getProperty() + "</br>\r\n";
+    for(OntologyClass entry : objectProperty.getDomain()){
+    	for (Map.Entry<Integer, OntologyClass> entry1 : ontology.getOntologyClasses().entrySet()){
+    		if(entry1.getValue().getClassName().compareTo(entry.getClassName()) == 0){
+    			UriBuilder ub = uri.getBaseUriBuilder();
+    			URI userUri = ub.path("class/" + entry1.getKey()).build();
+    			String value = userUri.toString();
+    			html += "<a href=" + value + ">" + value + "</a><br>\r\n";
+    			break;
+    		}
+	}
+    }
+    html += "</div></br>\r\n" +
+		"</td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
+		"</body>\r\n" +
+		"</html>";
+    return html;
   }
 }
