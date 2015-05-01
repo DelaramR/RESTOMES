@@ -136,7 +136,7 @@ public class OntologyResource{
 		" } " ;			
 	String queryString5 = QUERY_NAMESPACES + "SELECT distinct ?dis1 ?dis2" +
 		" WHERE { " + 
-			" ?dis1 owl:DisjointWith ?dis2." +
+			" ?dis1 owl:disjointWith ?dis2." +
 			" } " ;					
       
       try{
