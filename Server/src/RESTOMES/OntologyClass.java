@@ -39,7 +39,7 @@ public class OntologyClass{
     	return this.disjointWith;
     }
     
-    public void setSubClassOf(ArrayList<OntologyClass> disjointWith){
+    public void setDisjointWith(ArrayList<OntologyClass> disjointWith){
     	this.disjointWith = disjointWith;
     }
 }
