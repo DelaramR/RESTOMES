@@ -134,6 +134,10 @@ public class OntologyResource{
 	" WHERE { " + 
 		" ?objProp owl:inverseOf ?inv." +
 		" } " ;			
+	String queryString5 = QUERY_NAMESPACES + "SELECT distinct ?dis1 ?dis2" +
+		" WHERE { " + 
+			" ?dis1 owl:DisjointWith ?dis2." +
+			" } " ;					
       
       try{
       Model model = ModelFactory.createDefaultModel();
@@ -164,6 +168,21 @@ public class OntologyResource{
 		 Integer subKey = classNameIDMap.get(sub);
 		 ontologyClasses.get(classKey).getSubClassOf().add(ontologyClasses.get(subKey));
 	    }	    
+		    
+	Query query5 = QueryFactory.create(queryString5);
+	      QueryExecution queryExec5 = QueryExecutionFactory.create(query5, model);
+	      ResultSet disjoints = queryExec5.execSelect();
+	      while(disjoints.hasNext()){
+			 QuerySolution entity = disjoints.next();
+			 String dis1 = entity.get("dis1").toString();
+			 dis1 = dis1.substring(dis1.lastIndexOf("/") + 1);
+			 String dis2 = entity.get("dis2").toString();
+			 dis2 = dis2.substring(dis2.lastIndexOf("/") + 1);
+			 Integer dis1Key = classNameIDMap.get(dis1);
+			 Integer dis2Key = classNameIDMap.get(dis2);
+			 ontologyClasses.get(dis1Key).getSubClassOf().add(ontologyClasses.get(dis2Key));
+			 ontologyClasses.get(dis2Key).getSubClassOf().add(ontologyClasses.get(dis1Key));
+		    }	    	    
 	    
       ///Building metadata of Object Properties	
       Query query1 = QueryFactory.create(queryString1);
