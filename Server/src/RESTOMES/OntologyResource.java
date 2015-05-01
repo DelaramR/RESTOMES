@@ -688,12 +688,12 @@ public class OntologyResource{
     			UriBuilder ub = uri.getBaseUriBuilder();
     			URI userUri = ub.path("ontology/" + oid + "/class/" + entry1.getKey()).build();
     			String value = userUri.toString();
-    			html += "<a href=" + value + ">" + value + "</a><br>\r\n";
+    			html += "<a href=" + value + ">" + entry.getClassName() + "</a><br>\r\n";
     			break;
     		}
 	}
     }
-    html += "Domain: </br>\r\n";
+    html += "Range: </br>\r\n";
     for(String entry : dataProperty.getRange()){
     	html += entry + "<br>\r\n";
     }
@@ -763,7 +763,7 @@ public class OntologyResource{
     			UriBuilder ub = uri.getBaseUriBuilder();
     			URI userUri = ub.path("ontology/" + oid + "/class/" + entry1.getKey()).build();
     			String value = userUri.toString();
-    			html += "<a href=" + value + ">" + value + "</a><br>\r\n";
+    			html += "<a href=" + value + ">" + entry.getClassName() + "</a><br>\r\n";
     			break;
     		}
 	}
@@ -775,7 +775,7 @@ public class OntologyResource{
     			UriBuilder ub = uri.getBaseUriBuilder();
     			URI userUri = ub.path("ontology/" + oid + "/class/" + entry1.getKey()).build();
     			String value = userUri.toString();
-    			html += "<a href=" + value + ">" + value + "</a><br>\r\n";
+    			html += "<a href=" + value + ">" + entry.getClassName() + "</a><br>\r\n";
     			break;
     		}
 	}
