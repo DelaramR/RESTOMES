@@ -130,6 +130,10 @@ public class OntologyResource{
 		" ?class a owl:Class." +
 		" ?sub rdfs:subClassOf ?class." +
 		" } " ;	
+	String queryString4 = QUERY_NAMESPACES + "SELECT distinct ?objProp ?inv" +
+	" WHERE { " + 
+		" ?objProp owl:inverseOf ?inv." +
+		" } " ;			
       
       try{
       Model model = ModelFactory.createDefaultModel();
@@ -233,6 +237,21 @@ public class OntologyResource{
 			objectPropertyIDMap.put(property_name, key);
 		}
       }
+      
+      Query query4 = QueryFactory.create(queryString4);
+      QueryExecution queryExec4 = QueryExecutionFactory.create(query4, model);
+      ResultSet inverses = queryExec4.execSelect();
+      while(inverses.hasNext()){
+		 QuerySolution entity = inverses.next();
+		 String inv1 = entity.get("objProp").toString();
+		 inv1 = inv1.substring(inv1.lastIndexOf("/") + 1);
+		 String inv2 = entity.get("inv").toString();
+		 inv2 = inv2.substring(inv2.lastIndexOf("/") + 1);
+		 Integer inv1Key = objectPropertyIDMap.get(inv1);
+		 Integer inv2Key = objectPropertyIDMap.get(inv2);
+		 ontologyClasses.get(inv1Key).getInverseOf().add(objectProperties.get(inv2Key));
+		 ontologyClasses.get(inv2Key).getInverseOf().add(objectProperties.get(inv1Key));
+	    }
 
       ///Building metadata of Data Properties	    
       Query query2 = QueryFactory.create(queryString2);
