@@ -693,6 +693,18 @@ public class OntologyResource{
     		}
 	}
     }
+    html += "DisjointWith: </br>\r\n";
+    for(OntologyClass entry : ontologyClass.getDisjointWith()){
+    	for (Map.Entry<Integer, OntologyClass> entry1 : ontology.getOntologyClasses().entrySet()){
+    		if(entry1.getValue().getClassName().compareTo(entry.getClassName()) == 0){
+    			UriBuilder ub = uri.getBaseUriBuilder();
+    			URI userUri = ub.path("ontology/" + id + "/class/" + entry1.getKey()).build();
+    			String value = userUri.toString();
+    			html += "<a href=" + value + ">" + entry.getClassName() + "</a><br>\r\n";
+    			break;
+    		}
+	}
+    }
     html += "</div></br>\r\n" +
 		"</td>\r\n" +
 		"</tr>\r\n" +
