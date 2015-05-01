@@ -194,7 +194,7 @@ public class OntologyResource{
       while(objectProperties_result.hasNext()){
 		 QuerySolution entity = objectProperties_result.next();
 		 
-		 String property_name = entity.get("?ObjectProperty").toString();
+		 String property_name = entity.get("ObjectProperty").toString();
 		 property_name = property_name.substring(property_name.lastIndexOf("/") + 1);
 		 RDFNode domains_node = entity.get("domains");
 		 RDFNode ranges_node = entity.get("ranges");
@@ -282,7 +282,7 @@ public class OntologyResource{
       while(dataProperties_result.hasNext()){
 		 QuerySolution entity = dataProperties_result.next();
 		 
-		 String property_name = entity.get("?DatatypeProperty").toString();
+		 String property_name = entity.get("DatatypeProperty").toString();
 		 property_name = property_name.substring(property_name.lastIndexOf("/") + 1);
 		 RDFNode domains_node = entity.get("domains");
 		 RDFNode ranges_node = entity.get("ranges");
