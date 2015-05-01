@@ -8,10 +8,12 @@ public class OntologyClass{
     
     public OntologyClass(){
 	this.className = "";
+	this.subClassOf = new ArrayList<OntologyClass>();
     }
 
     public OntologyClass(String name){
 	this.className = name;
+	this.subClassOf = new ArrayList<OntologyClass>();
     }
 
     public String getClassName(){
