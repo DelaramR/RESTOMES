@@ -681,16 +681,21 @@ public class OntologyResource{
 	return html;
     }
     html += "Property Name: " + dataProperty.getProperty() + "</br>\r\n";
+    html += "Domain: </br>\r\n";
     for(OntologyClass entry : dataProperty.getDomain()){
     	for (Map.Entry<Integer, OntologyClass> entry1 : ontology.getOntologyClasses().entrySet()){
     		if(entry1.getValue().getClassName().compareTo(entry.getClassName()) == 0){
     			UriBuilder ub = uri.getBaseUriBuilder();
-    			URI userUri = ub.path("class/" + entry1.getKey()).build();
+    			URI userUri = ub.path("ontology/" + oid + "/class/" + entry1.getKey()).build();
     			String value = userUri.toString();
     			html += "<a href=" + value + ">" + value + "</a><br>\r\n";
     			break;
     		}
 	}
+    }
+    html += "Domain: </br>\r\n";
+    for(String entry : dataProperty.getRange()){
+    	html += entry + "<br>\r\n";
     }
     html += "</div></br>\r\n" +
 		"</td>\r\n" +
@@ -751,11 +756,24 @@ public class OntologyResource{
 	return html;
     }
     html += "Property Name: " + objectProperty.getProperty() + "</br>\r\n";
+    html += "Domain: </br>\r\n";
     for(OntologyClass entry : objectProperty.getDomain()){
     	for (Map.Entry<Integer, OntologyClass> entry1 : ontology.getOntologyClasses().entrySet()){
     		if(entry1.getValue().getClassName().compareTo(entry.getClassName()) == 0){
     			UriBuilder ub = uri.getBaseUriBuilder();
-    			URI userUri = ub.path("class/" + entry1.getKey()).build();
+    			URI userUri = ub.path("ontology/" + oid + "/class/" + entry1.getKey()).build();
+    			String value = userUri.toString();
+    			html += "<a href=" + value + ">" + value + "</a><br>\r\n";
+    			break;
+    		}
+	}
+    }
+    html += "Range: </br>\r\n";
+    for(OntologyClass entry : objectProperty.getRange()){
+    	for (Map.Entry<Integer, OntologyClass> entry1 : ontology.getOntologyClasses().entrySet()){
+    		if(entry1.getValue().getClassName().compareTo(entry.getClassName()) == 0){
+    			UriBuilder ub = uri.getBaseUriBuilder();
+    			URI userUri = ub.path("ontology/" + oid + "/class/" + entry1.getKey()).build();
     			String value = userUri.toString();
     			html += "<a href=" + value + ">" + value + "</a><br>\r\n";
     			break;
