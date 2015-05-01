@@ -152,7 +152,7 @@ public class OntologyResource{
       while(classes.hasNext()){
 		 QuerySolution entity = classes.next();
 		 String value = entity.get("class").toString();
-		 value = value.substring(value.lastIndexOf("/") + 1);
+		 //value = value.substring(value.lastIndexOf("/") + 1);
 		 int key = ontologyClasses.size() + 1;
 		 OntologyClass ontologyClass = new OntologyClass(value);
 		 ontologyClasses.put(key, ontologyClass);
@@ -161,16 +161,16 @@ public class OntologyResource{
       Query query3 = QueryFactory.create(queryString3);
       QueryExecution queryExec3 = QueryExecutionFactory.create(query3, model);
       ResultSet classesWithSubs = queryExec3.execSelect();
-   //   while(classesWithSubs.hasNext()){
-		 //QuerySolution entity = classesWithSubs.next();
-		 //String classWithSub = entity.get("class").toString();
+      while(classesWithSubs.hasNext()){
+		 QuerySolution entity = classesWithSubs.next();
+		 String classWithSub = entity.get("class").toString();
 		 //classWithSub = classWithSub.substring(classWithSub.lastIndexOf("/") + 1);
-		 //String sub = entity.get("sub").toString();
+		 String sub = entity.get("sub").toString();
 		 //sub = sub.substring(sub.lastIndexOf("/") + 1);
-		 //Integer classKey = classNameIDMap.get(classWithSub);
-		 //Integer subKey = classNameIDMap.get(sub);
-		 //ontologyClasses.get(classKey).getSubClassOf().add(ontologyClasses.get(subKey));
-	  //  }	    
+		 Integer classKey = classNameIDMap.get(classWithSub);
+		 Integer subKey = classNameIDMap.get(sub);
+		 ontologyClasses.get(classKey).getSubClassOf().add(ontologyClasses.get(subKey));
+	    }	    
 		    
 	Query query5 = QueryFactory.create(queryString5);
 	      QueryExecution queryExec5 = QueryExecutionFactory.create(query5, model);
