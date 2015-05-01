@@ -448,6 +448,11 @@ public class OntologyResource{
   		"<head>\r\n" + 
   		"</head>\r\n" + 
   		"<body>" + 
+  		"<table>\r\n" +
+  		"<tr>\r\n" +
+  		"<td><a href=" + value_home + "><h4>RESTful Ontology Metadata Extractor/Storage System</h4></a></td>\r\n" +
+		"</tr>\r\n" +
+		"</table>\r\n" +
 		"<table>\r\n" +
 		"<tr>\r\n" + 
 		"<td>\r\n" +
