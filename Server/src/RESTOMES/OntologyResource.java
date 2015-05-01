@@ -687,7 +687,7 @@ public class OntologyResource{
     			UriBuilder ub = uri.getBaseUri();
     			URI userUri = ub.path("class/" + entry1.getKey()).build();
     			String value = userUri.toString();
-    			html += "<a href=" + value + ">" + entry.getClassName() + "</a><br>\r\n";
+    			html += "<a href=" + value + ">" + value + "</a><br>\r\n";
     			break;
     		}
 	}
