@@ -80,7 +80,7 @@ public class OntologyResource{
 		"</div>\r\n" +
 		"<div id=\"result\">\r\n" + 
 		"Existing Ontologies:</br>\r\n" + 
-		"<table>\r\n";
+		"<table border=\"1\">\r\n";
       
       Ontology ontology = new Ontology();
       ontology.setUrl(ontologyUrl);
