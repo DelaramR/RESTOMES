@@ -360,8 +360,13 @@ public class OntologyResource{
 		UriBuilder ub = uri.getAbsolutePathBuilder();
             	URI userUri = ub.path(entry.getKey().toString()).build();
 		String value = userUri.toString();
+		html += "<tr>\r\n" + 
+		"<td>\r\n";
 		html += "<a href=" + value + ">" + entry.getValue().getUrl() + "</a></br>\r\n";
+		html += "</td>\r\n" +
+		"</tr>\r\n";
 	}
+	html += "</table>\r\n";
 	html += "</div>\r\n" +
 		"</br><div style=\"color:red\">\r\n" +
 		"Server Internal Error" +
@@ -386,8 +391,13 @@ public class OntologyResource{
 		UriBuilder ub = uri.getAbsolutePathBuilder();
             	URI userUri = ub.path(entry.getKey().toString()).build();
 		String value = userUri.toString();
+		html += "<tr>\r\n" + 
+		"<td>\r\n";
 		html += "<a href=" + value + ">" + entry.getValue().getUrl() + "</a></br>\r\n";
+		html += "</td>\r\n" +
+		"</tr>\r\n";
 	}
+	html += "</table>\r\n";
 	html += "</div>\r\n" +
 		"</td>\r\n" +
 		"</tr>\r\n" +
@@ -432,13 +442,20 @@ public class OntologyResource{
 		"</from>" +
 		"</div>\r\n" +
 		"<div id=\"result\">\r\n" +
-		"Existing Ontologies:</br>\r\n";
+		"Existing Ontologies:</br>\r\n" +
+		"<table border=\"1\">\r\n";
+		
 	for (Map.Entry<Integer, Ontology> entry : ontologyDB.entrySet()){
 		UriBuilder ub = uri.getAbsolutePathBuilder();
             	URI userUri = ub.path(entry.getKey().toString()).build();
 		String value = userUri.toString();
+		html += "<tr>\r\n" + 
+		"<td>\r\n";
 		html += "<a href=" + value + ">" + entry.getValue().getUrl() + "</a><br>\r\n";
+		html += "</td>\r\n" +
+		"</tr>\r\n";
 	}
+	html += "</table>\r\n";
 	html += "</div>\r\n" +
 		"</td>\r\n" +
 		"</tr>\r\n" +
@@ -478,6 +495,7 @@ public class OntologyResource{
     final Ontology ontology = ontologyDB.get(id);
     if(ontology == null){
       //throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
+      html += "</table>\r\n";
       html += "</div></br>\r\n" +
       		"</br><div style=\"color:red\">\r\n" +
       		"Ontology not found" +
@@ -495,15 +513,29 @@ public class OntologyResource{
     UriBuilder ub = uri.getAbsolutePathBuilder();
     URI userUri = ub.path("class").build();
     String value = userUri.toString();
+    "<table border=\"1\">\r\n";
+    html += "<tr>\r\n" + 
+    "<td>\r\n";
     html += "<a href=" + value + ">" + "Ontology Classes" + "</a><br>\r\n";
+    html += "</td>\r\n" +
+    "</tr>\r\n";
     UriBuilder ub1 = uri.getAbsolutePathBuilder();
     URI userUri1 = ub1.path("objectproperty").build();
     value = userUri1.toString();
+    html += "<tr>\r\n" + 
+    "<td>\r\n";
     html += "<a href=" + value + ">" + "Ontology ObjectProperties" + "</a><br>\r\n";
+    html += "</td>\r\n" +
+    "</tr>\r\n";
     UriBuilder ub2 = uri.getAbsolutePathBuilder();
     URI userUri2 = ub2.path("dataproperty").build();
     value = userUri2.toString();
+    html += "<tr>\r\n" + 
+    "<td>\r\n";
     html += "<a href=" + value + ">" + "Ontology DataTypeProperties" + "</a><br>\r\n";
+    html += "</td>\r\n" +
+    "</tr>\r\n";
+    html += "</table>\r\n";
     html += "</div></br>\r\n" +
 		"</td>\r\n" +
 		"</tr>\r\n" +
@@ -556,14 +588,20 @@ public class OntologyResource{
 	return html;
     }
     html += "Ontology URI: " + ontology.getUrl() + "</br>\r\n" +
-    	"</br>Ontology Classes:</br>";
+    	"</br>Ontology Classes:</br>" +
+    	"<table border=\"1\">\r\n";
     for (Map.Entry<Integer, OntologyClass> entry : ontology.getOntologyClasses().entrySet()){
 		UriBuilder ub = uri.getAbsolutePathBuilder();
             	URI userUri = ub.path(entry.getKey().toString()).build();
 		String value = userUri.toString();
+		html += "<tr>\r\n" + 
+		"<td>\r\n";
 		html += "<a href=" + value + ">" + entry.getValue().getClassName() + "</a><br>\r\n";
+		html += "</td>\r\n" +
+		"</tr>\r\n";
 	}
-    html += "</div></br>\r\n" +
+	html += "</table>\r\n";
+	html += "</div></br>\r\n" +
 		"</td>\r\n" +
 		"</tr>\r\n" +
 		"</table>\r\n" +
@@ -597,6 +635,7 @@ public class OntologyResource{
 		"<tr>\r\n" + 
 		"<td>\r\n" +
 		"<div id=\"result\">\r\n";
+		
     final Ontology ontology = ontologyDB.get(id);
     if(ontology == null){
       //throw new NoLogWebApplicationException( Response.Status.NOT_FOUND );
@@ -613,13 +652,19 @@ public class OntologyResource{
 	return html;
     }
     html += "Ontology URI: " + ontology.getUrl() + "</br>\r\n";
-    html += "</br>Ontology DataTypeProperties:</br>";
+    html += "</br>Ontology DataTypeProperties:</br>" +
+    "<table border=\"1\">\r\n";
     for (Map.Entry<Integer, DataProperty> entry : ontology.getDataProperties().entrySet()){
 		UriBuilder ub = uri.getAbsolutePathBuilder();
             	URI userUri = ub.path(entry.getKey().toString()).build();
 		String value = userUri.toString();
+		html += "<tr>\r\n" + 
+		"<td>\r\n";
 		html += "<a href=" + value + ">" + entry.getValue().getProperty() + "</a><br>\r\n";
+		html += "</td>\r\n" +
+		"</tr>\r\n";
 	}
+    html += "</table>\r\n";
     html += "</div></br>\r\n" +
 		"</td>\r\n" +
 		"</tr>\r\n" +
@@ -671,14 +716,20 @@ public class OntologyResource{
     }
     
     html += "Ontology URI: " + ontology.getUrl() + "</br>\r\n";
-    html += "</br>Ontology ObjectProperties:</br>";
+    html += "</br>Ontology ObjectProperties:</br>" +
+    "<table border=\"1\">\r\n";
     for (Map.Entry<Integer, ObjectProperty> entry : ontology.getObjectProperties().entrySet()){
 		UriBuilder ub = uri.getAbsolutePathBuilder();
             	URI userUri = ub.path(entry.getKey().toString()).build();
 		String value = userUri.toString();
+		html += "<tr>\r\n" + 
+		"<td>\r\n";
 		html += "<a href=" + value + ">" + entry.getValue().getProperty() + "</a><br>\r\n";
+		html += "</td>\r\n" +
+		"</tr>\r\n";
 	}
-    html += "</div></br>\r\n" +
+	html += "</table>\r\n";
+	html += "</div></br>\r\n" +
 		"</td>\r\n" +
 		"</tr>\r\n" +
 		"</table>\r\n" +
@@ -745,30 +796,43 @@ public class OntologyResource{
     }
     html += "Ontology URI: " + ontology.getUrl() + "</br>\r\n";
     html += "Class Name: " + ontologyClass.getClassName() + "</br>\r\n";
-    html += "SubClasses: </br>\r\n";
+    html += "SubClasses: </br>\r\n" +
+    "<table border=\"1\">\r\n";
     for(OntologyClass entry : ontologyClass.getSubClassOf()){
     	for (Map.Entry<Integer, OntologyClass> entry1 : ontology.getOntologyClasses().entrySet()){
     		if(entry1.getValue().getClassName().compareTo(entry.getClassName()) == 0){
     			UriBuilder ub = uri.getBaseUriBuilder();
     			URI userUri = ub.path("ontology/" + id + "/class/" + entry1.getKey()).build();
     			String value = userUri.toString();
+    			html += "<tr>\r\n" + 
+			"<td>\r\n";
     			html += "<a href=" + value + ">" + entry.getClassName() + "</a><br>\r\n";
+    			html += "</td>\r\n" +
+			"</tr>\r\n";
     			break;
     		}
 	}
     }
-    html += "DisjointWith: </br>\r\n";
+    html += "</table>\r\n";
+    html += "DisjointWith: </br>\r\n" +
+    "<table border=\"1\">\r\n";
+    
     for(OntologyClass entry : ontologyClass.getDisjointWith()){
     	for (Map.Entry<Integer, OntologyClass> entry1 : ontology.getOntologyClasses().entrySet()){
     		if(entry1.getValue().getClassName().compareTo(entry.getClassName()) == 0){
     			UriBuilder ub = uri.getBaseUriBuilder();
     			URI userUri = ub.path("ontology/" + id + "/class/" + entry1.getKey()).build();
     			String value = userUri.toString();
+    			html += "<tr>\r\n" + 
+			"<td>\r\n";
     			html += "<a href=" + value + ">" + entry.getClassName() + "</a><br>\r\n";
+    			html += "</td>\r\n" +
+			"</tr>\r\n";
     			break;
     		}
 	}
     }
+    html += "</table>\r\n";
     html += "</div></br>\r\n" +
 		"</td>\r\n" +
 		"</tr>\r\n" +
@@ -837,21 +901,33 @@ public class OntologyResource{
     html += "Ontology URI: " + ontology.getUrl() + "</br>\r\n";
     html += "Property Name: " + dataProperty.getProperty() + "</br>\r\n";
     html += "Domain: </br>\r\n";
+    html += "<table border=\"1\">\r\n";
     for(OntologyClass entry : dataProperty.getDomain()){
     	for (Map.Entry<Integer, OntologyClass> entry1 : ontology.getOntologyClasses().entrySet()){
     		if(entry1.getValue().getClassName().compareTo(entry.getClassName()) == 0){
     			UriBuilder ub = uri.getBaseUriBuilder();
     			URI userUri = ub.path("ontology/" + oid + "/class/" + entry1.getKey()).build();
     			String value = userUri.toString();
+    			html += "<tr>\r\n" + 
+			"<td>\r\n";
     			html += "<a href=" + value + ">" + entry.getClassName() + "</a><br>\r\n";
+    			html += "</td>\r\n" +
+			"</tr>\r\n";
     			break;
     		}
 	}
     }
+    html += "</table>\r\n";
     html += "Range: </br>\r\n";
+    html += "<table border=\"1\">\r\n";
     for(String entry : dataProperty.getRange()){
+    	html += "<tr>\r\n" + 
+		"<td>\r\n";
     	html += entry + "<br>\r\n";
+    	html += "</td>\r\n" +
+		"</tr>\r\n";
     }
+    html += "</table>\r\n";
     html += "</div></br>\r\n" +
 		"</td>\r\n" +
 		"</tr>\r\n" +
@@ -921,41 +997,59 @@ public class OntologyResource{
     html += "Ontology URI: " + ontology.getUrl() + "</br>\r\n";
     html += "Property Name: " + objectProperty.getProperty() + "</br>\r\n";
     html += "Domain: </br>\r\n";
+    html += "<table border=\"1\">\r\n";
     for(OntologyClass entry : objectProperty.getDomain()){
     	for (Map.Entry<Integer, OntologyClass> entry1 : ontology.getOntologyClasses().entrySet()){
     		if(entry1.getValue().getClassName().compareTo(entry.getClassName()) == 0){
     			UriBuilder ub = uri.getBaseUriBuilder();
     			URI userUri = ub.path("ontology/" + oid + "/class/" + entry1.getKey()).build();
     			String value = userUri.toString();
+    			html += "<tr>\r\n" + 
+			"<td>\r\n";
     			html += "<a href=" + value + ">" + entry.getClassName() + "</a><br>\r\n";
+    			html += "</td>\r\n" +
+			"</tr>\r\n";
     			break;
     		}
 	}
     }
+    html += "</table>\r\n";
     html += "Range: </br>\r\n";
+    html += "<table border=\"1\">\r\n";
     for(OntologyClass entry : objectProperty.getRange()){
     	for (Map.Entry<Integer, OntologyClass> entry1 : ontology.getOntologyClasses().entrySet()){
     		if(entry1.getValue().getClassName().compareTo(entry.getClassName()) == 0){
     			UriBuilder ub = uri.getBaseUriBuilder();
     			URI userUri = ub.path("ontology/" + oid + "/class/" + entry1.getKey()).build();
     			String value = userUri.toString();
+    			html += "<tr>\r\n" + 
+			"<td>\r\n";
     			html += "<a href=" + value + ">" + entry.getClassName() + "</a><br>\r\n";
+    			html += "</td>\r\n" +
+			"</tr>\r\n";
     			break;
     		}
 	}
     }
+    html += "</table>\r\n";
     html += "InverseOf: </br>\r\n";
+    html += "<table border=\"1\">\r\n";
     for(ObjectProperty entry : objectProperty.getInverseOf()){
     	for (Map.Entry<Integer, ObjectProperty> entry1 : ontology.getObjectProperties().entrySet()){
     		if(entry1.getValue().getProperty().compareTo(entry.getProperty()) == 0){
     			UriBuilder ub = uri.getBaseUriBuilder();
     			URI userUri = ub.path("ontology/" + oid + "/objectproperty/" + entry1.getKey()).build();
     			String value = userUri.toString();
+    			html += "<tr>\r\n" + 
+			"<td>\r\n";
     			html += "<a href=" + value + ">" + entry.getProperty() + "</a><br>\r\n";
+    			html += "</td>\r\n" +
+			"</tr>\r\n";
     			break;
     		}
 	}
     }
+    html += "</table>\r\n";
     html += "</div></br>\r\n" +
 		"</td>\r\n" +
 		"</tr>\r\n" +
