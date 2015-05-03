@@ -79,7 +79,8 @@ public class OntologyResource{
 		"</from>" +
 		"</div>\r\n" +
 		"<div id=\"result\">\r\n" + 
-		"Existing Ontologies:</br>\r\n";
+		"Existing Ontologies:</br>\r\n" + 
+		"<table>\r\n";
       
       Ontology ontology = new Ontology();
       ontology.setUrl(ontologyUrl);
@@ -92,8 +93,13 @@ public class OntologyResource{
 		UriBuilder ub = uri.getAbsolutePathBuilder();
             	URI userUri = ub.path(entry1.getKey().toString()).build();
 		String value = userUri.toString();
+		html += "<tr>\r\n" + 
+		"<td>\r\n";
 		html += "<a href=" + value + ">" + ontologyUrl + "</a></br>\r\n";
+		html += "</td>\r\n" +
+		"</tr>\r\n";
 	}
+	html += "</table>\r\n";
 	html += "</div>\r\n" +
 		"</br><div style=\"color:red\">\r\n" +
 		"Duplicate Request: Ontology already exists" +
