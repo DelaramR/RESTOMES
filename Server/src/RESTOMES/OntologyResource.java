@@ -510,10 +510,10 @@ public class OntologyResource{
     }
     
     html += "Ontology URI: " + ontology.getUrl() + "</br>\r\n";
+    html += "<table border=\"1\">\r\n";
     UriBuilder ub = uri.getAbsolutePathBuilder();
     URI userUri = ub.path("class").build();
     String value = userUri.toString();
-    "<table border=\"1\">\r\n";
     html += "<tr>\r\n" + 
     "<td>\r\n";
     html += "<a href=" + value + ">" + "Ontology Classes" + "</a><br>\r\n";
