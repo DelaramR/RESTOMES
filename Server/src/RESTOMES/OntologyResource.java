@@ -63,7 +63,10 @@ public class OntologyResource{
   		"<body>" + 
   		"<table>\r\n" +
   		"<tr>\r\n" +
-  		"<td><a href=" + value_home + "><h4>RESTful Ontology Metadata Extractor/Storage System</h4></a></td>\r\n" +
+  		"<td><h>Home</h></td>\r\n" +
+  		"</tr>" +
+  		"<tr>\r\n" +
+  		"<td><h4>RESTful Ontology Metadata Extractor/Storage System</h4></td>\r\n" +
 		"</tr>\r\n" +
 		"</table>\r\n" +
 		"<table>\r\n" +
@@ -426,7 +429,11 @@ public class OntologyResource{
   		"<body>" + 
   		"<table>\r\n" +
   		"<tr>\r\n" +
-  		"<td><a href=" + value_home + "><h4>RESTful Ontology Metadata Extractor/Storage System</h4></a></td>\r\n" +
+  		"<td><h>Home</h></td>\r\n" +
+  		"</tr>" +
+  		"<tr>\r\n" +
+  		"<td><h4>RESTful Ontology Metadata Extractor/Storage System</h4></td>\r\n" +
+		"</tr>\r\n" +
 		"</tr>\r\n" +
 		"</table>\r\n" +
 		"<table>\r\n" +
