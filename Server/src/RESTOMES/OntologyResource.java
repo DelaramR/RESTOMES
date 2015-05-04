@@ -95,7 +95,7 @@ public class OntologyResource{
 		String value = userUri.toString();
 		html += "<tr>\r\n" + 
 		"<td>\r\n";
-		html += "<a href=" + value + ">" + ontologyUrl + "</a></br>\r\n";
+		html += "<a href=" + value + ">" + entry1.getValue().getUrl() + "</a></br>\r\n";
 		html += "</td>\r\n" +
 		"</tr>\r\n";
 	}
